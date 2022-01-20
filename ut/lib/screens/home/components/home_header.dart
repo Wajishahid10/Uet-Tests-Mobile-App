@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/screens/cart/cart_screen.dart';
+import 'package:uet_tests/screens/cart/cart_screen.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:shop_app/screens/profile/profile_screen.dart';
+import 'package:uet_tests/screens/profile/profile_screen.dart';
 
 import '../../../constants.dart';
 import '../../../enums.dart';
 import '../../../size_config.dart';
-import 'icon_btn_with_counter.dart';
 import 'search_field.dart';
 
 class HomeHeader extends StatelessWidget {
@@ -24,15 +23,22 @@ class HomeHeader extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           SearchField(),
-          IconBtnWithCounter(
-            svgSrc: "assets/icons/Cart Icon.svg",
-            press: () => Navigator.pushNamed(context, CartScreen.routeName),
+          IconButton(
+            iconSize: getProportionateScreenWidth(16),
+            onPressed: () => Navigator.pushNamed(context, CartScreen.routeName),
+            icon: Icon(
+              Icons.shopping_cart,
+              color: Colors.grey,
+            ),
           ),
           IconButton(
-            icon: SvgPicture.asset("assets/icons/User Icon.svg",
-                color: kPrimaryColor),
+            iconSize: getProportionateScreenWidth(16),
             onPressed: () =>
                 Navigator.pushNamed(context, ProfileScreen.routeName),
+            icon: Icon(
+              Icons.person,
+              color: Colors.grey,
+            ),
           ),
         ],
       ),

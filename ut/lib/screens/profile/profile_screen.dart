@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/enums.dart';
+import 'package:uet_tests/enums.dart';
 
 import 'components/body.dart';
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/size_config.dart';
+import 'package:uet_tests/size_config.dart';
 
 const kPrimaryColor = Color.fromRGBO(14, 5, 100, 1);
 const kPrimaryLightColor = Color.fromRGBO(111, 156, 178, 1);
