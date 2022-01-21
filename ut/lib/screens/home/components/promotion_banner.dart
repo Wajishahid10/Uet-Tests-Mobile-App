@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 import '../../../size_config.dart';
+import '../../../constants.dart';
 
-class DiscountBanner extends StatelessWidget {
-  const DiscountBanner({
+class PromotionBanner extends StatelessWidget {
+  const PromotionBanner({
     Key? key,
   }) : super(key: key);
 
@@ -18,7 +19,7 @@ class DiscountBanner extends StatelessWidget {
         vertical: getProportionateScreenWidth(15),
       ),
       decoration: BoxDecoration(
-        color: Color(0xFF4A3298),
+        color: kPrimaryLightColor,
         borderRadius: BorderRadius.circular(20),
       ),
       child: Row(
@@ -27,9 +28,9 @@ class DiscountBanner extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(13),
             child: Image.asset(
-              'assets/logo.png',
-              height: getProportionateScreenWidth(70),
-              width: getProportionateScreenWidth(70),
+              'assets/transparent logo.png',
+              height: getProportionateScreenWidth(75),
+              width: getProportionateScreenWidth(75),
             ),
           ),
           Text.rich(
@@ -37,13 +38,13 @@ class DiscountBanner extends StatelessWidget {
               style: TextStyle(color: Colors.white),
               children: [
                 TextSpan(
-                  text: "A Summer Surpise\n",
+                  text: "Manage All Tests Online\n",
                   style: TextStyle(
                     fontSize: getProportionateScreenWidth(15),
                   ),
                 ),
                 TextSpan(
-                  text: "Cashback 20%",
+                  text: "Digitalizing Testing",
                   style: TextStyle(
                     fontSize: getProportionateScreenWidth(24),
                     fontWeight: FontWeight.bold,

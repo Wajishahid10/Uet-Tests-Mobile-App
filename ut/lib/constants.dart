@@ -6,7 +6,7 @@ const kPrimaryLightColor = Color.fromRGBO(111, 156, 178, 1);
 const kPrimaryGradientColor = LinearGradient(
   begin: Alignment.topLeft,
   end: Alignment.bottomRight,
-  colors: [Color(0xFFFFA53E), Color(0xFFFF7643)],
+  colors: [Color.fromRGBO(14, 5, 100, 1), Color.fromRGBO(111, 156, 178, 1)],
 );
 const kSecondaryColor = Color.fromRGBO(14, 5, 100, 0.65);
 const kTextColor = Color(0xFF757575);
