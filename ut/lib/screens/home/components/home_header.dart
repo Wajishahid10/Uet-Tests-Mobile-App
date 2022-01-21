@@ -19,26 +19,32 @@ class HomeHeader extends StatelessWidget {
     return Padding(
       padding:
           EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          SearchField(),
-          IconButton(
-            iconSize: getProportionateScreenWidth(16),
-            onPressed: () => Navigator.pushNamed(context, CartScreen.routeName),
-            icon: Icon(
-              Icons.shopping_cart,
-              color: Colors.grey,
-            ),
-          ),
-          IconButton(
-            iconSize: getProportionateScreenWidth(16),
-            onPressed: () =>
-                Navigator.pushNamed(context, ProfileScreen.routeName),
-            icon: Icon(
-              Icons.person,
-              color: Colors.grey,
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              SearchField(),
+              IconButton(
+                iconSize: getProportionateScreenWidth(32),
+                onPressed: () =>
+                    Navigator.pushNamed(context, CartScreen.routeName),
+                icon: Icon(
+                  Icons.shopping_cart,
+                  color: Colors.grey,
+                ),
+              ),
+              IconButton(
+                iconSize: getProportionateScreenWidth(32),
+                onPressed: () =>
+                    Navigator.pushNamed(context, ProfileScreen.routeName),
+                icon: Icon(
+                  Icons.person,
+                  color: Colors.grey,
+                ),
+              ),
+            ],
           ),
         ],
       ),

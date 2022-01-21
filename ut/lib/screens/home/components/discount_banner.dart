@@ -21,20 +21,38 @@ class DiscountBanner extends StatelessWidget {
         color: Color(0xFF4A3298),
         borderRadius: BorderRadius.circular(20),
       ),
-      child: Text.rich(
-        TextSpan(
-          style: TextStyle(color: Colors.white),
-          children: [
-            TextSpan(text: "A Summer Surpise\n"),
-            TextSpan(
-              text: "Cashback 20%",
-              style: TextStyle(
-                fontSize: getProportionateScreenWidth(24),
-                fontWeight: FontWeight.bold,
-              ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(13),
+            child: Image.asset(
+              'assets/logo.png',
+              height: getProportionateScreenWidth(70),
+              width: getProportionateScreenWidth(70),
             ),
-          ],
-        ),
+          ),
+          Text.rich(
+            TextSpan(
+              style: TextStyle(color: Colors.white),
+              children: [
+                TextSpan(
+                  text: "A Summer Surpise\n",
+                  style: TextStyle(
+                    fontSize: getProportionateScreenWidth(15),
+                  ),
+                ),
+                TextSpan(
+                  text: "Cashback 20%",
+                  style: TextStyle(
+                    fontSize: getProportionateScreenWidth(24),
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
