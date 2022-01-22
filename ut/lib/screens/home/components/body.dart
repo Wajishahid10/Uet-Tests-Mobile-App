@@ -4,8 +4,8 @@ import '../../../size_config.dart';
 import 'categories.dart';
 import 'promotion_banner.dart';
 import 'home_header.dart';
-import 'popular_product.dart';
-import 'special_offers.dart';
+import 'popular_tests.dart';
+import 'previous_tests.dart';
 
 class Body extends StatelessWidget {
   @override
@@ -19,9 +19,9 @@ class Body extends StatelessWidget {
             SizedBox(height: getProportionateScreenWidth(10)),
             PromotionBanner(),
             Categories(),
-            SpecialOffers(),
+            PreviousTests(),
             SizedBox(height: getProportionateScreenWidth(30)),
-            PopularProducts(),
+            PopularTests(),
             SizedBox(height: getProportionateScreenWidth(30)),
           ],
         ),

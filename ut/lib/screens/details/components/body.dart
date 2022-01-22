@@ -3,9 +3,9 @@ import 'package:uet_tests/components/default_button.dart';
 import 'package:uet_tests/models/Product.dart';
 import 'package:uet_tests/size_config.dart';
 
-import 'color_dots.dart';
+//  import 'color_dots.dart';
 import 'product_description.dart';
-import 'top_rounded_container.dart';
+import 'rounded_container.dart';
 import 'product_images.dart';
 
 class Body extends StatelessWidget {
@@ -18,7 +18,7 @@ class Body extends StatelessWidget {
     return ListView(
       children: [
         ProductImages(product: product),
-        TopRoundedContainer(
+        RoundedContainer(
           color: Colors.white,
           child: Column(
             children: [
@@ -26,12 +26,16 @@ class Body extends StatelessWidget {
                 product: product,
                 pressOnSeeMore: () {},
               ),
-              TopRoundedContainer(
+              // TopRoundedContainer(
+              Container(
                 color: Color(0xFFF6F7F9),
                 child: Column(
                   children: [
-                    ColorDots(product: product),
-                    TopRoundedContainer(
+                    //  ColorDots(product: product),
+                    Divider(
+                      color: Colors.transparent,
+                    ),
+                    RoundedContainer(
                       color: Colors.white,
                       child: Padding(
                         padding: EdgeInsets.only(

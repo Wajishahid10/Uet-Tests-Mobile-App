@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:uet_tests/models/Product.dart';
 import 'package:uet_tests/screens/details/details_screen.dart';
 
@@ -37,7 +36,7 @@ class ProductCard extends StatelessWidget {
                 child: Container(
                   padding: EdgeInsets.all(getProportionateScreenWidth(20)),
                   decoration: BoxDecoration(
-                    color: kSecondaryColor.withOpacity(0.1),
+                    color: kPrimaryColor.withOpacity(0.1),
                     borderRadius: BorderRadius.circular(15),
                   ),
                   child: Hero(
@@ -56,13 +55,14 @@ class ProductCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "\$${product.price}",
+                    "\Rs. ${product.price}",
                     style: TextStyle(
                       fontSize: getProportionateScreenWidth(18),
                       fontWeight: FontWeight.w600,
                       color: kPrimaryColor,
                     ),
                   ),
+                  /*  Favourite Button
                   InkWell(
                     borderRadius: BorderRadius.circular(50),
                     onTap: () {},
@@ -84,6 +84,7 @@ class ProductCard extends StatelessWidget {
                       ),
                     ),
                   ),
+                  */
                 ],
               )
             ],

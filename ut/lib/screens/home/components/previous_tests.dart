@@ -5,7 +5,7 @@ import 'package:uet_tests/models/Product.dart';
 import '../../../size_config.dart';
 import 'section_title.dart';
 
-class PopularProducts extends StatelessWidget {
+class PreviousTests extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -13,7 +13,7 @@ class PopularProducts extends StatelessWidget {
         Padding(
           padding:
               EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
-          child: SectionTitle(title: "Popular Products", press: () {}),
+          child: SectionTitle(title: "Previous Tests", press: () {}),
         ),
         SizedBox(height: getProportionateScreenWidth(20)),
         SingleChildScrollView(

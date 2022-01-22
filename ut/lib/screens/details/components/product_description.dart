@@ -28,6 +28,7 @@ class ProductDescription extends StatelessWidget {
             style: Theme.of(context).textTheme.headline6,
           ),
         ),
+        /*    Favourite Button
         Align(
           alignment: Alignment.centerRight,
           child: Container(
@@ -49,6 +50,7 @@ class ProductDescription extends StatelessWidget {
             ),
           ),
         ),
+        */
         Padding(
           padding: EdgeInsets.only(
             left: getProportionateScreenWidth(20),
@@ -82,7 +84,11 @@ class ProductDescription extends StatelessWidget {
               ],
             ),
           ),
-        )
+        ),
+        Divider(
+          height: getProportionateScreenHeight(8),
+          color: Colors.transparent,
+        ),
       ],
     );
   }
