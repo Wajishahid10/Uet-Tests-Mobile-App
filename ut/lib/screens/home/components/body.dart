@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:uet_tests/components/shimmer.dart';
 
 import '../../../size_config.dart';
 import 'categories.dart';
@@ -18,6 +19,7 @@ class Body extends StatelessWidget {
             HomeHeader(),
             SizedBox(height: getProportionateScreenWidth(10)),
             PromotionBanner(),
+            RowShimmer(),
             Categories(),
             PreviousTests(),
             SizedBox(height: getProportionateScreenWidth(30)),
