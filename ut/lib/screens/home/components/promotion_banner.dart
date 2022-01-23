@@ -19,7 +19,7 @@ class PromotionBanner extends StatelessWidget {
         vertical: getProportionateScreenWidth(15),
       ),
       decoration: BoxDecoration(
-        color: kPrimaryLightColor,
+        color: kPrimaryColor.withOpacity(0.6),
         borderRadius: BorderRadius.circular(20),
       ),
       child: Row(

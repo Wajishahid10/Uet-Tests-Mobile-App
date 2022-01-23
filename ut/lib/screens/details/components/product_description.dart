@@ -58,6 +58,7 @@ class ProductDescription extends StatelessWidget {
           ),
           child: Text(
             product.description,
+            style: TextStyle(color: kTextColor),
             maxLines: 3,
           ),
         ),

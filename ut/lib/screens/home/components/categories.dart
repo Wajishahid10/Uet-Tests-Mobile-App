@@ -25,16 +25,16 @@ class Categories extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           child: Row(
             children: [
-              PreviousTestCard(
+              CategoryCard(
                 image: "assets/cc1.jpg",
                 category: "Chemical",
-                numOfBrands: 18,
+                numOfTests: 18,
                 press: () {},
               ),
-              PreviousTestCard(
+              CategoryCard(
                 image: "assets/ee2.jpg",
                 category: "Electrical",
-                numOfBrands: 24,
+                numOfTests: 24,
                 press: () {},
               ),
               SizedBox(width: getProportionateScreenWidth(20)),
@@ -49,17 +49,17 @@ class Categories extends StatelessWidget {
   }
 }
 
-class PreviousTestCard extends StatelessWidget {
-  const PreviousTestCard({
+class CategoryCard extends StatelessWidget {
+  const CategoryCard({
     Key? key,
     required this.category,
     required this.image,
-    required this.numOfBrands,
+    required this.numOfTests,
     required this.press,
   }) : super(key: key);
 
   final String category, image;
-  final int numOfBrands;
+  final int numOfTests;
   final GestureTapCallback press;
 
   @override
@@ -107,7 +107,7 @@ class PreviousTestCard extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        TextSpan(text: "$numOfBrands Brands")
+                        TextSpan(text: "$numOfTests Tests")
                       ],
                     ),
                   ),

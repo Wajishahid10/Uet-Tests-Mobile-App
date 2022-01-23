@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:uet_tests/enums.dart';
+import 'package:uet_tests/components/background.dart';
 
 import 'components/body.dart';
 
@@ -11,7 +12,9 @@ class ProfileScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text("Profile"),
       ),
-      body: Body(),
+      body: Background(
+        child: Body(),
+      ),
     );
   }
 }

@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:uet_tests/size_config.dart';
 
-const kPrimaryColor = Color.fromRGBO(14, 5, 100, 1);
-const kPrimaryLightColor = Color.fromRGBO(14, 5, 100, .45);
+const kPrimaryColor = Color.fromRGBO(10, 44, 115, 1);
+const kPrimaryLightColor = Color.fromRGBO(120, 190, 216, 1);
 const kPrimaryGradientColor = LinearGradient(
   begin: Alignment.topLeft,
   end: Alignment.bottomRight,
-  colors: [Color.fromRGBO(14, 5, 100, 1), Color.fromRGBO(111, 156, 178, 1)],
+  colors: [Color.fromRGBO(10, 44, 115, 1), Color.fromRGBO(111, 156, 178, 1)],
 );
-const kSecondaryColor = Color.fromRGBO(249, 232, 102, 1);
+const kSecondaryColor = Color.fromRGBO(242, 231, 64, 1);
+const kSecondaryLightColor = Color.fromRGBO(241, 236, 144, 1);
+
 const kTextColor = Color(0xFF757575);
 
 const kAnimationDuration = Duration(milliseconds: 200);

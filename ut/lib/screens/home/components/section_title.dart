@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:uet_tests/constants.dart';
 
 import '../../../size_config.dart';
 
@@ -28,7 +29,10 @@ class SectionTitle extends StatelessWidget {
           onTap: press,
           child: Text(
             "See More",
-            style: TextStyle(color: Color(0xFFBBBBBB)),
+            style: TextStyle(
+              color: Colors.grey,
+              fontSize: getProportionateScreenWidth(14.5),
+            ),
           ),
         ),
       ],
