@@ -68,9 +68,9 @@ class CategoryCard extends StatelessWidget {
       padding: EdgeInsets.only(left: getProportionateScreenWidth(20)),
       child: GestureDetector(
         onTap: press,
-        child: SizedBox(
+        child: Container(
           width: getProportionateScreenWidth(242),
-          height: getProportionateScreenWidth(100),
+          height: getProportionateScreenHeight(120),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(20),
             child: Stack(
@@ -94,7 +94,7 @@ class CategoryCard extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.symmetric(
                     horizontal: getProportionateScreenWidth(15.0),
-                    vertical: getProportionateScreenWidth(10),
+                    vertical: getProportionateScreenHeight(12),
                   ),
                   child: Text.rich(
                     TextSpan(
@@ -105,6 +105,15 @@ class CategoryCard extends StatelessWidget {
                           style: TextStyle(
                             fontSize: getProportionateScreenWidth(18),
                             fontWeight: FontWeight.bold,
+                            shadows: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.5),
+                                spreadRadius: 5,
+                                blurRadius: 7,
+                                offset:
+                                    Offset(0, 3), // changes position of shadow
+                              ),
+                            ],
                           ),
                         ),
                         TextSpan(text: "$numOfTests Tests")

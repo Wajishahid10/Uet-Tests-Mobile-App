@@ -33,6 +33,7 @@ dependencies:
 
   get:
   shimmer: ^2.0.0
+  image_crop: ^0.4.0
 
 dev_dependencies:
   flutter_test:
