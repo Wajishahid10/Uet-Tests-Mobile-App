@@ -6,12 +6,14 @@ const kPrimaryLightColor = Color.fromRGBO(120, 190, 216, 1);
 const kPrimaryGradientColor = LinearGradient(
   begin: Alignment.topLeft,
   end: Alignment.bottomRight,
-  colors: [Color.fromRGBO(10, 44, 115, 1), Color.fromRGBO(111, 156, 178, 1)],
+  colors: [Color.fromRGBO(10, 44, 115, 1), Color.fromRGBO(242, 231, 64, 1)],
 );
 const kSecondaryColor = Color.fromRGBO(242, 231, 64, 1);
 const kSecondaryLightColor = Color.fromRGBO(241, 236, 144, 1);
 
 const kTextColor = Color(0xFF757575);
+
+const kBackgroundColor = Color.fromRGBO(197, 227, 238, 1);
 
 const kAnimationDuration = Duration(milliseconds: 200);
 

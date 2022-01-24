@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:uet_tests/components/background.dart';
 import 'package:uet_tests/components/shimmer.dart';
 
 import '../../../size_config.dart';
@@ -14,21 +13,19 @@ class Body extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: SingleChildScrollView(
-        child: Background(
-          child: Column(
-            children: [
-              SizedBox(height: getProportionateScreenHeight(20)),
-              HomeHeader(),
-              SizedBox(height: getProportionateScreenWidth(10)),
-              PromotionBanner(),
-              RowShimmer(),
-              Categories(),
-              PreviousTests(),
-              SizedBox(height: getProportionateScreenWidth(30)),
-              PopularTests(),
-              SizedBox(height: getProportionateScreenWidth(30)),
-            ],
-          ),
+        child: Column(
+          children: [
+            SizedBox(height: getProportionateScreenHeight(20)),
+            HomeHeader(),
+            SizedBox(height: getProportionateScreenWidth(10)),
+            PromotionBanner(),
+            //  RowShimmer(),
+            Categories(),
+            PreviousTests(),
+            SizedBox(height: getProportionateScreenWidth(30)),
+            PopularTests(),
+            SizedBox(height: getProportionateScreenWidth(30)),
+          ],
         ),
       ),
     );

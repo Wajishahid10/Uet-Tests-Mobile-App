@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:uet_tests/components/default_button.dart';
+import 'package:uet_tests/constants.dart';
 import 'package:uet_tests/models/Product.dart';
 import 'package:uet_tests/size_config.dart';
 
@@ -36,7 +37,7 @@ class Body extends StatelessWidget {
                       color: Colors.transparent,
                     ),
                     RoundedContainer(
-                      color: Colors.white,
+                      color: kSecondaryLightColor.withOpacity(0.3),
                       child: Padding(
                         padding: EdgeInsets.only(
                           left: SizeConfig.screenWidth * 0.15,

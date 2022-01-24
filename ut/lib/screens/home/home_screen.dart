@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:uet_tests/enums.dart';
+import 'package:uet_tests/components/background.dart';
 
 import '../../size_config.dart';
 import 'components/body.dart';
