@@ -68,60 +68,73 @@ class CategoryCard extends StatelessWidget {
       padding: EdgeInsets.only(left: getProportionateScreenWidth(20)),
       child: GestureDetector(
         onTap: press,
-        child: Container(
-          width: getProportionateScreenWidth(242),
-          height: getProportionateScreenHeight(120),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(20),
-            child: Stack(
-              children: [
-                Image.asset(
-                  image,
-                  fit: BoxFit.cover,
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        Color(0xFF343434).withOpacity(0.4),
-                        Color(0xFF343434).withOpacity(0.15),
-                      ],
+        child: PhysicalModel(
+          color: Colors.black,
+          elevation: 30,
+          borderRadius: BorderRadius.circular(20),
+          // shadowColor: Colors.black,
+          shape: BoxShape.rectangle,
+          child: Container(
+            width: getProportionateScreenWidth(242),
+            height: getProportionateScreenHeight(120),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: Stack(
+                children: [
+                  Container(
+                    width: getProportionateScreenWidth(242),
+                    height: getProportionateScreenHeight(120),
+                    child: Image.asset(
+                      image,
+                      fit: BoxFit.cover,
                     ),
                   ),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: getProportionateScreenWidth(15.0),
-                    vertical: getProportionateScreenHeight(12),
+                  Container(
+                    decoration: BoxDecoration(
+                      // border: Border.all(color: Colors.white, width: 20),
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          Color(0xFF343434).withOpacity(0.9),
+                          Color(0xFF343434).withOpacity(0.2),
+                          // Color(0xFF3776AB).withOpacity(0.5),
+                        ],
+                      ),
+                    ),
                   ),
-                  child: Text.rich(
-                    TextSpan(
-                      style: TextStyle(color: Colors.white),
-                      children: [
-                        TextSpan(
-                          text: "$category\n",
-                          style: TextStyle(
-                            fontSize: getProportionateScreenWidth(18),
-                            fontWeight: FontWeight.bold,
-                            shadows: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.5),
-                                spreadRadius: 5,
-                                blurRadius: 7,
-                                offset:
-                                    Offset(0, 3), // changes position of shadow
-                              ),
-                            ],
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: getProportionateScreenWidth(15.0),
+                      vertical: getProportionateScreenHeight(12),
+                    ),
+                    child: Text.rich(
+                      TextSpan(
+                        style: TextStyle(color: Colors.white),
+                        children: [
+                          TextSpan(
+                            text: "$category\n",
+                            style: TextStyle(
+                              fontSize: getProportionateScreenWidth(18),
+                              fontWeight: FontWeight.bold,
+                              shadows: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.5),
+                                  spreadRadius: 5,
+                                  blurRadius: 7,
+                                  offset: Offset(
+                                      0, 3), // changes position of shadow
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                        TextSpan(text: "$numOfTests Tests")
-                      ],
+                          TextSpan(text: "$numOfTests Tests")
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

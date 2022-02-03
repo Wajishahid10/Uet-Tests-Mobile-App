@@ -1,4 +1,7 @@
+import 'dart:js';
+
 import 'package:flutter/widgets.dart';
+import 'package:uet_tests/screens/admin/admin_dasboard.dart';
 import 'package:uet_tests/screens/cart/cart_screen.dart';
 import 'package:uet_tests/screens/complete_profile/complete_profile_screen.dart';
 import 'package:uet_tests/screens/details/details_screen.dart';
@@ -16,6 +19,7 @@ import 'screens/sign_up/sign_up_screen.dart';
 // All our routes will be available here
 final Map<String, WidgetBuilder> routes = {
   SplashScreen.routeName: (context) => SplashScreen(),
+  dashboard.routeName: (context) => dashboard(),
   SignInScreen.routeName: (context) => SignInScreen(),
   ForgotPasswordScreen.routeName: (context) => ForgotPasswordScreen(),
   LoginSuccessScreen.routeName: (context) => LoginSuccessScreen(),

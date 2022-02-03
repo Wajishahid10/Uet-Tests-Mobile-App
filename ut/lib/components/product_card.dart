@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:uet_tests/models/Product.dart';
 import 'package:uet_tests/screens/details/details_screen.dart';
 
@@ -23,8 +24,7 @@ class ProductCard extends StatelessWidget {
       child: SizedBox(
         width: getProportionateScreenWidth(width),
         child: GestureDetector(
-          onTap: () => Navigator.pushNamed(
-            context,
+          onTap: () => Get.toNamed(
             DetailsScreen.routeName,
             arguments: ProductDetailsArguments(product: product),
           ),
@@ -62,6 +62,7 @@ class ProductCard extends StatelessWidget {
                       color: kPrimaryColor,
                     ),
                   ),
+
                   /*  Favourite Button
                   InkWell(
                     borderRadius: BorderRadius.circular(50),
@@ -86,7 +87,8 @@ class ProductCard extends StatelessWidget {
                   ),
                   */
                 ],
-              )
+              ),
+              SizedBox(height: 15)
             ],
           ),
         ),
