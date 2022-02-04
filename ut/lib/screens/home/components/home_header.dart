@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:uet_tests/screens/cart/cart_screen.dart';
 
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:uet_tests/screens/profile/profile_screen.dart';
 
-import '../../../constants.dart';
-import '../../../enums.dart';
 import '../../../size_config.dart';
+import 'icon_btn_with_counter.dart';
 import 'search_field.dart';
 
 class HomeHeader extends StatelessWidget {
@@ -26,10 +24,8 @@ class HomeHeader extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SearchField(),
-              IconButton(
-                iconSize: getProportionateScreenWidth(32),
-                onPressed: () =>
-                    Navigator.pushNamed(context, CartScreen.routeName),
+              IconBtnWithCounter(
+                press: () => Navigator.pushNamed(context, CartScreen.routeName),
                 icon: Icon(
                   Icons.shopping_cart,
                   color: Colors.grey,
