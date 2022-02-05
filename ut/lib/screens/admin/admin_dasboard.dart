@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:uet_tests/constants.dart';
+import 'package:uet_tests/screens/admin/add_test.dart';
 
 class dashboard extends StatefulWidget {
   // static var routeName;
@@ -18,15 +20,16 @@ class _dashboardState extends State<dashboard> {
       // app bar code is here
       appBar: AppBar(
         elevation: 0,
-        iconTheme: IconThemeData(color: Colors.black),
+        iconTheme: const IconThemeData(color: Colors.black),
         backgroundColor: kPrimaryColor.withOpacity(0.5),
         title: Padding(
-          padding: EdgeInsets.fromLTRB(0.0, 14.0, 0.0, 0.0),
+          padding: const EdgeInsets.fromLTRB(0.0, 14.0, 0.0, 0.0),
           child: Row(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.center,
+            // ignore: prefer_const_literals_to_create_immutables
             children: [
-              Text(
+              const Text(
                 " Welcome Admin",
                 style: TextStyle(
                     color: Colors.white,
@@ -68,13 +71,13 @@ class Choice {
 }
 
 // list to use as data in grid element
-const List<Choice> choices = const <Choice>[
-  const Choice(title: 'New Orders', icon: Icons.new_releases_outlined),
-  const Choice(title: 'Orders in progress', icon: Icons.work_outline_outlined),
-  const Choice(title: 'Complete Order', icon: Icons.star_outline_sharp),
-  const Choice(title: 'Spam Orders', icon: Icons.dangerous_outlined),
-  const Choice(title: 'Add product', icon: Icons.add),
-  const Choice(title: 'Statistics', icon: Icons.message_outlined)
+const List<Choice> choices = <Choice>[
+  Choice(title: 'New Orders', icon: Icons.new_releases_outlined),
+  Choice(title: 'Orders in progress', icon: Icons.work_outline_outlined),
+  Choice(title: 'Complete Order', icon: Icons.star_outline_sharp),
+  Choice(title: 'Spam Orders', icon: Icons.dangerous_outlined),
+  Choice(title: 'Add product', icon: Icons.add),
+  Choice(title: 'Statistics', icon: Icons.message_outlined)
 ];
 
 class __bodyState extends State<_body> {
@@ -138,6 +141,7 @@ class SelectCard extends StatelessWidget {
           //   context,
           //   MaterialPageRoute(builder: (context) => add_products()),
           // );
+          Get.toNamed(add_test.routeName);
         } else if (choice.title == 'Statistics') {
           // Navigator.push(
           //   context,
@@ -146,7 +150,7 @@ class SelectCard extends StatelessWidget {
         }
       },
       child: Card(
-          shape: RoundedRectangleBorder(
+          shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(20),
                   topRight: Radius.circular(100))),
@@ -163,7 +167,7 @@ class SelectCard extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
                       choice.title,
-                      style: TextStyle(color: Colors.black, fontSize: 30),
+                      style: const TextStyle(color: Colors.black, fontSize: 30),
                     ),
                   ),
                 ]),

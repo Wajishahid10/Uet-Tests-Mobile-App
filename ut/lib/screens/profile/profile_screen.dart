@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:uet_tests/constants.dart';
 import 'package:uet_tests/enums.dart';
 import 'package:uet_tests/components/background.dart';
 
@@ -10,7 +11,14 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Profile"),
+        backgroundColor: kPrimaryColor.withOpacity(0.5),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            Text("Profile"),
+          ],
+        ),
       ),
       body: Body(),
     );

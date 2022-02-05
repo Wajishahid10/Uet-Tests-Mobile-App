@@ -1,6 +1,7 @@
 import 'dart:js';
 
 import 'package:flutter/widgets.dart';
+import 'package:uet_tests/screens/admin/add_test.dart';
 import 'package:uet_tests/screens/admin/admin_dasboard.dart';
 import 'package:uet_tests/screens/cart/cart_screen.dart';
 import 'package:uet_tests/screens/complete_profile/complete_profile_screen.dart';
@@ -20,6 +21,7 @@ import 'screens/sign_up/sign_up_screen.dart';
 final Map<String, WidgetBuilder> routes = {
   SplashScreen.routeName: (context) => SplashScreen(),
   dashboard.routeName: (context) => dashboard(),
+  add_test.routeName: (context) => add_test(),
   SignInScreen.routeName: (context) => SignInScreen(),
   ForgotPasswordScreen.routeName: (context) => ForgotPasswordScreen(),
   LoginSuccessScreen.routeName: (context) => LoginSuccessScreen(),
