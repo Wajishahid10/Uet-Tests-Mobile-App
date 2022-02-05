@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:uet_tests/constants.dart';
 import 'package:uet_tests/screens/admin/add_test.dart';
+import 'package:uet_tests/screens/admin/new_order.dart';
 
 class dashboard extends StatefulWidget {
   // static var routeName;
@@ -121,6 +122,7 @@ class SelectCard extends StatelessWidget {
           //   context,
           //   MaterialPageRoute(builder: (context) => New_orders()),
           // );
+          Get.toNamed(new_order.routeName);
         } else if (choice.title == 'Orders in progress') {
           // Navigator.push(
           //   context,
