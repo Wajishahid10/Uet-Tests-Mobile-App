@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "186938807214",
+    "project_id": "uet-test-1cc3d",
+    "storage_bucket": "uet-test-1cc3d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:186938807214:android:134c5d3af61d8cc8a12e3f",
+        "android_client_info": {
+          "package_name": "com.example.uet_tests"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "186938807214-2gv1u1q36p7laqs0jubmaes9566uh056.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-VNtkFfKw6nFG9Sr5T2PaQ2DbShjjuas"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "186938807214-2gv1u1q36p7laqs0jubmaes9566uh056.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
