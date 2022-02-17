@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:uet_tests/enums.dart';
 import 'package:uet_tests/components/background.dart';
 
 import 'components/body.dart';

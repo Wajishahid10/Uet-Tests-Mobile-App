@@ -75,9 +75,13 @@ class CategoryCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
             child: Stack(
               children: [
-                Image.asset(
-                  image,
-                  fit: BoxFit.cover,
+                Container(
+                  width: getProportionateScreenWidth(242),
+                  height: getProportionateScreenHeight(120),
+                  child: Image.asset(
+                    image,
+                    fit: BoxFit.cover,
+                  ),
                 ),
                 Container(
                   decoration: BoxDecoration(
