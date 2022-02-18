@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:uet_tests/constants.dart';
+import 'package:uet_tests/screens/sign_in/sign_in_screen.dart';
 
 class new_order extends StatefulWidget {
   static String routeName = "/new_order";
@@ -212,6 +214,7 @@ class _new_orderState extends State<new_order> {
                                     ),
                                     ElevatedButton(
                                       onPressed: () {
+                                        Get.toNamed(SignInScreen.routeName);
                                         // add_order_to_spam(data);
                                         // deleteUser(document.id);
                                         // // print(document.id);
