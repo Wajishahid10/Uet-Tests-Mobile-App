@@ -38,6 +38,7 @@ class HomeHeader extends StatelessWidget {
                 icon: Icon(
                   Icons.person,
                   color: Colors.grey,
+                  size: getProportionateScreenWidth(32),
                 ),
               ),
             ],
