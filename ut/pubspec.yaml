@@ -32,6 +32,8 @@ dependencies:
   provider: ^6.0.0 # for State management
 
   get:
+  image_picker:
+  pdf:
   shimmer: ^2.0.0
   image_crop: ^0.4.0
   firebase_core: ^1.0.1
