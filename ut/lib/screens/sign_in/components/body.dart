@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:uet_tests/components/no_account_text.dart';
-import 'package:uet_tests/components/socal_card.dart';
+import 'package:uet_tests/components/social_card.dart';
 import '../../../size_config.dart';
 import 'sign_form.dart';
+
+import 'package:uet_tests/components/google_SignIn.dart';
 
 class Body extends StatelessWidget {
   @override
@@ -26,7 +28,7 @@ class Body extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  "Sign in with your email and password  \nor continue with social media",
+                  "Sign in with your Email and Password  \nor Continue with Social Media",
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(height: SizeConfig.screenHeight * 0.08),
@@ -35,17 +37,11 @@ class Body extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SocalCard(
+                    SocialCard(
                       icon: "assets/icons/google-icon.svg",
-                      press: () {},
-                    ),
-                    SocalCard(
-                      icon: "assets/icons/facebook-2.svg",
-                      press: () {},
-                    ),
-                    SocalCard(
-                      icon: "assets/icons/twitter.svg",
-                      press: () {},
+                      press: () {
+                        signInGmail(context);
+                      },
                     ),
                   ],
                 ),

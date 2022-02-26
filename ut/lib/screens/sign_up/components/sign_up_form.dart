@@ -6,6 +6,9 @@ import 'package:uet_tests/screens/complete_profile/complete_profile_screen.dart'
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
+import 'package:uet_tests/main.dart';
+
+import 'package:firebase_auth/firebase_auth.dart';
 
 class SignUpForm extends StatefulWidget {
   @override
@@ -14,10 +17,10 @@ class SignUpForm extends StatefulWidget {
 
 class _SignUpFormState extends State<SignUpForm> {
   final _formKey = GlobalKey<FormState>();
-  String? email;
-  String? password;
-  String? conform_password;
-  bool remember = false;
+  late String email;
+  late String password;
+  late String? conform_password;
+  late bool remember = false;
   final List<String?> errors = [];
 
   void addError({String? error}) {
@@ -44,17 +47,28 @@ class _SignUpFormState extends State<SignUpForm> {
           SizedBox(height: getProportionateScreenHeight(30)),
           buildPasswordFormField(),
           SizedBox(height: getProportionateScreenHeight(30)),
-          buildConformPassFormField(),
+          buildConfirmPassFormField(),
           FormError(errors: errors),
           SizedBox(height: getProportionateScreenHeight(40)),
           DefaultButton(
             text: "Continue",
-            press: () {
+            press: () async {
               if (_formKey.currentState!.validate()) {
-                _formKey.currentState!.save();
+                //  _formKey.currentState!.save();
                 // if all are valid then go to success screen
-                Navigator.pushNamed(context, CompleteProfileScreen.routeName);
+                User user = await auth.createUserWithEmailAndPassword(
+                    email: email, password: password) as User;
+                try {
+                  await user.sendEmailVerification();
+                  return user.uid;
+                } catch (e) {
+                  print(
+                      "An error occured while trying to send email verification");
+                  print(e.toString());
+                }
               }
+
+              Navigator.pushNamed(context, CompleteProfileScreen.routeName);
             },
           ),
         ],
@@ -62,10 +76,10 @@ class _SignUpFormState extends State<SignUpForm> {
     );
   }
 
-  TextFormField buildConformPassFormField() {
+  TextFormField buildConfirmPassFormField() {
     return TextFormField(
       obscureText: true,
-      onSaved: (newValue) => conform_password = newValue,
+      onSaved: (newValue) => conform_password = newValue!,
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: kPassNullError);
@@ -86,7 +100,7 @@ class _SignUpFormState extends State<SignUpForm> {
       },
       decoration: InputDecoration(
         labelText: "Confirm Password",
-        hintText: "Re-enter your password",
+        hintText: "Re-enter your Password",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -98,7 +112,7 @@ class _SignUpFormState extends State<SignUpForm> {
   TextFormField buildPasswordFormField() {
     return TextFormField(
       obscureText: true,
-      onSaved: (newValue) => password = newValue,
+      onSaved: (newValue) => password = newValue!,
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: kPassNullError);
@@ -119,7 +133,7 @@ class _SignUpFormState extends State<SignUpForm> {
       },
       decoration: InputDecoration(
         labelText: "Password",
-        hintText: "Enter your password",
+        hintText: "Enter your Password",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -131,7 +145,7 @@ class _SignUpFormState extends State<SignUpForm> {
   TextFormField buildEmailFormField() {
     return TextFormField(
       keyboardType: TextInputType.emailAddress,
-      onSaved: (newValue) => email = newValue,
+      onSaved: (newValue) => email = newValue!,
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: kEmailNullError);
@@ -152,7 +166,7 @@ class _SignUpFormState extends State<SignUpForm> {
       },
       decoration: InputDecoration(
         labelText: "Email",
-        hintText: "Enter your email",
+        hintText: "Enter your Email",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,

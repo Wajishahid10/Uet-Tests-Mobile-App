@@ -71,9 +71,10 @@ class _BodyState extends State<Body> {
                     ),
                     Spacer(flex: 3),
                     DefaultButton(
-                      text: "Continue",
+                      text: currentPage == 3 ? "Continue" : "Next",
                       press: () {
-                        Navigator.pushNamed(context, SignInScreen.routeName);
+                        Navigator.pushReplacementNamed(
+                            context, SignInScreen.routeName);
                       },
                     ),
                     Spacer(),
