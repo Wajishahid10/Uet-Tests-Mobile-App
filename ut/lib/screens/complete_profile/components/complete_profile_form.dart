@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:uet_tests/components/custom_surfix_icon.dart';
 import 'package:uet_tests/components/default_button.dart';
 import 'package:uet_tests/components/form_error.dart';
-import 'package:uet_tests/screens/otp/otp_screen.dart';
+import 'package:uet_tests/screens/emailVerification/emailVerification_screen.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
@@ -56,7 +56,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
             text: "Continue",
             press: () {
               if (_formKey.currentState!.validate()) {
-                Navigator.pushNamed(context, OtpScreen.routeName);
+                Navigator.pushNamed(context, emailVerificationScreen.routeName);
               }
             },
           ),

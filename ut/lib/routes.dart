@@ -5,7 +5,7 @@ import 'package:uet_tests/screens/details/details_screen.dart';
 import 'package:uet_tests/screens/forgot_password/forgot_password_screen.dart';
 import 'package:uet_tests/screens/home/home_screen.dart';
 import 'package:uet_tests/screens/login_success/login_success_screen.dart';
-import 'package:uet_tests/screens/otp/otp_screen.dart';
+import 'package:uet_tests/screens/emailVerification/emailVerification_screen.dart';
 import 'package:uet_tests/screens/profile/profile_screen.dart';
 import 'package:uet_tests/screens/sign_in/sign_in_screen.dart';
 import 'package:uet_tests/screens/splash/splash_screen.dart';
@@ -21,7 +21,7 @@ final Map<String, WidgetBuilder> routes = {
   LoginSuccessScreen.routeName: (context) => LoginSuccessScreen(),
   SignUpScreen.routeName: (context) => SignUpScreen(),
   CompleteProfileScreen.routeName: (context) => CompleteProfileScreen(),
-  OtpScreen.routeName: (context) => OtpScreen(),
+  emailVerificationScreen.routeName: (context) => emailVerificationScreen(),
   HomeScreen.routeName: (context) => HomeScreen(),
   DetailsScreen.routeName: (context) => DetailsScreen(),
   CartScreen.routeName: (context) => CartScreen(),

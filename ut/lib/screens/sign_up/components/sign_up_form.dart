@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:uet_tests/components/custom_surfix_icon.dart';
 import 'package:uet_tests/components/default_button.dart';
 import 'package:uet_tests/components/form_error.dart';
-import 'package:uet_tests/screens/complete_profile/complete_profile_screen.dart';
+import 'package:uet_tests/screens/emailVerification/emailVerification_screen.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
@@ -20,7 +20,6 @@ class _SignUpFormState extends State<SignUpForm> {
   late String email;
   late String password;
   late String? conform_password;
-  late bool remember = false;
   final List<String?> errors = [];
 
   void addError({String? error}) {
@@ -54,21 +53,24 @@ class _SignUpFormState extends State<SignUpForm> {
             text: "Continue",
             press: () async {
               if (_formKey.currentState!.validate()) {
-                //  _formKey.currentState!.save();
+                _formKey.currentState!.save();
                 // if all are valid then go to success screen
-                User user = await auth.createUserWithEmailAndPassword(
-                    email: email, password: password) as User;
+                UserCredential userCredential;
                 try {
-                  await user.sendEmailVerification();
-                  return user.uid;
-                } catch (e) {
+                  userCredential = await auth.createUserWithEmailAndPassword(
+                      email: email, password: password);
+
+                  await userCredential.user!.sendEmailVerification();
+                  Navigator.pushNamed(
+                      context, emailVerificationScreen.routeName);
+
+                  //        return userCredential.user;
+                } on FirebaseAuthException catch (e) {
                   print(
-                      "An error occured while trying to send email verification");
+                      "An error occured while trying to send Email Verification");
                   print(e.toString());
                 }
               }
-
-              Navigator.pushNamed(context, CompleteProfileScreen.routeName);
             },
           ),
         ],

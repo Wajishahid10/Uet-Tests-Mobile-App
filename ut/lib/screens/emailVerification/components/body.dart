@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:uet_tests/components/default_button.dart';
 import 'package:uet_tests/constants.dart';
 import 'package:uet_tests/size_config.dart';
 
-import 'otp_form.dart';
+import 'emailVerification_form.dart';
 
 class Body extends StatelessWidget {
   @override
@@ -17,19 +18,20 @@ class Body extends StatelessWidget {
             children: [
               SizedBox(height: SizeConfig.screenHeight * 0.05),
               Text(
-                "OTP Verification",
+                "E-Mail Verification",
                 style: headingStyle,
               ),
-              Text("We sent your code to +1 898 860 ***"),
-              buildTimer(),
-              OtpForm(),
+              Text("We sent your cverfication link to your Mail"),
+              //  buildTimer(),
+              //  OtpForm(),
               SizedBox(height: SizeConfig.screenHeight * 0.1),
+              DefaultButton(text: "Continue", press: () async {}),
               GestureDetector(
                 onTap: () {
                   // OTP code resend
                 },
                 child: Text(
-                  "Resend OTP Code",
+                  "Resend Verification Email",
                   style: TextStyle(decoration: TextDecoration.underline),
                 ),
               )

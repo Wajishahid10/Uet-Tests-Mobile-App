@@ -6,7 +6,7 @@ import 'package:uet_tests/main.dart';
 
 final GoogleSignIn _googleSignIn = GoogleSignIn();
 
-late UserCredential credential;
+late UserCredential userCredential;
 
 Future<void> signInGmail(BuildContext context) async {
   GoogleSignInAccount? gmailUser = await _googleSignIn.signIn();
@@ -15,17 +15,14 @@ Future<void> signInGmail(BuildContext context) async {
   final AuthCredential authCredential = GoogleAuthProvider.credential(
       idToken: googleSignInAuthentication.idToken,
       accessToken: googleSignInAuthentication.accessToken);
-  credential =
-      await auth.signInWithCredential(authCredential).catchError((onError) {
-    print('Google Error Received: ' + onError);
-  });
+  userCredential = await auth.signInWithCredential(authCredential).catchError(
+    (onError) {
+      print('Google Error Received: ' + onError);
+    },
+  );
 
   if (await _googleSignIn.isSignedIn()) {
-    print('Google new login/signin');
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text('Google Login Successfully')));
   }
-
-  ScaffoldMessenger.of(context)
-      .showSnackBar(SnackBar(content: Text('Google Login Successfully')));
-
-  sharedPreferences.setString('Email', gmailUser.email);
 }

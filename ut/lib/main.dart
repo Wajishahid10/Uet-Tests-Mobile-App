@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:uet_tests/components/google_SignIn.dart';
 import 'package:uet_tests/screens/home/home_screen.dart';
 import 'package:uet_tests/screens/profile/profile_screen.dart';
 import 'package:uet_tests/screens/splash/splash_screen.dart';
@@ -14,7 +15,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 late SharedPreferences sharedPreferences;
 
 late FirebaseApp firebaseApp;
-FirebaseAuth auth = FirebaseAuth.instance;
+FirebaseAuth auth = FirebaseAuth.instanceFor(app: firebaseApp);
 
 Future<void> init() async {
   sharedPreferences = await SharedPreferences.getInstance();
