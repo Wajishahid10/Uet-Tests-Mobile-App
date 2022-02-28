@@ -1,13 +1,18 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:uet_tests/components/default_button.dart';
 import 'package:uet_tests/constants.dart';
 import 'package:uet_tests/size_config.dart';
+
+import 'package:uet_tests/main.dart';
+import 'package:uet_tests/screens/login_success/login_success_screen.dart';
 
 import 'emailVerification_form.dart';
 
 class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    User user = auth.currentUser!;
     return SizedBox(
       width: double.infinity,
       child: Padding(
@@ -21,14 +26,24 @@ class Body extends StatelessWidget {
                 "E-Mail Verification",
                 style: headingStyle,
               ),
-              Text("We sent your cverfication link to your Mail"),
+              Text("We sent your verfication link to your Mail"),
               //  buildTimer(),
               //  OtpForm(),
               SizedBox(height: SizeConfig.screenHeight * 0.1),
-              DefaultButton(text: "Continue", press: () async {}),
+              DefaultButton(
+                  text: "I've Verified my Mail",
+                  press: () async {
+                    user.emailVerified
+                        ? Navigator.pushNamed(
+                            context, LoginSuccessScreen.routeName)
+                        : ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text(
+                                'Email is not Verified. Click Verification link in Your Email.')));
+                    ;
+                  }),
               GestureDetector(
                 onTap: () {
-                  // OTP code resend
+                  user.sendEmailVerification();
                 },
                 child: Text(
                   "Resend Verification Email",

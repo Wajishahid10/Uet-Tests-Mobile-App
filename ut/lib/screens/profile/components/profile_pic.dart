@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import 'dart:io';
+
+import 'package:image_picker/image_picker.dart';
+
 class ProfilePic extends StatelessWidget {
   const ProfilePic({
     Key? key,
@@ -8,6 +12,7 @@ class ProfilePic extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ImagePicker _picker = ImagePicker();
     return SizedBox(
       height: 115,
       width: 115,
@@ -24,17 +29,47 @@ class ProfilePic extends StatelessWidget {
             child: SizedBox(
               height: 46,
               width: 46,
-              child: TextButton(
-                style: TextButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50),
-                    side: BorderSide(color: Colors.white),
+              child: PopupMenuButton(
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Color(0xFFF5F6F9),
+                    shape: BoxShape.circle,
                   ),
-                  primary: Colors.white,
-                  backgroundColor: Color(0xFFF5F6F9),
+                  child: Icon(Icons.camera_alt),
                 ),
-                onPressed: () {},
-                child: SvgPicture.asset("assets/icons/Camera Icon.svg"),
+                elevation: 20,
+                itemBuilder: (context) => [
+                  PopupMenuItem(
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.camera,
+                        ),
+                        Text("Camera"),
+                      ],
+                    ),
+                    value: 1,
+                    onTap: () async {
+                      XFile? image =
+                          await _picker.pickImage(source: ImageSource.camera);
+                    },
+                  ),
+                  PopupMenuItem(
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.photo_album,
+                        ),
+                        Text("Gallery"),
+                      ],
+                    ),
+                    value: 2,
+                    onTap: () async {
+                      XFile? image =
+                          await _picker.pickImage(source: ImageSource.gallery);
+                    },
+                  ),
+                ],
               ),
             ),
           )
