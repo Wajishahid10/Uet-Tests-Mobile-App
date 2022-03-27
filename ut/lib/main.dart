@@ -24,10 +24,15 @@ Future<void> init() async {
 Future<void> isFirstTimeExecution() async {
   if (!sharedPreferences.containsKey("isFirstTime")) {
     _isFirstTime = await sharedPreferences.setBool("isFirstTime", true);
+    await sharedPreferences.setBool("isCustomer", true);
+  }
+  if (sharedPreferences.containsKey("isCustomer")) {
+    _isUserCustomer = (await sharedPreferences.getBool("isCustomer"))!;
   }
 }
 
 bool _isFirstTime = false;
+bool _isUserCustomer = true;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -54,8 +59,11 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'UET Tests',
       theme: theme(),
-      initialRoute:
-          _isFirstTime ? SplashScreen.routeName : HomeScreen.routeName,
+      initialRoute: _isFirstTime
+          ? SplashScreen.routeName
+          : _isUserCustomer
+              ? HomeScreen.routeName
+              : HomeScreen.routeName,
       routes: routes,
     );
   }

@@ -8,7 +8,8 @@ const kPrimaryGradientColor = LinearGradient(
   end: Alignment.bottomRight,
   colors: [Color.fromRGBO(10, 44, 115, 1), Color.fromRGBO(242, 231, 64, 1)],
 );
-const kSecondaryColor = Color.fromRGBO(242, 231, 64, 1);
+// const kSecondaryColor = Color.fromRGBO(242, 231, 64, 1);
+const kSecondaryColor = kPrimaryLightColor;
 const kSecondaryLightColor = Color.fromRGBO(241, 236, 144, 1);
 
 const kTextColor = Color(0xFF757575);
