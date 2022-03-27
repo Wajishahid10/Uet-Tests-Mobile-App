@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:uet_tests/screens/sign_in/sign_in_screen.dart';
+import 'package:uet_tests/screens/sign_up/sign_up_screen.dart';
 
 import 'profile_menu.dart';
 import 'profile_pic.dart';
@@ -15,12 +17,16 @@ class noLoginBody extends StatelessWidget {
           NoProfileMenu(
             text: "Login/SignIn",
             icon: Icons.login,
-            press: () => {},
+            press: () {
+              Navigator.pushReplacementNamed(context, SignInScreen.routeName);
+            },
           ),
           NoProfileMenu(
             text: "Create Account",
             icon: Icons.manage_accounts,
-            press: () {},
+            press: () {
+              Navigator.pushReplacementNamed(context, SignUpScreen.routeName);
+            },
           ),
         ],
       ),
