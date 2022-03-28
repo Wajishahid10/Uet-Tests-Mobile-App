@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:uet_tests/components/default_button.dart';
 import 'package:uet_tests/constants.dart';
-import 'package:uet_tests/models/Product.dart';
+import 'package:uet_tests/database/Product.dart';
 import 'package:uet_tests/size_config.dart';
 
 //  import 'color_dots.dart';

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:uet_tests/models/Product.dart';
+import 'package:uet_tests/database/Product.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';

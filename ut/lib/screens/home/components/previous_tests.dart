@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:uet_tests/components/product_card.dart';
-import 'package:uet_tests/models/Product.dart';
+import 'package:uet_tests/database/Product.dart';
 
 import '../../../size_config.dart';
 import 'section_title.dart';

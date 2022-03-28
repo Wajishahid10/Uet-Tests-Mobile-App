@@ -1,14 +1,27 @@
+import 'dart:convert';
+
 class Login_Manager {
+  int? loginID;
   String? GoogleSiginUID;
   String? Account_Type;
 
   Login_Manager({
+    this.loginID,
     this.GoogleSiginUID,
     this.Account_Type,
   });
 
+  factory Login_Manager.fromJson(Map<String, dynamic> json) {
+    return Login_Manager(
+      loginID: json["loginID"],
+      GoogleSiginUID: json["GoogleSiginUID"],
+      Account_Type: json["Account_Type"],
+    );
+  }
+
   Map<String, dynamic> toMap() {
     return {
+      'loginID': loginID,
       'GoogleSiginUID': GoogleSiginUID,
       'Account_Type': Account_Type,
     };
@@ -18,6 +31,13 @@ class Login_Manager {
   String toString() {
     return 'Login_Manager{GoogleSiginUID: $GoogleSiginUID Account_Type: $Account_Type}';
   }
+}
+
+List<Login_Manager> parseLogin_ManagersData(String responseBody) {
+  final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
+  return parsed
+      .map<Login_Manager>((json) => Login_Manager.fromJson(json))
+      .toList();
 }
 
 class User {
@@ -41,6 +61,19 @@ class User {
     this.AccountCreated,
   });
 
+  factory User.fromJson(Map<String, dynamic> json) {
+    return User(
+      UserID: json["UserID"],
+      userName: json["userName"],
+      DisplayPicture_Url: json["DisplayPicture_Url"],
+      Company: json["Company"],
+      ContactNumber: json["ContactNumber"],
+      Address: json["Address"],
+      Email_Address: json["Email_Address"],
+      AccountCreated: json["AccountCreated"],
+    );
+  }
+
   Map<String, dynamic> toMap() {
     return {
       'UserID': UserID,
@@ -58,6 +91,11 @@ class User {
   String toString() {
     return 'User{userName: $userName Company: $Company}';
   }
+}
+
+List<User> parseUsersData(String responseBody) {
+  final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
+  return parsed.map<User>((json) => User.fromJson(json)).toList();
 }
 
 class Admin {
@@ -81,6 +119,19 @@ class Admin {
     this.AccountCreated,
   });
 
+  factory Admin.fromJson(Map<String, dynamic> json) {
+    return Admin(
+      AdminID: json["AdminID"],
+      adminName: json["adminName"],
+      DisplayPicture_Url: json["DisplayPicture_Url"],
+      Role: json["Role"],
+      ContactNumber: json["ContactNumber"],
+      Address: json["Address"],
+      Email_Address: json["Email_Address"],
+      AccountCreated: json["AccountCreated"],
+    );
+  }
+
   Map<String, dynamic> toMap() {
     return {
       'AdminID': AdminID,
@@ -93,6 +144,11 @@ class Admin {
       'AccountCreated': AccountCreated,
     };
   }
+}
+
+List<Admin> parseAdminsData(String responseBody) {
+  final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
+  return parsed.map<Admin>((json) => Admin.fromJson(json)).toList();
 }
 
 class Department {
@@ -114,6 +170,18 @@ class Department {
     this.DepartmentCreated,
   });
 
+  factory Department.fromJson(Map<String, dynamic> json) {
+    return Department(
+      departmentID: json["departmentID"],
+      departmentName: json["departmentName"],
+      DisplayPicture_Url: json["DisplayPicture_Url"],
+      AdminID: json["AdminID"],
+      ContactNumber: json["ContactNumber"],
+      Email_Address: json["Email_Address"],
+      DepartmentCreated: json["DepartmentCreated"],
+    );
+  }
+
   Map<String, dynamic> toMap() {
     return {
       'departmentID': departmentID,
@@ -125,4 +193,9 @@ class Department {
       'DepartmentCreated': DepartmentCreated,
     };
   }
+}
+
+List<Department> parseDepartmentsData(String responseBody) {
+  final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
+  return parsed.map<Department>((json) => Department.fromJson(json)).toList();
 }
