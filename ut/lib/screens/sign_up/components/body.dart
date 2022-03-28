@@ -36,6 +36,8 @@ class Body extends StatelessWidget {
                       icon: "assets/icons/google-icon.svg",
                       press: () {
                         signInGmail(context);
+//                        auth.currentUser!.uid;
+//                        auth.currentUser!.displayName;
                       },
                     ),
                   ],

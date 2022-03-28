@@ -16,8 +16,9 @@ class Body extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       child: Padding(
-        padding:
-            EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
+        padding: EdgeInsets.symmetric(
+          horizontal: getProportionateScreenWidth(20),
+        ),
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -36,9 +37,12 @@ class Body extends StatelessWidget {
                     user.emailVerified
                         ? Navigator.pushNamed(
                             context, LoginSuccessScreen.routeName)
-                        : ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                            content: Text(
-                                'Email is not Verified. Click Verification link in Your Email.')));
+                        : ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                  'Email is not Verified. Click Verification link in Your Email.'),
+                            ),
+                          );
                     ;
                   }),
               GestureDetector(

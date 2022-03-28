@@ -121,20 +121,6 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
     );
   }
 
-  TextFormField buildLastNameFormField() {
-    return TextFormField(
-      onSaved: (newValue) => lastName = newValue,
-      decoration: InputDecoration(
-        labelText: "Last Name",
-        hintText: "Enter your last name",
-        // If  you are using latest version of flutter then lable text and hint text shown like this
-        // if you r using flutter less then 1.20.* then maybe this is not working properly
-        floatingLabelBehavior: FloatingLabelBehavior.always,
-        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/User.svg"),
-      ),
-    );
-  }
-
   TextFormField buildCompanyFormField() {
     return TextFormField(
       onSaved: (newValue) => companyName = newValue,
@@ -167,7 +153,21 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
       },
       decoration: InputDecoration(
         labelText: "First Name",
-        hintText: "Enter your first name",
+        hintText: "Enter your First name",
+        // If  you are using latest version of flutter then lable text and hint text shown like this
+        // if you r using flutter less then 1.20.* then maybe this is not working properly
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/User.svg"),
+      ),
+    );
+  }
+
+  TextFormField buildLastNameFormField() {
+    return TextFormField(
+      onSaved: (newValue) => lastName = newValue,
+      decoration: InputDecoration(
+        labelText: "Last Name",
+        hintText: "Enter your Last name",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
