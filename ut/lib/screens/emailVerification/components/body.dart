@@ -5,7 +5,7 @@ import 'package:uet_tests/constants.dart';
 import 'package:uet_tests/size_config.dart';
 
 import 'package:uet_tests/main.dart';
-import 'package:uet_tests/screens/login_success/login_success_screen.dart';
+import 'package:uet_tests/screens/complete_profile/complete_profile_screen.dart';
 
 import 'emailVerification_form.dart';
 
@@ -32,19 +32,28 @@ class Body extends StatelessWidget {
               //  OtpForm(),
               SizedBox(height: SizeConfig.screenHeight * 0.1),
               DefaultButton(
-                  text: "I've Verified my Mail",
-                  press: () async {
-                    user.emailVerified
-                        ? Navigator.pushNamed(
-                            context, LoginSuccessScreen.routeName)
-                        : ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(
-                                  'Email is not Verified. Click Verification link in Your Email.'),
-                            ),
-                          );
-                    ;
-                  }),
+                text: "I've Verified my Mail",
+                press: () async {
+                  if (user.emailVerified) {
+//                        user.uid;
+//                        user.displayName;
+/*
+
+Yeaha pr krna ha Django Database me Save
+
+ */
+                    Navigator.pushReplacementNamed(
+                        context, CompleteProfileScreen.routeName);
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(
+                            'Email is not Verified. Click Verification link in Your Email.'),
+                      ),
+                    );
+                  }
+                },
+              ),
               GestureDetector(
                 onTap: () {
                   user.sendEmailVerification();

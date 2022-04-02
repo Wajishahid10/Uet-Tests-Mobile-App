@@ -89,8 +89,11 @@ class _SignFormState extends State<SignForm> {
                   } else if (e.code == "") {}
 
                   //  else if (e.code == "") {}
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: Text('Couldn\'t Login due to ' + e.toString())));
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('Couldn\'t Login due to ' + e.toString()),
+                    ),
+                  );
                 }
                 KeyboardUtil.hideKeyboard(context);
 

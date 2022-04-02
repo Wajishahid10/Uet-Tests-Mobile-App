@@ -1,19 +1,19 @@
 import 'dart:convert';
 
 class Login_Manager {
-  int? loginID;
+  int? LoginID;
   String? GoogleSiginUID;
   String? Account_Type;
 
   Login_Manager({
-    this.loginID,
+    this.LoginID,
     this.GoogleSiginUID,
     this.Account_Type,
   });
 
   factory Login_Manager.fromJson(Map<String, dynamic> json) {
     return Login_Manager(
-      loginID: json["loginID"],
+      LoginID: json["LoginID"],
       GoogleSiginUID: json["GoogleSiginUID"],
       Account_Type: json["Account_Type"],
     );
@@ -21,7 +21,7 @@ class Login_Manager {
 
   Map<String, dynamic> toMap() {
     return {
-      'loginID': loginID,
+      'LoginID': LoginID,
       'GoogleSiginUID': GoogleSiginUID,
       'Account_Type': Account_Type,
     };
@@ -43,9 +43,9 @@ List<Login_Manager> parseLogin_ManagersData(String responseBody) {
 class User {
   int? UserID;
   String? userName;
-  String? DisplayPicture_Url;
+  String? Display_Picture;
   String? Company;
-  String? ContactNumber;
+  String? Contact_Number;
   String? Address;
   String? Email_Address;
   String? AccountCreated;
@@ -53,9 +53,9 @@ class User {
   User({
     this.UserID,
     this.userName,
-    this.DisplayPicture_Url,
+    this.Display_Picture,
     this.Company,
-    this.ContactNumber,
+    this.Contact_Number,
     this.Address,
     this.Email_Address,
     this.AccountCreated,
@@ -65,9 +65,9 @@ class User {
     return User(
       UserID: json["UserID"],
       userName: json["userName"],
-      DisplayPicture_Url: json["DisplayPicture_Url"],
+      Display_Picture: json["Display_Picture"],
       Company: json["Company"],
-      ContactNumber: json["ContactNumber"],
+      Contact_Number: json["Contact_Number"],
       Address: json["Address"],
       Email_Address: json["Email_Address"],
       AccountCreated: json["AccountCreated"],
@@ -78,10 +78,10 @@ class User {
     return {
       'UserID': UserID,
       'userName': userName,
-      'DisplayPicture_Url': DisplayPicture_Url,
+      'Display_Picture': Display_Picture,
       'Company': Company,
       'Address': Address,
-      'ContactNumber': ContactNumber,
+      'Contact_Number': Contact_Number,
       'Email_Address': Email_Address,
       'AccountCreated': AccountCreated,
     };
@@ -101,9 +101,9 @@ List<User> parseUsersData(String responseBody) {
 class Admin {
   int? AdminID;
   String? adminName;
-  String? DisplayPicture_Url;
+  String? Display_Picture;
   String? Role;
-  String? ContactNumber;
+  String? Contact_Number;
   String? Address;
   String? Email_Address;
   String? AccountCreated;
@@ -111,9 +111,9 @@ class Admin {
   Admin({
     this.AdminID,
     this.adminName,
-    this.DisplayPicture_Url,
+    this.Display_Picture,
     this.Role,
-    this.ContactNumber,
+    this.Contact_Number,
     this.Address,
     this.Email_Address,
     this.AccountCreated,
@@ -123,9 +123,9 @@ class Admin {
     return Admin(
       AdminID: json["AdminID"],
       adminName: json["adminName"],
-      DisplayPicture_Url: json["DisplayPicture_Url"],
+      Display_Picture: json["Display_Picture"],
       Role: json["Role"],
-      ContactNumber: json["ContactNumber"],
+      Contact_Number: json["Contact_Number"],
       Address: json["Address"],
       Email_Address: json["Email_Address"],
       AccountCreated: json["AccountCreated"],
@@ -136,10 +136,10 @@ class Admin {
     return {
       'AdminID': AdminID,
       'adminName': adminName,
-      'DisplayPicture_Url': DisplayPicture_Url,
+      'Display_Picture': Display_Picture,
       'Role': Role,
       'Address': Address,
-      'ContactNumber': ContactNumber,
+      'Contact_Number': Contact_Number,
       'Email_Address': Email_Address,
       'AccountCreated': AccountCreated,
     };
@@ -154,18 +154,18 @@ List<Admin> parseAdminsData(String responseBody) {
 class Department {
   int? departmentID;
   String? departmentName;
-  String? DisplayPicture_Url;
+  String? Display_Picture;
   Admin? AdminID;
-  String? ContactNumber;
+  String? Contact_Number_toDisplay;
   String? Email_Address;
   String? DepartmentCreated;
 
   Department({
     this.departmentID,
     this.departmentName,
-    this.DisplayPicture_Url,
+    this.Display_Picture,
     this.AdminID,
-    this.ContactNumber,
+    this.Contact_Number_toDisplay,
     this.Email_Address,
     this.DepartmentCreated,
   });
@@ -174,9 +174,9 @@ class Department {
     return Department(
       departmentID: json["departmentID"],
       departmentName: json["departmentName"],
-      DisplayPicture_Url: json["DisplayPicture_Url"],
+      Display_Picture: json["Display_Picture"],
       AdminID: json["AdminID"],
-      ContactNumber: json["ContactNumber"],
+      Contact_Number_toDisplay: json["Contact_Number_toDisplay"],
       Email_Address: json["Email_Address"],
       DepartmentCreated: json["DepartmentCreated"],
     );
@@ -186,9 +186,9 @@ class Department {
     return {
       'departmentID': departmentID,
       'departmentName': departmentName,
-      'DisplayPicture_Url': DisplayPicture_Url,
+      'Display_Picture': Display_Picture,
       'Role': AdminID,
-      'ContactNumber': ContactNumber,
+      'Contact_Number_toDisplay': Contact_Number_toDisplay,
       'Email_Address': Email_Address,
       'DepartmentCreated': DepartmentCreated,
     };
