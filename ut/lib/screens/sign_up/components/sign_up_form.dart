@@ -3,6 +3,7 @@ import 'package:uet_tests/components/custom_surfix_icon.dart';
 import 'package:uet_tests/components/default_button.dart';
 import 'package:uet_tests/components/form_error.dart';
 import 'package:uet_tests/screens/emailVerification/emailVerification_screen.dart';
+import 'package:uet_tests/database/apis.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
@@ -61,8 +62,13 @@ class _SignUpFormState extends State<SignUpForm> {
                       email: email, password: password);
 
                   await userCredential.user!.sendEmailVerification();
-                  Navigator.pushNamed(
-                      context, emailVerificationScreen.routeName);
+
+                  Map credMap = {
+                    "GoogleSiginUID": auth.currentUser!.uid,
+                    "Account_Type": "1"
+                  };
+
+                  signup(credMap, context);
 
                   //        return userCredential.user;
                 } on FirebaseAuthException catch (e) {
@@ -102,7 +108,7 @@ class _SignUpFormState extends State<SignUpForm> {
       },
       decoration: InputDecoration(
         labelText: "Confirm Password",
-        hintText: "Re-enter your Password",
+        hintText: "Re-Enter your Password",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,

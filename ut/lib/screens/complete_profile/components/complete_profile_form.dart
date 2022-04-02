@@ -3,6 +3,7 @@ import 'package:uet_tests/components/custom_surfix_icon.dart';
 import 'package:uet_tests/components/default_button.dart';
 import 'package:uet_tests/components/form_error.dart';
 import 'package:uet_tests/screens/login_success/login_success_screen.dart';
+import 'package:uet_tests/main.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
@@ -56,6 +57,8 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
             text: "Continue",
             press: () {
               if (_formKey.currentState!.validate()) {
+
+
                 Navigator.pushNamed(context, LoginSuccessScreen.routeName);
               }
             },

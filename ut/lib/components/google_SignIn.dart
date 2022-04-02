@@ -28,7 +28,7 @@ Future<void> signInGmail(BuildContext context) async {
       "Account_Type": "1"
     };
 
-    signupwithGoogle(credMap, context);
+    signup(credMap, context);
 
     ScaffoldMessenger.of(context)
         .showSnackBar(SnackBar(content: Text('Google Login Successfully')));

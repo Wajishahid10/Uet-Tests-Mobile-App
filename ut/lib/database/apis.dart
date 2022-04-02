@@ -44,22 +44,7 @@ Future<http.Response> get(String query) async {
   return response;
 }
 
-dynamic signup(Map data) {
-  Map sampleData = {
-    'title': "_title.text",
-    'description': "_description.text",
-    'type': "_type.text",
-  };
-
-  String query = 'https://uet-test.herokuapp.com/api/signup';
-
-  dynamic dataRecieved = post(query, data);
-  dynamic dataRecsieved = get(query);
-
-  return dataRecieved;
-}
-
-dynamic signupwithGoogle(Map data, BuildContext context) async {
+void signup(Map data, BuildContext context) async {
   String query = 'https://uet-test.herokuapp.com/api/signup';
 
   http.Response responseRecieved = await post(query, data);
@@ -75,6 +60,22 @@ dynamic signupwithGoogle(Map data, BuildContext context) async {
     Navigator.pushReplacementNamed(context, LoginSuccessScreen.routeName);
     print("Already Present");
   }
+}
 
-  return responseRecieved;
+void completeSignup(Map data, BuildContext context) async {
+  String query = 'https://uet-test.herokuapp.com/api/signup';
+
+  http.Response responseRecieved = await post(query, data);
+
+  if (responseRecieved.statusCode == 201) {
+    // Created
+
+    Navigator.pushReplacementNamed(context, CompleteProfileScreen.routeName);
+    print("New Account Created");
+  } else {
+    // Already Present
+
+    Navigator.pushReplacementNamed(context, LoginSuccessScreen.routeName);
+    print("Already Present");
+  }
 }
