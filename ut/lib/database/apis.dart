@@ -44,6 +44,25 @@ Future<http.Response> get(String query) async {
   return response;
 }
 
+void getLoginManagerfromUID(String uid) async {
+  String query = 'https://uet-test.herokuapp.com/api/signup';
+
+  Map<String, dynamic> map = {"uid": uid};
+
+  Uri.https(
+      'https://uet-test.herokuapp.com', '/api/getLoginManagerFromUID/', map);
+
+  http.Response responseRecieved = await get(query);
+
+  print(responseRecieved.body);
+
+  if (responseRecieved.statusCode == 201) {
+    print("New Account Created");
+  } else {
+    print("Already Present");
+  }
+}
+
 void signup(Map data, BuildContext context) async {
   String query = 'https://uet-test.herokuapp.com/api/signup';
 
@@ -56,7 +75,7 @@ void signup(Map data, BuildContext context) async {
     print("New Account Created");
   } else {
     // Already Present
-
+    getLoginManagerfromUID(data["GoogleSiginUID"]);
     Navigator.pushReplacementNamed(context, LoginSuccessScreen.routeName);
     print("Already Present");
   }
