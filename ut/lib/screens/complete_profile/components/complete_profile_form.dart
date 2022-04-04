@@ -17,7 +17,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
   final _formKey = GlobalKey<FormState>();
   final List<String?> errors = [];
   String? firstName;
-  String? lastName;
+  // String? lastName;
   String? companyName;
   String? phoneNumber;
   String? address;
@@ -43,22 +43,30 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
       child: Column(
         children: [
           buildFirstNameFormField(),
-          SizedBox(height: getProportionateScreenHeight(30)),
-          buildLastNameFormField(),
-          SizedBox(height: getProportionateScreenHeight(30)),
+          SizedBox(
+            height: getProportionateScreenHeight(30),
+          ),
+          //  buildLastNameFormField(),
+          SizedBox(
+            height: getProportionateScreenHeight(30),
+          ),
           buildCompanyFormField(),
-          SizedBox(height: getProportionateScreenHeight(30)),
+          SizedBox(
+            height: getProportionateScreenHeight(30),
+          ),
           buildPhoneNumberFormField(),
-          SizedBox(height: getProportionateScreenHeight(30)),
+          SizedBox(
+            height: getProportionateScreenHeight(30),
+          ),
           buildAddressFormField(),
           FormError(errors: errors),
-          SizedBox(height: getProportionateScreenHeight(40)),
+          SizedBox(
+            height: getProportionateScreenHeight(40),
+          ),
           DefaultButton(
             text: "Continue",
             press: () {
               if (_formKey.currentState!.validate()) {
-
-
                 Navigator.pushNamed(context, LoginSuccessScreen.routeName);
               }
             },
@@ -165,6 +173,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
     );
   }
 
+/*
   TextFormField buildLastNameFormField() {
     return TextFormField(
       onSaved: (newValue) => lastName = newValue,
@@ -178,4 +187,5 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
       ),
     );
   }
+  */
 }

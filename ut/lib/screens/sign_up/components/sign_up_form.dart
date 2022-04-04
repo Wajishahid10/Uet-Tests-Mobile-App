@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:uet_tests/components/custom_surfix_icon.dart';
 import 'package:uet_tests/components/default_button.dart';
 import 'package:uet_tests/components/form_error.dart';
-import 'package:uet_tests/screens/emailVerification/emailVerification_screen.dart';
 import 'package:uet_tests/database/apis.dart';
 
 import '../../../constants.dart';
@@ -18,10 +18,16 @@ class SignUpForm extends StatefulWidget {
 
 class _SignUpFormState extends State<SignUpForm> {
   final _formKey = GlobalKey<FormState>();
+  final List<String?> errors = [];
   late String email;
   late String password;
-  late String? conform_password;
-  final List<String?> errors = [];
+  late String? confirm_password;
+  String? firstName;
+//  String? lastName;
+  String? companyName;
+  String? phoneNumber;
+  String? address;
+  XFile? displayPicture;
 
   void addError({String? error}) {
     if (!errors.contains(error))
@@ -39,21 +45,97 @@ class _SignUpFormState extends State<SignUpForm> {
 
   @override
   Widget build(BuildContext context) {
+    final ImagePicker _picker = ImagePicker();
     return Form(
       key: _formKey,
       child: Column(
         children: [
+          buildFirstNameFormField(),
+          SizedBox(
+            height: getProportionateScreenHeight(30),
+          ),
+          /*
+            buildLastNameFormField(),
+          SizedBox(
+            height: getProportionateScreenHeight(30),
+          ),
+
+          */
+          buildCompanyFormField(),
+          SizedBox(
+            height: getProportionateScreenHeight(30),
+          ),
+          buildAddressFormField(),
+          SizedBox(height: getProportionateScreenHeight(30)),
+          buildPhoneNumberFormField(),
+          SizedBox(
+            height: getProportionateScreenHeight(30),
+          ),
           buildEmailFormField(),
-          SizedBox(height: getProportionateScreenHeight(30)),
+          SizedBox(
+            height: getProportionateScreenHeight(30),
+          ),
           buildPasswordFormField(),
-          SizedBox(height: getProportionateScreenHeight(30)),
+          SizedBox(
+            height: getProportionateScreenHeight(30),
+          ),
           buildConfirmPassFormField(),
+          SizedBox(
+            height: getProportionateScreenHeight(30),
+          ),
+          PopupMenuButton(
+            child: Container(
+              decoration: BoxDecoration(
+                color: Color(0xFFF5F6F9),
+                shape: BoxShape.circle,
+              ),
+              child: Icon(Icons.camera_alt),
+            ),
+            elevation: 20,
+            itemBuilder: (context) => [
+              PopupMenuItem(
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.camera,
+                    ),
+                    Text("Camera"),
+                  ],
+                ),
+                value: 1,
+                onTap: () async {
+                  displayPicture =
+                      await _picker.pickImage(source: ImageSource.camera);
+                },
+              ),
+              PopupMenuItem(
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.photo_album,
+                    ),
+                    Text("Gallery"),
+                  ],
+                ),
+                value: 2,
+                onTap: () async {
+                  displayPicture =
+                      await _picker.pickImage(source: ImageSource.gallery);
+                },
+              ),
+            ],
+          ),
           FormError(errors: errors),
-          SizedBox(height: getProportionateScreenHeight(40)),
+          SizedBox(
+            height: getProportionateScreenHeight(40),
+          ),
           DefaultButton(
             text: "Continue",
             press: () async {
-              if (_formKey.currentState!.validate()) {
+              if (displayPicture == null) {
+                addError(error: "Display Picture Not Found");
+              }
+              if (_formKey.currentState!.validate() && displayPicture != null) {
                 _formKey.currentState!.save();
                 // if all are valid then go to success screen
                 UserCredential userCredential;
@@ -68,7 +150,15 @@ class _SignUpFormState extends State<SignUpForm> {
                     "Account_Type": "1"
                   };
 
-                  signup(credMap, context);
+                  Map completeMap = {
+                    "userName": firstName,
+                    "Company": companyName,
+                    "Contact_Number": phoneNumber,
+                    "Address": address,
+                    "Email_Address": email,
+                  };
+
+                  signup(credMap, completeMap, displayPicture, context);
 
                   //        return userCredential.user;
                 } on FirebaseAuthException catch (e) {
@@ -85,16 +175,17 @@ class _SignUpFormState extends State<SignUpForm> {
   }
 
   TextFormField buildConfirmPassFormField() {
+    bool isHidden = true;
     return TextFormField(
-      obscureText: true,
-      onSaved: (newValue) => conform_password = newValue!,
+      obscureText: isHidden,
+      onSaved: (newValue) => confirm_password = newValue!,
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: kPassNullError);
-        } else if (value.isNotEmpty && password == conform_password) {
+        } else if (value.isNotEmpty && password == confirm_password) {
           removeError(error: kMatchPassError);
         }
-        conform_password = value;
+        confirm_password = value;
       },
       validator: (value) {
         if (value!.isEmpty) {
@@ -112,14 +203,32 @@ class _SignUpFormState extends State<SignUpForm> {
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
-        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Lock.svg"),
+        suffixIcon: isHidden
+            ? GestureDetector(
+                child: CustomSurffixIcon(svgIcon: "assets/icons/Lock.svg"),
+                onTap: () {
+                  setState(() {
+                    isHidden = !isHidden;
+                  });
+                },
+              )
+            : GestureDetector(
+                child: Icon(Icons.hide_source),
+                onTap: () {
+                  setState(() {
+                    isHidden = !isHidden;
+                  });
+                },
+              ),
       ),
     );
   }
 
   TextFormField buildPasswordFormField() {
+    bool isHidden = true;
+
     return TextFormField(
-      obscureText: true,
+      obscureText: isHidden,
       onSaved: (newValue) => password = newValue!,
       onChanged: (value) {
         if (value.isNotEmpty) {
@@ -145,7 +254,23 @@ class _SignUpFormState extends State<SignUpForm> {
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
-        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Lock.svg"),
+        suffixIcon: isHidden
+            ? GestureDetector(
+                child: CustomSurffixIcon(svgIcon: "assets/icons/Lock.svg"),
+                onTap: () {
+                  setState(() {
+                    isHidden = !isHidden;
+                  });
+                },
+              )
+            : GestureDetector(
+                child: Icon(Icons.hide_source),
+                onTap: () {
+                  setState(() {
+                    isHidden = !isHidden;
+                  });
+                },
+              ),
       ),
     );
   }
@@ -182,4 +307,117 @@ class _SignUpFormState extends State<SignUpForm> {
       ),
     );
   }
+
+  TextFormField buildAddressFormField() {
+    return TextFormField(
+      onSaved: (newValue) => address = newValue,
+      onChanged: (value) {
+        if (value.isNotEmpty) {
+          removeError(error: kAddressNullError);
+        }
+        return null;
+      },
+      validator: (value) {
+        if (value!.isEmpty) {
+          addError(error: kAddressNullError);
+          return "";
+        }
+        return null;
+      },
+      decoration: InputDecoration(
+        labelText: "Address",
+        hintText: "Enter your Address",
+        // If  you are using latest version of flutter then lable text and hint text shown like this
+        // if you r using flutter less then 1.20.* then maybe this is not working properly
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        suffixIcon:
+            CustomSurffixIcon(svgIcon: "assets/icons/Location point.svg"),
+      ),
+    );
+  }
+
+  TextFormField buildPhoneNumberFormField() {
+    return TextFormField(
+      keyboardType: TextInputType.phone,
+      onSaved: (newValue) => phoneNumber = newValue,
+      onChanged: (value) {
+        if (value.isNotEmpty) {
+          removeError(error: kPhoneNumberNullError);
+        }
+        return null;
+      },
+      validator: (value) {
+        if (value!.isEmpty) {
+          addError(error: kPhoneNumberNullError);
+          return "";
+        }
+        return null;
+      },
+      decoration: InputDecoration(
+        labelText: "Phone Number",
+        hintText: "Enter your Phone Number",
+        // If  you are using latest version of flutter then lable text and hint text shown like this
+        // if you r using flutter less then 1.20.* then maybe this is not working properly
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Phone.svg"),
+      ),
+    );
+  }
+
+  TextFormField buildCompanyFormField() {
+    return TextFormField(
+      onSaved: (newValue) => companyName = newValue,
+      decoration: InputDecoration(
+        labelText: "Company Name",
+        hintText: "Company's Name",
+        // If  you are using latest version of flutter then lable text and hint text shown like this
+        // if you r using flutter less then 1.20.* then maybe this is not working properly
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Conservation.svg"),
+      ),
+    );
+  }
+
+  TextFormField buildFirstNameFormField() {
+    return TextFormField(
+      onSaved: (newValue) => firstName = newValue,
+      onChanged: (value) {
+        if (value.isNotEmpty) {
+          removeError(error: kNamelNullError);
+        }
+        return null;
+      },
+      validator: (value) {
+        if (value!.isEmpty) {
+          addError(error: kNamelNullError);
+          return "";
+        }
+        return null;
+      },
+      decoration: InputDecoration(
+        labelText: "Name",
+        hintText: "Enter your Name",
+        // If  you are using latest version of flutter then lable text and hint text shown like this
+        // if you r using flutter less then 1.20.* then maybe this is not working properly
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/User.svg"),
+      ),
+    );
+  }
+
+/*
+  TextFormField buildLastNameFormField() {
+    return TextFormField(
+      onSaved: (newValue) => lastName = newValue,
+      decoration: InputDecoration(
+        labelText: "Last Name",
+        hintText: "Enter your Last name",
+        // If  you are using latest version of flutter then lable text and hint text shown like this
+        // if you r using flutter less then 1.20.* then maybe this is not working properly
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/User.svg"),
+      ),
+    );
+  }
+   */
 }

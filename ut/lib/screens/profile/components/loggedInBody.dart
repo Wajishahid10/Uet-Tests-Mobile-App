@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'package:uet_tests/main.dart';
 import 'profile_menu.dart';
 import 'profile_pic.dart';
 
@@ -35,7 +36,10 @@ class LoggedInBody extends StatelessWidget {
           ProfileMenu(
             text: "Log Out",
             icon: "assets/icons/Log out.svg",
-            press: () {},
+            press: () {
+              auth.signOut();
+              Navigator.of(context).pop();
+            },
           ),
         ],
       ),

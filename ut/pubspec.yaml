@@ -36,6 +36,9 @@ dependencies:
   image_picker:
   pdf:
   shimmer:
+  dio:
+  path:
+  path_provider:
   image_crop:
   firebase_core:
   firebase_auth:
