@@ -86,12 +86,19 @@ class _SignFormState extends State<SignForm> {
                       email: email!, password: password!);
                 } on FirebaseAuthException catch (e) {
                   if (e.hashCode == "user-not-found") {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content:
+                            Text('No Such User. You\'ve to create Account.'),
+                      ),
+                    );
                   } else if (e.code == "") {}
 
                   //  else if (e.code == "") {}
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      content: Text('Couldn\'t Login due to ' + e.toString()),
+                      content: Text(
+                          'Couldn\'t Login due to ' + e.message.toString()),
                     ),
                   );
                 }

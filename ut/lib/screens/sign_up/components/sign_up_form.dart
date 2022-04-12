@@ -162,6 +162,11 @@ class _SignUpFormState extends State<SignUpForm> {
 
                   //        return userCredential.user;
                 } on FirebaseAuthException catch (e) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(e.message!),
+                    ),
+                  );
                   print(
                       "An error occured while trying to send Email Verification");
                   print(e.toString());

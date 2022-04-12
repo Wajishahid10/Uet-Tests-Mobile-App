@@ -94,37 +94,38 @@ void signupwithGoogle(Map loginData, BuildContext context) async {
 void signup(Map loginData, Map completeData, XFile? displayPicture,
     BuildContext context) async {
   String query = 'https://uet-test.herokuapp.com/api/signup';
+  try {
+    http.Response responseRecieved = await post(query, loginData);
 
-  http.Response responseRecieved = await post(query, loginData);
+    if (responseRecieved.statusCode == 201) {
+      // Created
+      print(responseRecieved.body);
+      Map<String, dynamic> login_manager = json.decode(responseRecieved.body);
+      print(login_manager["LoginID"]);
+      completeData["UserID"] = login_manager["LoginID"];
 
-  if (responseRecieved.statusCode == 201) {
-    // Created
-    print(responseRecieved.body);
-    Map<String, dynamic> login_manager = json.decode(responseRecieved.body);
-    print(login_manager["LoginID"]);
-    completeData["UserID"] = login_manager["LoginID"];
+      completeData["Display_Picture"] =
+          base64Encode(await displayPicture!.readAsBytes());
 
-    completeData["Display_Picture"] =
-        base64Encode(await displayPicture!.readAsBytes());
+      completeSignup(completeData, context);
 
-    completeSignup(completeData, context);
+      //  Navigator.pushReplacementNamed(context, emailVerificationScreen.routeName);
 
-    //  Navigator.pushReplacementNamed(context, emailVerificationScreen.routeName);
+      print("New Account Created");
+    } else if (responseRecieved.statusCode == 208) {
+      // Already Present
 
-    print("New Account Created");
-  } else if (responseRecieved.statusCode == 208) {
-    // Already Present
+      // Yeahi Uper wala Code agr User Add nhi u¡hua, Wrna Home Screen
 
-    // Yeahi Uper wala Code agr User Add nhi u¡hua, Wrna Home Screen
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('You Already have an Account. Signin Instead.'),
+        ),
+      );
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('You Already have an Account. Signin Instead.'),
-      ),
-    );
-
-    print("Account Already Present");
-  }
+      print("Account Already Present");
+    }
+  } catch (onError) {}
 }
 
 void completeSignup(Map data, BuildContext context) async {
