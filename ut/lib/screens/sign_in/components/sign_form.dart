@@ -20,7 +20,6 @@ class _SignFormState extends State<SignForm> {
   final _formKey = GlobalKey<FormState>();
   String? email;
   String? password;
-  bool? remember = false;
   final List<String?> errors = [];
 
   void addError({String? error}) {
@@ -49,16 +48,6 @@ class _SignFormState extends State<SignForm> {
           SizedBox(height: getProportionateScreenHeight(30)),
           Row(
             children: [
-              Checkbox(
-                value: remember,
-                activeColor: kPrimaryColor,
-                onChanged: (value) {
-                  setState(() {
-                    remember = value;
-                  });
-                },
-              ),
-              Text("Remember me"),
               Spacer(),
               GestureDetector(
                 onTap: () => Navigator.pushNamed(
@@ -76,7 +65,7 @@ class _SignFormState extends State<SignForm> {
             text: "Continue",
             press: () async {
               if (_formKey.currentState!.validate()) {
-                // _formKey.currentState!.save();
+                _formKey.currentState!.save();
                 // if all are valid then go to success screen
 
                 //        _formKey.currentState!.save();
@@ -116,7 +105,7 @@ class _SignFormState extends State<SignForm> {
   TextFormField buildPasswordFormField() {
     return TextFormField(
       obscureText: true,
-      onSaved: (newValue) => password = newValue,
+      onSaved: (newValue) => password = newValue!,
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: kPassNullError);
@@ -149,7 +138,7 @@ class _SignFormState extends State<SignForm> {
   TextFormField buildEmailFormField() {
     return TextFormField(
       keyboardType: TextInputType.emailAddress,
-      onSaved: (newValue) => email = newValue,
+      onSaved: (newValue) => email = newValue!,
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: kEmailNullError);

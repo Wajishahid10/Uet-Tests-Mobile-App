@@ -82,6 +82,8 @@ void signupwithGoogle(Map loginData, BuildContext context) async {
 
   http.Response responseRecieved = await post(query, loginData);
 
+  Navigator.pushReplacementNamed(context, LoginSuccessScreen.routeName);
+
   if (responseRecieved.statusCode == 200) {
     // Created
 
@@ -109,7 +111,8 @@ void signup(Map loginData, Map completeData, XFile? displayPicture,
 
       completeSignup(completeData, context);
 
-      //  Navigator.pushReplacementNamed(context, emailVerificationScreen.routeName);
+      Navigator.pushReplacementNamed(
+          context, emailVerificationScreen.routeName);
 
       print("New Account Created");
     } else if (responseRecieved.statusCode == 208) {
