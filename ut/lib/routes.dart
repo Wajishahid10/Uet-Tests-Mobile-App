@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:uet_tests/screens/cart/cart_screen.dart';
+import 'package:uet_tests/screens/gallery/gallery_screen.dart';
 import 'package:uet_tests/screens/complete_profile/complete_profile_screen.dart';
 import 'package:uet_tests/screens/details/details_screen.dart';
 import 'package:uet_tests/screens/forgot_password/forgot_password_screen.dart';
@@ -18,12 +19,13 @@ final Map<String, WidgetBuilder> routes = {
   SplashScreen.routeName: (context) => SplashScreen(),
   SignInScreen.routeName: (context) => SignInScreen(),
   ForgotPasswordScreen.routeName: (context) => ForgotPasswordScreen(),
-  LoginSuccessScreen.routeName: (context) => LoginSuccessScreen(),
+  LoginSuccessScreen.routeName: (context) => new LoginSuccessScreen(),
   SignUpScreen.routeName: (context) => SignUpScreen(),
   CompleteProfileScreen.routeName: (context) => CompleteProfileScreen(),
   emailVerificationScreen.routeName: (context) => emailVerificationScreen(),
   HomeScreen.routeName: (context) => HomeScreen(),
   DetailsScreen.routeName: (context) => DetailsScreen(),
+  GalleryScreen.routeName: (context) => GalleryScreen(),
   CartScreen.routeName: (context) => CartScreen(),
   ProfileScreen.routeName: (context) => ProfileScreen(),
 };

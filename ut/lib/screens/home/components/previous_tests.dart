@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:uet_tests/components/product_card.dart';
 import 'package:uet_tests/database/Product.dart';
+import 'package:uet_tests/screens/gallery/gallery_screen.dart';
 
 import '../../../size_config.dart';
 import 'section_title.dart';
@@ -13,7 +14,12 @@ class PreviousTests extends StatelessWidget {
         Padding(
           padding:
               EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
-          child: SectionTitle(title: "Previous Tests", press: () {}),
+          child: SectionTitle(
+              title: "Previous Tests",
+              press: () {
+                Navigator.pushReplacementNamed(
+                    context, GalleryScreen.routeName);
+              }),
         ),
         SizedBox(height: getProportionateScreenWidth(20)),
         SingleChildScrollView(

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:uet_tests/database/apis.dart';
 
+import 'package:uet_tests/screens/login_success/login_success_screen.dart';
 import 'package:uet_tests/main.dart';
 
 final GoogleSignIn _googleSignIn = GoogleSignIn();
@@ -22,15 +23,22 @@ Future<void> signInGmail(BuildContext context) async {
     },
   );
 
-  if (await _googleSignIn.isSignedIn()) {
-    Map credMap = {
-      "GoogleSiginUID": auth.currentUser!.uid,
-      "Account_Type": "1"
-    };
+  final UserCredential authResult =
+      await auth.signInWithCredential(authCredential);
 
-    signupwithGoogle(credMap, context);
+  if (authResult.additionalUserInfo!.isNewUser) {
+    if (await _googleSignIn.isSignedIn()) {
+      Map credMap = {
+        "GoogleSiginUID": auth.currentUser!.uid,
+        "Account_Type": "1"
+      };
 
+      signupwithGoogle(credMap, context);
+    }
+  } else {
     ScaffoldMessenger.of(context)
         .showSnackBar(SnackBar(content: Text('Google Login Successfully')));
+
+    Navigator.pushReplacementNamed(context, LoginSuccessScreen.routeName);
   }
 }

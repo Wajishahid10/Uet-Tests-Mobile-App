@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
+
 class Login_Manager {
   int? LoginID;
   String? GoogleSiginUID;
@@ -198,4 +200,147 @@ class Department {
 List<Department> parseDepartmentsData(String responseBody) {
   final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
   return parsed.map<Department>((json) => Department.fromJson(json)).toList();
+/*
+products = res.data['products']
+        .map<Product>(
+          (item) => Product.fromJson(item),lib/database/models.dart
+        )lib/database/models.dart
+        .toList();
+*/
+}
+
+class Test {
+  int? testID;
+  String? testName;
+  int? departmentID;
+  String? Description;
+  String? Estimates_Testing_Time;
+  Map<String, dynamic>? Test_Sample_Attributes;
+  String? Image;
+  int? Price;
+  int? Test_Counts;
+  String? TestCreated;
+
+  Test({
+    this.testID,
+    this.testName,
+    this.departmentID,
+    this.Description,
+    this.Estimates_Testing_Time,
+    this.Test_Sample_Attributes,
+    this.Image,
+    this.Price,
+    this.Test_Counts,
+    this.TestCreated,
+  });
+
+  factory Test.fromJson(Map<String, dynamic> json) {
+    return Test(
+      testID: json["testID"],
+      testName: json["testName"],
+      departmentID: json["departmentID"],
+      Description: json["Description"],
+      Estimates_Testing_Time: json["Estimates_Testing_Time"],
+      Test_Sample_Attributes: json["Test_Sample_Attributes"],
+      Price: json["Price"],
+      Image: json["Image"],
+      Test_Counts: json["Test_Counts"],
+      TestCreated: json["TestCreated"],
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'testID': testID,
+      'testName': testName,
+      'departmentID': departmentID,
+      'Description': Description,
+      'Estimates_Testing_Time': Estimates_Testing_Time,
+      'Test_Sample_Attributes': Test_Sample_Attributes,
+      'Image': Image,
+      'Price': Price,
+      'Test_Counts': Test_Counts,
+      'TestCreated': TestCreated,
+    };
+  }
+}
+
+class Order {
+  int? Order_ID;
+  int? Test_ID;
+  int? User_ID;
+  String? OrderCompletionTime;
+  String? Status;
+  Map<String, dynamic>? Test_Sample_Attributes;
+  int? Total_Bill;
+
+  Order({
+    this.Order_ID,
+    this.Test_ID,
+    this.User_ID,
+    this.OrderCompletionTime,
+    this.Status,
+    this.Test_Sample_Attributes,
+    this.Total_Bill,
+  });
+
+  factory Order.fromJson(Map<String, dynamic> json) {
+    return Order(
+      Order_ID: json["Order_ID"],
+      Test_ID: json["Test_ID"],
+      User_ID: json["User_ID"],
+      OrderCompletionTime: json["OrderCompletionTime"],
+      Status: json["Status"],
+      Test_Sample_Attributes: json["Test_Sample_Attributes"],
+      Total_Bill: json["Total_Bill"],
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'Order_ID': Order_ID,
+      'Test_ID': Test_ID,
+      'User_ID': User_ID,
+      'OrderCompletionTime': OrderCompletionTime,
+      'Test_Sample_Attributes': Test_Sample_Attributes,
+      'Status': Status,
+      'Total_Bill': Total_Bill,
+    };
+  }
+}
+
+class Result {
+  int? Result_ID;
+  int? Order_ID;
+  String? ResultDescription;
+  String? Image;
+  Map<String, dynamic>? Details;
+
+  Result({
+    this.Result_ID,
+    this.Order_ID,
+    this.ResultDescription,
+    this.Image,
+    this.Details,
+  });
+
+  factory Result.fromJson(Map<String, dynamic> json) {
+    return Result(
+      Order_ID: json["Order_ID"],
+      Result_ID: json["Result_ID"],
+      ResultDescription: json["ResultDescription"],
+      Image: json["Image"],
+      Details: json["Details"],
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'Order_ID': Order_ID,
+      'Result_ID': Result_ID,
+      'ResultDescription': ResultDescription,
+      'Image': Image,
+      'Details': Details,
+    };
+  }
 }

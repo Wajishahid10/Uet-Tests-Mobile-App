@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
@@ -15,6 +15,8 @@ import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as path;
 
 import 'package:dio/dio.dart';
+
+final baseAPI = 'https://uet-tests.herokuapp.com/api/';
 
 Future<http.Response> post(String query, Map data) async {
   String _dataToSend = json.encode(data);
@@ -64,8 +66,7 @@ List<Login_Manager> parseLoginManagerList(String responseBody) {
 
 Future<http.Response> getLoginManagerfromUID() async {
   String uid = auth.currentUser!.uid;
-  String query =
-      'https://uet-test.herokuapp.com/api/getLoginManagerFromUID/$uid/';
+  String query = baseAPI + 'getLoginManagerFromUID/$uid/';
 
   http.Response responseRecieved = await get(query);
 
@@ -78,24 +79,52 @@ Future<http.Response> getLoginManagerfromUID() async {
 }
 
 void signupwithGoogle(Map loginData, BuildContext context) async {
-  String query = 'https://uet-test.herokuapp.com/api/signup';
+  String query = baseAPI + 'signup';
 
   http.Response responseRecieved = await post(query, loginData);
 
-  Navigator.pushReplacementNamed(context, LoginSuccessScreen.routeName);
+  print(responseRecieved);
 
-  if (responseRecieved.statusCode == 200) {
-    // Created
+  Navigator.pushReplacementNamed(context, CompleteProfileScreen.routeName);
+}
 
-    Navigator.pushReplacementNamed(context, CompleteProfileScreen.routeName);
+Future<void> login(
+    String? email, String? password, BuildContext context) async {
+  try {
+    await auth.signInWithEmailAndPassword(email: email!, password: password!);
+    String query = baseAPI + 'getLoginManagerFromUID/$auth.currentUser!.uid';
 
-    print("New Account Created");
+    http.Response responseRecieved = await get(query);
+
+    print(responseRecieved.body);
+
+    Navigator.pushNamed(context, LoginSuccessScreen.routeName);
+
+    if (responseRecieved.body[3] == '1') {
+      // Customer
+      Navigator.pushNamed(context, LoginSuccessScreen.routeName);
+    }
+  } on FirebaseAuthException catch (e) {
+    if (e.hashCode == "user-not-found") {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('No Such User. You\'ve to create Account.'),
+        ),
+      );
+    } else if (e.code == "") {}
+
+    //  else if (e.code == "") {}
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Couldn\'t Login due to ' + e.message.toString()),
+      ),
+    );
   }
 }
 
 void signup(Map loginData, Map completeData, XFile? displayPicture,
     BuildContext context) async {
-  String query = 'https://uet-test.herokuapp.com/api/signup';
+  String query = baseAPI + 'signup';
   try {
     http.Response responseRecieved = await post(query, loginData);
 
@@ -111,14 +140,11 @@ void signup(Map loginData, Map completeData, XFile? displayPicture,
 
       completeSignup(completeData, context);
 
-      Navigator.pushReplacementNamed(
-          context, emailVerificationScreen.routeName);
-
       print("New Account Created");
     } else if (responseRecieved.statusCode == 208) {
       // Already Present
 
-      // Yeahi Uper wala Code agr User Add nhi u¡hua, Wrna Home Screen
+      // Yeahi Uper wala Code agr User Add nhi hua, Wrna Home Screen
 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -132,7 +158,7 @@ void signup(Map loginData, Map completeData, XFile? displayPicture,
 }
 
 void completeSignup(Map data, BuildContext context) async {
-  String query = 'https://uet-test.herokuapp.com/api/user';
+  String query = baseAPI + 'user';
 
   print("Completing Sigup");
 
@@ -140,6 +166,7 @@ void completeSignup(Map data, BuildContext context) async {
 
   print(responseRecieved.body);
 
+  Navigator.pushReplacementNamed(context, emailVerificationScreen.routeName);
   /*
   Navigator.push(
       context,
@@ -201,7 +228,7 @@ void completeSignup(Map data, BuildContext context) async {
 
   Login_Manager login_manager = parseLoginManager(response.body);
 
-  String query = 'https://uet-test.herokuapp.com/api/user';
+  String query = baseAPI+'user';
 
   http.Response responseRecieved = await post(query, data);
 

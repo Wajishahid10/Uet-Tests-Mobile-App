@@ -87,9 +87,19 @@ class _SignUpFormState extends State<SignUpForm> {
             child: Container(
               decoration: BoxDecoration(
                 color: Color(0xFFF5F6F9),
-                shape: BoxShape.circle,
               ),
-              child: Icon(Icons.camera_alt),
+              child: Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Profile Picture',
+                      style: TextStyle(fontSize: 22, fontFamily: 'bold'),
+                    ),
+                    Icon(Icons.camera_alt),
+                  ],
+                ),
+              ),
             ),
             elevation: 20,
             itemBuilder: (context) => [

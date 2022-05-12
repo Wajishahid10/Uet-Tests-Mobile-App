@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:uet_tests/main.dart';
 import 'profile_menu.dart';
 import 'profile_pic.dart';
@@ -36,8 +37,12 @@ class LoggedInBody extends StatelessWidget {
           ProfileMenu(
             text: "Log Out",
             icon: "assets/icons/Log out.svg",
-            press: () {
-              auth.signOut();
+            press: () async {
+              final GoogleSignIn _googleSignIn = GoogleSignIn();
+              if (await _googleSignIn.isSignedIn()) {
+                await _googleSignIn.signOut();
+              }
+              await auth.signOut();
               Navigator.of(context).pop();
             },
           ),

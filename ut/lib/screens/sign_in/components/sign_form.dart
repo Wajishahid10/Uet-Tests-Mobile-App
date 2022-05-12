@@ -1,14 +1,12 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:uet_tests/components/custom_surfix_icon.dart';
 import 'package:uet_tests/components/form_error.dart';
+import 'package:uet_tests/database/apis.dart';
 import 'package:uet_tests/helper/keyboard.dart';
 import 'package:uet_tests/screens/forgot_password/forgot_password_screen.dart';
-import 'package:uet_tests/screens/login_success/login_success_screen.dart';
 
 import '../../../components/default_button.dart';
 import '../../../constants.dart';
-import '../../../main.dart';
 import '../../../size_config.dart';
 
 class SignForm extends StatefulWidget {
@@ -68,32 +66,8 @@ class _SignFormState extends State<SignForm> {
                 _formKey.currentState!.save();
                 // if all are valid then go to success screen
 
-                //        _formKey.currentState!.save();
-                // if all are valid then go to success screen
-                try {
-                  await auth.signInWithEmailAndPassword(
-                      email: email!, password: password!);
-                } on FirebaseAuthException catch (e) {
-                  if (e.hashCode == "user-not-found") {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content:
-                            Text('No Such User. You\'ve to create Account.'),
-                      ),
-                    );
-                  } else if (e.code == "") {}
-
-                  //  else if (e.code == "") {}
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(
-                          'Couldn\'t Login due to ' + e.message.toString()),
-                    ),
-                  );
-                }
+                login(email, password, context);
                 KeyboardUtil.hideKeyboard(context);
-
-                Navigator.pushNamed(context, LoginSuccessScreen.routeName);
               }
             },
           ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:uet_tests/screens/gallery/gallery_screen.dart';
 
 import '../../../size_config.dart';
 import 'section_title.dart';
@@ -17,7 +18,9 @@ class Categories extends StatelessWidget {
               EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
           child: SectionTitle(
             title: "Categories",
-            press: () {},
+            press: () {
+              Navigator.pushReplacementNamed(context, GalleryScreen.routeName);
+            },
           ),
         ),
         SizedBox(height: getProportionateScreenWidth(20)),

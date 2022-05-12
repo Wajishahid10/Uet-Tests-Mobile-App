@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:uet_tests/components/google_SignIn.dart';
+import 'package:uet_tests/screens/gallery/gallery_screen.dart';
 import 'package:uet_tests/screens/home/home_screen.dart';
 import 'package:uet_tests/screens/profile/profile_screen.dart';
 import 'package:uet_tests/screens/splash/splash_screen.dart';
@@ -62,7 +63,7 @@ class MyApp extends StatelessWidget {
       initialRoute: _isFirstTime
           ? SplashScreen.routeName
           : _isUserCustomer
-              ? HomeScreen.routeName
+              ? GalleryScreen.routeName
               : HomeScreen.routeName,
       routes: routes,
     );
