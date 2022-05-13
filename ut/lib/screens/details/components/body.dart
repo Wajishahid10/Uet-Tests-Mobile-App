@@ -4,7 +4,7 @@ import 'package:uet_tests/constants.dart';
 import 'package:uet_tests/database/Product.dart';
 import 'package:uet_tests/size_config.dart';
 
-//  import 'color_dots.dart';
+import 'order_form.dart';
 import 'product_description.dart';
 import 'rounded_container.dart';
 import 'product_images.dart';
@@ -25,17 +25,19 @@ class Body extends StatelessWidget {
             children: [
               ProductDescription(
                 product: product,
-                pressOnSeeMore: () {},
               ),
               // TopRoundedContainer(
+              SizedBox(height: getProportionateScreenWidth(10)),
+              OrderForm(
+                test: product,
+              ),
+              SizedBox(height: getProportionateScreenWidth(10)),
               Container(
                 color: kSecondaryColor.withOpacity(0.3),
                 child: Column(
                   children: [
                     //  ColorDots(product: product),
-                    Divider(
-                      color: Colors.transparent,
-                    ),
+                    //   SizedBox(height: getProportionateScreenWidth(10)),
                     RoundedContainer(
                       //  color: kSecondaryLightColor.withOpacity(0.3),
                       color: kSecondaryColor.withOpacity(0.3),

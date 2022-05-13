@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../database/Product.dart';
+import '../../../size_config.dart';
 import 'components/body.dart';
 
 class GalleryScreen extends StatelessWidget {
@@ -9,6 +10,8 @@ class GalleryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // final ProductDetailsArguments agrs =ModalRoute.of(context)!.settings.arguments as ProductDetailsArguments;
+
+    SizeConfig().init(context);
     return Scaffold(
       /**
       PreferredSize(

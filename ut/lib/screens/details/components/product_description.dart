@@ -5,16 +5,19 @@ import 'package:uet_tests/database/Product.dart';
 import '../../../constants.dart';
 import '../../../size_config.dart';
 
-class ProductDescription extends StatelessWidget {
+class ProductDescription extends StatefulWidget {
   const ProductDescription({
     Key? key,
     required this.product,
-    this.pressOnSeeMore,
   }) : super(key: key);
 
   final Product product;
-  final GestureTapCallback? pressOnSeeMore;
 
+  @override
+  _ProductDescriptionState createState() => _ProductDescriptionState();
+}
+
+class _ProductDescriptionState extends State<ProductDescription> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -24,42 +27,17 @@ class ProductDescription extends StatelessWidget {
           padding:
               EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
           child: Text(
-            product.title,
+            widget.product.title,
             style: Theme.of(context).textTheme.headline6,
           ),
         ),
-        /*    Favourite Button
-        Align(
-          alignment: Alignment.centerRight,
-          child: Container(
-            padding: EdgeInsets.all(getProportionateScreenWidth(15)),
-            width: getProportionateScreenWidth(64),
-            decoration: BoxDecoration(
-              color:
-                  product.isFavourite ? Color(0xFFFFE6E6) : Color(0xFFF5F6F9),
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20),
-                bottomLeft: Radius.circular(20),
-              ),
-            ),
-            child: SvgPicture.asset(
-              "assets/icons/Heart Icon_2.svg",
-              color:
-                  product.isFavourite ? Color(0xFFFF4848) : Color(0xFFDBDEE4),
-              height: getProportionateScreenWidth(16),
-            ),
-          ),
-        ),
-        */
         Padding(
           padding: EdgeInsets.only(
             left: getProportionateScreenWidth(20),
             right: getProportionateScreenWidth(64),
           ),
-          child: Text(
-            product.description,
-            style: TextStyle(color: kTextColor),
-            maxLines: 3,
+          child: buildText(
+            widget.product.description,
           ),
         ),
         Padding(
@@ -71,10 +49,20 @@ class ProductDescription extends StatelessWidget {
             onTap: () {},
             child: Row(
               children: [
-                Text(
-                  "See More Detail",
-                  style: TextStyle(
-                      fontWeight: FontWeight.w600, color: kPrimaryColor),
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      // toggle the bool variable true or false
+                      isReadmore = !isReadmore;
+                    });
+                  },
+                  child: Text(
+                    isReadmore ? 'See Less Detail' : 'See More Detail',
+                    style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        color:
+                            !isReadmore ? kPrimaryColor : kPrimaryLightColor),
+                  ),
                 ),
                 SizedBox(width: 5),
                 Icon(
@@ -93,4 +81,19 @@ class ProductDescription extends StatelessWidget {
       ],
     );
   }
+}
+
+bool isReadmore = false;
+
+Widget buildText(String text) {
+  // if read more is false then show only 3 lines from text
+  // else show full text
+  final lines = isReadmore ? null : 3;
+  return Text(
+    text, style: TextStyle(color: kTextColor),
+    maxLines: lines,
+    // overflow properties is used to show 3 dot in text widget
+    // so that user can understand there are few more line to read.
+    overflow: isReadmore ? TextOverflow.visible : TextOverflow.ellipsis,
+  );
 }

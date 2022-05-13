@@ -61,9 +61,10 @@ class MyApp extends StatelessWidget {
       title: 'UET Tests',
       theme: theme(),
       initialRoute: _isFirstTime
-          ? SplashScreen.routeName
+          //    ? SplashScreen.routeName
+          ? GalleryScreen.routeName
           : _isUserCustomer
-              ? GalleryScreen.routeName
+              ? HomeScreen.routeName
               : HomeScreen.routeName,
       routes: routes,
     );

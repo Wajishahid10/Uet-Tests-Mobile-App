@@ -269,9 +269,9 @@ class Order {
   int? Order_ID;
   int? Test_ID;
   int? User_ID;
-  String? OrderCompletionTime;
-  String? Status;
   Map<String, dynamic>? Test_Sample_Attributes;
+  String? Status;
+  String? OrderCompletionTime;
   int? Total_Bill;
 
   Order({
