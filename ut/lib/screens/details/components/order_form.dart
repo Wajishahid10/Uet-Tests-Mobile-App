@@ -7,8 +7,9 @@ import 'package:uet_tests/components/form_error.dart';
 import 'package:uet_tests/database/Product.dart';
 import 'package:uet_tests/database/apis.dart';
 import 'package:uet_tests/database/models.dart';
+import 'package:uet_tests/screens/details/components/rounded_container.dart';
 import 'package:uet_tests/screens/login_success/login_success_screen.dart';
-import 'package:uet_tests/main.dart';
+import 'package:uet_tests/components/form_error.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
@@ -48,29 +49,32 @@ class _OrderFormState extends State<OrderForm> {
         children: [
           buildAttributesFormField(widget.test),
           SizedBox(
-            height: getProportionateScreenHeight(30),
+            height: getProportionateScreenHeight(10),
           ),
-          SizedBox(
-            height: getProportionateScreenHeight(40),
-          ),
-          DefaultButton(
-            text: "Continue",
-            press: () async {
-              if (_formKey.currentState!.validate()) {
-                /**
-                Map completeMap = {
-                  "UserID": auth.currentUser!.uid,
-                  "userName": firstName,
-                  "Company": companyName,
-                  "Contact_Number": phoneNumber,
-                  "Address": address,
-                  "Email_Address": auth.currentUser!.email,
-                };
-                
-                completeSignup(completeMap, context);
- */
-              }
-            },
+          FormError(errors: errors),
+          Container(
+            color: kSecondaryColor.withOpacity(0.3),
+            child: Column(
+              children: [
+                RoundedContainer(
+                  color: kSecondaryColor.withOpacity(0.3),
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                      left: SizeConfig.screenWidth * 0.15,
+                      right: SizeConfig.screenWidth * 0.15,
+                      bottom: getProportionateScreenWidth(40),
+                      top: getProportionateScreenWidth(15),
+                    ),
+                    child: DefaultButton(
+                      text: "Order Test",
+                      press: () {
+                        if (_formKey.currentState!.validate()) {}
+                      },
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       ),
@@ -81,7 +85,7 @@ class _OrderFormState extends State<OrderForm> {
     //int nOfAttribute=test.Test_Sample_Attributes!.length;
     int nOfAttribute = 3;
     return nOfAttribute == 0
-        ? const Text('Please Enter Number of Attributes First')
+        ? const Text('No Need Attributes Needed')
         : ListView.builder(
             padding: const EdgeInsets.all(12),
             itemCount: nOfAttribute,
@@ -96,11 +100,13 @@ class _OrderFormState extends State<OrderForm> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
+                    /**
                     decoration: BoxDecoration(
                       borderRadius:
                           const BorderRadius.all(Radius.circular(8.0)),
-                      border: Border.all(width: 2.0, color: Colors.blueGrey),
+                      border: Border.all(width: 2.0, color: kPrimaryColor),
                     ),
+                     */
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,

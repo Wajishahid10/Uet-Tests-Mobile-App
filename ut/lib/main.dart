@@ -62,7 +62,7 @@ class MyApp extends StatelessWidget {
       theme: theme(),
       initialRoute: _isFirstTime
           //    ? SplashScreen.routeName
-          ? GalleryScreen.routeName
+          ? HomeScreen.routeName
           : _isUserCustomer
               ? HomeScreen.routeName
               : HomeScreen.routeName,

@@ -8,15 +8,15 @@ import 'package:uet_tests/database/Cart.dart';
 import 'package:uet_tests/database/models.dart';
 
 import '../../../size_config.dart';
-import 'cart_card.dart';
+import 'result_card.dart';
 
 class Body extends StatefulWidget {
   @override
   _BodyState createState() => _BodyState();
 }
 
-Future<List<Test>> loadTest() async {
-  List<Test> demoTests;
+Future<List<List<Object>>> loadResults() async {
+  List<List<Object>> demoTests;
   ByteData image1 = await rootBundle.load('assets/images/sv1.jpg');
   String convertedImage1 = base64Encode(
       image1.buffer.asUint8List(image1.offsetInBytes, image1.lengthInBytes));
@@ -30,89 +30,143 @@ Future<List<Test>> loadTest() async {
   String convertedImage4 = base64Encode(
       image4.buffer.asUint8List(image4.offsetInBytes, image4.lengthInBytes));
   demoTests = [
-    Test(
-      testID: 1,
-      departmentID: 1,
-      Test_Counts: 34,
-      TestCreated: '30-01-2023',
-      Image: convertedImage1,
-      testName: "Sieve Analysis",
-      Price: 764,
-      Description:
-          "A sieve analysis is an analytical technique used to determine the particle size distribution of a granular material with macroscopic granular sizes. The sieve analysis technique involves several layers of sieves with different grades of sieve opening sizes.",
-      Estimates_Testing_Time: '48 hours',
-      Test_Sample_Attributes: {
-        'Attribute1': 'Diameter',
-        'Attribute2': 'Width',
-        'Attribute3': 'Weight',
-      },
-    ),
-    Test(
-      testID: 2,
-      departmentID: 1,
-      Test_Counts: 34,
-      TestCreated: '30-01-2023',
-      Image: convertedImage2,
-      testName: "Liquid Limit and Plastic Limit Test",
-      Price: 650,
-      Description:
-          "Liquid Limit (LL) is the water content at which soil changes from a plastic to a liquid state when the soil specimen is just fluid enough for a groove to close when jarred in a specified manner. Plastic Limit (PL) is the water content at the change from a plastic to a semi-solid state.",
-      Estimates_Testing_Time: '48 hours',
-      Test_Sample_Attributes: {
-        'Attribute1': 'Diameter',
-        'Attribute2': 'Width',
-        'Attribute3': 'Weight',
-      },
-    ),
-    Test(
-      testID: 3,
-      departmentID: 1,
-      Test_Counts: 34,
-      TestCreated: '30-01-2023',
-      Image: convertedImage3,
-      testName: "Moisture Content (Oven Dry Method)",
-      Price: 684,
-      Description:
-          "Moisture content is expressed as a percentage of the oven-dry weight of the soil. For example, if a 212-gram moist soil sample weighs 197 grams after drying, the percentage of moisture is calculated by dividing 197 into 15, which gives 7.6 percent.",
-      Estimates_Testing_Time: '76 hours',
-      Test_Sample_Attributes: {
-        'Attribute1': 'Diameter',
-        'Attribute2': 'Width',
-        'Attribute3': 'Weight',
-      },
-    ),
-    Test(
-      testID: 4,
-      departmentID: 1,
-      Test_Counts: 34,
-      TestCreated: '30-01-2023',
-      Image: convertedImage4,
-      testName: "Sieve",
-      Price: 960,
-      Description:
-          "Moisture content is expressed as a percentage of the oven-dry weight of the soil. For example, if a 212-gram moist soil sample weighs 197 grams after drying, the percentage of moisture is calculated by dividing 197 into 15, which gives 7.6 percent.",
-      Estimates_Testing_Time: '36 hours',
-      Test_Sample_Attributes: {
-        'Attribute1': 'Diameter',
-        'Attribute2': 'Width',
-        'Attribute3': 'Weight',
-      },
-    ),
+    [
+      Test(
+        testID: 1,
+        departmentID: 1,
+        Test_Counts: 34,
+        TestCreated: '30-01-2023',
+        Image: convertedImage1,
+        testName: "Sieve Analysis",
+        Price: 764,
+        Description:
+            "A sieve analysis is an analytical technique used to determine the particle size distribution of a granular material with macroscopic granular sizes. The sieve analysis technique involves several layers of sieves with different grades of sieve opening sizes.",
+        Estimates_Testing_Time: '48 hours',
+        Test_Sample_Attributes: {
+          'Attribute1': 'Diameter',
+          'Attribute2': 'Width',
+          'Attribute3': 'Weight',
+        },
+      ),
+      Result(
+        Result_ID: 1,
+        Order_ID: 1,
+        ResultDescription: 'Some Things were missing',
+        Image: convertedImage1,
+        Details: {
+          'Diameter': 32,
+          'Width': 32,
+          'Weight': 32,
+        },
+      ),
+    ],
+    [
+      Test(
+        testID: 2,
+        departmentID: 1,
+        Test_Counts: 34,
+        TestCreated: '30-01-2023',
+        Image: convertedImage2,
+        testName: "Liquid Limit and Plastic Limit Test",
+        Price: 650,
+        Description:
+            "Liquid Limit (LL) is the water content at which soil changes from a plastic to a liquid state when the soil specimen is just fluid enough for a groove to close when jarred in a specified manner. Plastic Limit (PL) is the water content at the change from a plastic to a semi-solid state.",
+        Estimates_Testing_Time: '48 hours',
+        Test_Sample_Attributes: {
+          'Attribute1': 'Diameter',
+          'Attribute2': 'Width',
+          'Attribute3': 'Weight',
+        },
+      ),
+      Result(
+        Result_ID: 2,
+        Order_ID: 2,
+        ResultDescription: 'ResultDescription',
+        Image: convertedImage2,
+        Details: {
+          'Diameter': 32,
+          'Width': 32,
+          'Weight': 32,
+        },
+      ),
+    ],
+    [
+      Test(
+        testID: 3,
+        departmentID: 1,
+        Test_Counts: 34,
+        TestCreated: '30-01-2023',
+        Image: convertedImage3,
+        testName: "Moisture Content (Oven Dry Method)",
+        Price: 684,
+        Description:
+            "Moisture content is expressed as a percentage of the oven-dry weight of the soil. For example, if a 212-gram moist soil sample weighs 197 grams after drying, the percentage of moisture is calculated by dividing 197 into 15, which gives 7.6 percent.",
+        Estimates_Testing_Time: '36 hours',
+        Test_Sample_Attributes: {
+          'Attribute1': 'Diameter',
+          'Attribute2': 'Width',
+          'Attribute3': 'Weight',
+        },
+      ),
+      Result(
+        Result_ID: 3,
+        Order_ID: 3,
+        ResultDescription: 'ResultDescription',
+        Image: convertedImage3,
+        Details: {
+          'Diameter': 32,
+          'Width': 32,
+          'Weight': 32,
+        },
+      ),
+    ],
+    [
+      Test(
+        testID: 4,
+        departmentID: 1,
+        Test_Counts: 34,
+        TestCreated: '30-01-2023',
+        Image: convertedImage4,
+        testName: "Sieve",
+        Price: 960,
+        Description:
+            "Moisture content is expressed as a percentage of the oven-dry weight of the soil. For example, if a 212-gram moist soil sample weighs 197 grams after drying, the percentage of moisture is calculated by dividing 197 into 15, which gives 7.6 percent.",
+        Estimates_Testing_Time: '36 hours',
+        Test_Sample_Attributes: {
+          'Attribute1': 'Diameter',
+          'Attribute2': 'Width',
+          'Attribute3': 'Weight',
+        },
+      ),
+      Result(
+        Result_ID: 4,
+        Order_ID: 4,
+        ResultDescription: 'ResultDescription',
+        Image: convertedImage4,
+        Details: {
+          'Diameter': 32,
+          'Width': 32,
+          'Weight': 32,
+        },
+      ),
+    ],
   ];
   return demoTests;
 }
 
 class _BodyState extends State<Body> {
-  late Future<List<Test>> demoTests = loadTest();
+  late Future<List<List<Object>>> demoResults = loadResults();
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: demoTests,
+      future: demoResults,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done &&
             snapshot.hasData) {
-          List<Test> demoTestsData = snapshot.data as List<Test>;
+          print(snapshot.data);
+          List<List<Object>> demoTestsData =
+              snapshot.data as List<List<Object>>;
           return Padding(
             padding: EdgeInsets.symmetric(
                 horizontal: getProportionateScreenWidth(20)),
@@ -145,7 +199,7 @@ class _BodyState extends State<Body> {
                       ],
                     ),
                   ),
-                  child: OrderCard(order: demoTestsData[index]),
+                  child: ResultCard(totalResult: demoTestsData[index]),
                 ),
               ),
             ),

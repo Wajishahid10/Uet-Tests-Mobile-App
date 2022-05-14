@@ -3,14 +3,14 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 
 class Login_Manager {
-  int? LoginID;
-  String? GoogleSiginUID;
-  String? Account_Type;
+  int LoginID;
+  String GoogleSiginUID;
+  String Account_Type;
 
   Login_Manager({
-    this.LoginID,
-    this.GoogleSiginUID,
-    this.Account_Type,
+    required this.LoginID,
+    required this.GoogleSiginUID,
+    required this.Account_Type,
   });
 
   factory Login_Manager.fromJson(Map<String, dynamic> json) {
@@ -43,24 +43,24 @@ List<Login_Manager> parseLogin_ManagersData(String responseBody) {
 }
 
 class User {
-  int? UserID;
-  String? userName;
-  String? Display_Picture;
-  String? Company;
-  String? Contact_Number;
-  String? Address;
-  String? Email_Address;
-  String? AccountCreated;
+  int UserID;
+  String userName;
+  String Display_Picture;
+  String Company;
+  String Contact_Number;
+  String Address;
+  String Email_Address;
+  String AccountCreated;
 
   User({
-    this.UserID,
-    this.userName,
-    this.Display_Picture,
-    this.Company,
-    this.Contact_Number,
-    this.Address,
-    this.Email_Address,
-    this.AccountCreated,
+    required this.UserID,
+    required this.userName,
+    required this.Display_Picture,
+    required this.Company,
+    required this.Contact_Number,
+    required this.Address,
+    required this.Email_Address,
+    required this.AccountCreated,
   });
 
   factory User.fromJson(Map<String, dynamic> json) {
@@ -101,24 +101,24 @@ List<User> parseUsersData(String responseBody) {
 }
 
 class Admin {
-  int? AdminID;
-  String? adminName;
-  String? Display_Picture;
-  String? Role;
-  String? Contact_Number;
-  String? Address;
-  String? Email_Address;
-  String? AccountCreated;
+  int AdminID;
+  String adminName;
+  String Display_Picture;
+  String Role;
+  String Contact_Number;
+  String Address;
+  String Email_Address;
+  String AccountCreated;
 
   Admin({
-    this.AdminID,
-    this.adminName,
-    this.Display_Picture,
-    this.Role,
-    this.Contact_Number,
-    this.Address,
-    this.Email_Address,
-    this.AccountCreated,
+    required this.AdminID,
+    required this.adminName,
+    required this.Display_Picture,
+    required this.Role,
+    required this.Contact_Number,
+    required this.Address,
+    required this.Email_Address,
+    required this.AccountCreated,
   });
 
   factory Admin.fromJson(Map<String, dynamic> json) {
@@ -154,22 +154,22 @@ List<Admin> parseAdminsData(String responseBody) {
 }
 
 class Department {
-  int? departmentID;
-  String? departmentName;
-  String? Display_Picture;
-  Admin? AdminID;
-  String? Contact_Number_toDisplay;
-  String? Email_Address;
-  String? DepartmentCreated;
+  int departmentID;
+  String departmentName;
+  String Display_Picture;
+  int AdminID;
+  String Contact_Number_toDisplay;
+  String Email_Address;
+  String DepartmentCreated;
 
   Department({
-    this.departmentID,
-    this.departmentName,
-    this.Display_Picture,
-    this.AdminID,
-    this.Contact_Number_toDisplay,
-    this.Email_Address,
-    this.DepartmentCreated,
+    required this.departmentID,
+    required this.departmentName,
+    required this.Display_Picture,
+    required this.AdminID,
+    required this.Contact_Number_toDisplay,
+    required this.Email_Address,
+    required this.DepartmentCreated,
   });
 
   factory Department.fromJson(Map<String, dynamic> json) {
@@ -210,28 +210,28 @@ products = res.data['products']
 }
 
 class Test {
-  int? testID;
-  String? testName;
-  int? departmentID;
-  String? Description;
-  String? Estimates_Testing_Time;
-  Map<String, dynamic>? Test_Sample_Attributes;
-  String? Image;
-  int? Price;
-  int? Test_Counts;
-  String? TestCreated;
+  int testID;
+  String testName;
+  int departmentID;
+  String Description;
+  String Estimates_Testing_Time;
+  Map<String, dynamic> Test_Sample_Attributes;
+  String Image;
+  int Price;
+  int Test_Counts;
+  String TestCreated;
 
   Test({
-    this.testID,
-    this.testName,
-    this.departmentID,
-    this.Description,
-    this.Estimates_Testing_Time,
-    this.Test_Sample_Attributes,
-    this.Image,
-    this.Price,
-    this.Test_Counts,
-    this.TestCreated,
+    required this.testID,
+    required this.testName,
+    required this.departmentID,
+    required this.Description,
+    required this.Estimates_Testing_Time,
+    required this.Test_Sample_Attributes,
+    required this.Image,
+    required this.Price,
+    required this.Test_Counts,
+    required this.TestCreated,
   });
 
   factory Test.fromJson(Map<String, dynamic> json) {
@@ -266,22 +266,22 @@ class Test {
 }
 
 class Order {
-  int? Order_ID;
-  int? Test_ID;
-  int? User_ID;
-  Map<String, dynamic>? Test_Sample_Attributes;
-  String? Status;
-  String? OrderCompletionTime;
-  int? Total_Bill;
+  int Order_ID;
+  int Test_ID;
+  int User_ID;
+  Map<String, dynamic> Test_Sample_Attributes;
+  String Status;
+  String OrderCompletionTime;
+  int Total_Bill;
 
   Order({
-    this.Order_ID,
-    this.Test_ID,
-    this.User_ID,
-    this.OrderCompletionTime,
-    this.Status,
-    this.Test_Sample_Attributes,
-    this.Total_Bill,
+    required this.Order_ID,
+    required this.Test_ID,
+    required this.User_ID,
+    required this.OrderCompletionTime,
+    required this.Status,
+    required this.Test_Sample_Attributes,
+    required this.Total_Bill,
   });
 
   factory Order.fromJson(Map<String, dynamic> json) {
@@ -310,18 +310,18 @@ class Order {
 }
 
 class Result {
-  int? Result_ID;
-  int? Order_ID;
-  String? ResultDescription;
-  String? Image;
-  Map<String, dynamic>? Details;
+  int Result_ID;
+  int Order_ID;
+  String ResultDescription;
+  String Image;
+  Map<String, dynamic> Details;
 
   Result({
-    this.Result_ID,
-    this.Order_ID,
-    this.ResultDescription,
-    this.Image,
-    this.Details,
+    required this.Result_ID,
+    required this.Order_ID,
+    required this.ResultDescription,
+    required this.Image,
+    required this.Details,
   });
 
   factory Result.fromJson(Map<String, dynamic> json) {

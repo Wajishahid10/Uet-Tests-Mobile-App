@@ -4,6 +4,8 @@ import 'package:uet_tests/constants.dart';
 import 'package:uet_tests/database/Product.dart';
 import 'package:uet_tests/size_config.dart';
 
+import 'package:expandable/expandable.dart';
+
 import 'order_form.dart';
 import 'product_description.dart';
 import 'rounded_container.dart';
@@ -26,33 +28,24 @@ class Body extends StatelessWidget {
               ProductDescription(
                 product: product,
               ),
-              // TopRoundedContainer(
               SizedBox(height: getProportionateScreenWidth(10)),
-              OrderForm(
-                test: product,
-              ),
-              SizedBox(height: getProportionateScreenWidth(10)),
-              Container(
-                color: kSecondaryColor.withOpacity(0.3),
+              ExpandableNotifier(
+                // <-- Provides ExpandableController to its children
                 child: Column(
                   children: [
-                    //  ColorDots(product: product),
-                    //   SizedBox(height: getProportionateScreenWidth(10)),
-                    RoundedContainer(
-                      //  color: kSecondaryLightColor.withOpacity(0.3),
-                      color: kSecondaryColor.withOpacity(0.3),
-                      child: Padding(
-                        padding: EdgeInsets.only(
-                          left: SizeConfig.screenWidth * 0.15,
-                          right: SizeConfig.screenWidth * 0.15,
-                          bottom: getProportionateScreenWidth(40),
-                          top: getProportionateScreenWidth(15),
-                        ),
+                    Expandable(
+                      // <-- Driven by ExpandableController from ExpandableNotifier
+                      collapsed: ExpandableButton(
+                        // <-- Expands when tapped on the cover photo
                         child: DefaultButton(
                           text: "Book Test",
-                          press: () {},
                         ),
                       ),
+                      expanded: Column(children: [
+                        OrderForm(
+                          test: product,
+                        ),
+                      ]),
                     ),
                   ],
                 ),

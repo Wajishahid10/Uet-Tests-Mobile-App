@@ -4,8 +4,8 @@ import '../../database/Product.dart';
 import '../../../size_config.dart';
 import 'components/body.dart';
 
-class GalleryScreen extends StatelessWidget {
-  static String routeName = "/gallery";
+class DepartmentGalleryScreen extends StatelessWidget {
+  static String routeName = "/departmentGallery";
 
   @override
   Widget build(BuildContext context) {

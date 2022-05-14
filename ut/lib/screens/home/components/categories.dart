@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:uet_tests/screens/department_gallery/department_gallery.dart';
 import 'package:uet_tests/screens/gallery/gallery_screen.dart';
 
 import '../../../size_config.dart';
@@ -19,7 +20,8 @@ class Categories extends StatelessWidget {
           child: SectionTitle(
             title: "Categories",
             press: () {
-              Navigator.pushReplacementNamed(context, GalleryScreen.routeName);
+              Navigator.pushReplacementNamed(
+                  context, DepartmentGalleryScreen.routeName);
             },
           ),
         ),
@@ -32,13 +34,19 @@ class Categories extends StatelessWidget {
                 image: "assets/cc1.jpg",
                 category: "Chemical",
                 numOfTests: 18,
-                press: () {},
+                press: () {
+                  Navigator.pushReplacementNamed(
+                      context, GalleryScreen.routeName);
+                },
               ),
               CategoryCard(
                 image: "assets/ee2.jpg",
                 category: "Electrical",
                 numOfTests: 24,
-                press: () {},
+                press: () {
+                  Navigator.pushReplacementNamed(
+                      context, GalleryScreen.routeName);
+                },
               ),
               SizedBox(width: getProportionateScreenWidth(20)),
             ],

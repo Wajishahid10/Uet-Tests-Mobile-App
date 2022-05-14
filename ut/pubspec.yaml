@@ -31,18 +31,21 @@ dependencies:
   flutter_svg: ^0.22.0 # help us to use SVG in our app
   provider: ^6.0.0 # for State management
 
-  get:
   shared_preferences:
   image_picker:
   pdf:
   shimmer:
-  dio:
-  path:
-  path_provider:
+  expandable:
   image_crop:
   firebase_core:
   firebase_auth:
   google_sign_in:
+
+  
+  get:
+  dio:
+  path:
+  path_provider:
 
 dev_dependencies:
   flutter_test:

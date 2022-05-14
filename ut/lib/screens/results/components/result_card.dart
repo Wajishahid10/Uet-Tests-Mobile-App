@@ -7,16 +7,18 @@ import 'package:uet_tests/database/models.dart';
 import '../../../constants.dart';
 import '../../../size_config.dart';
 
-class OrderCard extends StatelessWidget {
-  const OrderCard({
+class ResultCard extends StatelessWidget {
+  const ResultCard({
     Key? key,
-    required this.order,
+    required this.totalResult,
   }) : super(key: key);
 
-  final Test order;
+  final List<Object> totalResult;
 
   @override
   Widget build(BuildContext context) {
+    Test test = totalResult[0] as Test;
+    Result result = totalResult[1] as Result;
     return Row(
       children: [
         SizedBox(
@@ -31,14 +33,14 @@ class OrderCard extends StatelessWidget {
               ),
               child: Image.memory(
                 (base64Decode(
-                  order.Image,
+                  test.Image,
                 )),
               ),
               //      child: Image.asset('assets/images/lpl1.jpg'),
               /** 
               child: Image.memory(
                 (base64Decode(
-                  json.decode(order.Image),
+                  json.decode(Result.Image),
               )),
               ),
               */
@@ -51,7 +53,7 @@ class OrderCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                order.testName,
+                test.testName,
                 style: TextStyle(color: Colors.black, fontSize: 16),
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
@@ -61,7 +63,7 @@ class OrderCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "\$${order.Price}",
+                    "\$${test.Price}",
                     style: TextStyle(
                         fontWeight: FontWeight.w600, color: kPrimaryColor),
                   ),
@@ -73,7 +75,7 @@ class OrderCard extends StatelessWidget {
                 ],
               ),
               SizedBox(height: 5),
-              Text('Expected Delivery: ' + '${order.Estimates_Testing_Time}'),
+              Text('Expected Delivery: ' + '\${test.Estimates_Testing_Time}'),
             ],
           ),
         ),

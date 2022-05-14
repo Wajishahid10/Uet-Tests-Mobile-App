@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:uet_tests/constants.dart';
 import 'package:uet_tests/screens/cart/cart_screen.dart';
 
 import 'package:uet_tests/screens/profile/profile_screen.dart';
@@ -24,20 +25,23 @@ class HomeHeader extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SearchField(),
+              /*
               IconBtnWithCounter(
                 press: () => Navigator.pushNamed(context, CartScreen.routeName),
                 icon: Icon(
                   Icons.shopping_cart,
-                  color: Colors.grey,
+                  color: kPrimaryColor.withOpacity(0.75),
+                  size: getProportionateScreenWidth(32),
                 ),
               ),
+              */
               IconButton(
                 iconSize: getProportionateScreenWidth(32),
                 onPressed: () =>
                     Navigator.pushNamed(context, ProfileScreen.routeName),
                 icon: Icon(
                   Icons.person,
-                  color: Colors.grey,
+                  color: kPrimaryColor.withOpacity(0.75),
                   size: getProportionateScreenWidth(32),
                 ),
               ),
