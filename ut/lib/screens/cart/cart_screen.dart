@@ -20,11 +20,11 @@ class CartScreen extends StatelessWidget {
       title: Column(
         children: [
           Text(
-            "Your Cart",
+            "Your Orders",
             style: TextStyle(color: Colors.black),
           ),
           Text(
-            "${demoCarts.length} items",
+            "${demoCarts.length} orders",
             style: Theme.of(context).textTheme.caption,
           ),
         ],

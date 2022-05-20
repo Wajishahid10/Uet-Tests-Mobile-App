@@ -21,7 +21,7 @@ class Body extends StatelessWidget {
             PromotionBanner(),
             //  RowShimmer(),
             Categories(),
-            PreviousTests(),
+            //    PreviousTests(),
             SizedBox(height: getProportionateScreenWidth(30)),
             PopularTests(),
             SizedBox(height: getProportionateScreenWidth(30)),

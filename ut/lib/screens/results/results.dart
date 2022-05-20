@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:uet_tests/database/Cart.dart';
 
 import 'components/body.dart';
-import 'components/check_out_card.dart';
 
 class ResultsScreen extends StatelessWidget {
   static String routeName = "/results";

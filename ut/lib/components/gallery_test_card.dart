@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:uet_tests/database/Product.dart';
+import 'package:uet_tests/database/models.dart';
 import 'package:uet_tests/screens/details/details_screen.dart';
 
 import '../constants.dart';
@@ -10,11 +13,11 @@ class GalleryTestCard extends StatelessWidget {
     Key? key,
     this.width = 150,
     this.aspectRetio = 1.02,
-    required this.product,
+    required this.test,
   }) : super(key: key);
 
   final double width, aspectRetio;
-  final Product product;
+  final Test test;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +29,7 @@ class GalleryTestCard extends StatelessWidget {
           onTap: () => Navigator.pushNamed(
             context,
             DetailsScreen.routeName,
-            arguments: ProductDetailsArguments(product: product),
+            arguments: TestDetailsArguments(test: test),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -41,15 +44,19 @@ class GalleryTestCard extends StatelessWidget {
                       borderRadius: BorderRadius.circular(15),
                     ),
                     child: Hero(
-                      tag: product.id.toString(),
-                      child: Image.asset(product.images[0]),
+                      tag: test.testID.toString(),
+                      child: Image.memory(
+                        (base64Decode(
+                          test.Image,
+                        )),
+                      ),
                     ),
                   ),
                 ),
               ),
               const SizedBox(height: 10),
               Text(
-                product.title,
+                test.testName,
                 style: TextStyle(color: Colors.black),
                 maxLines: 2,
               ),
@@ -57,7 +64,7 @@ class GalleryTestCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "\Rs. ${product.price}",
+                    "\Rs. ${test.Price}",
                     style: TextStyle(
                       fontSize: getProportionateScreenWidth(18),
                       fontWeight: FontWeight.w600,

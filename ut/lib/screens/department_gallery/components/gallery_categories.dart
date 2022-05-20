@@ -3,8 +3,6 @@ import 'dart:convert';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:uet_tests/database/models.dart';
-import 'package:uet_tests/screens/gallery/gallery_screen.dart';
-import 'package:uet_tests/screens/home/components/section_title.dart';
 
 import '../../../size_config.dart';
 

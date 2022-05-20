@@ -1,22 +1,25 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:uet_tests/database/Product.dart';
+import 'package:uet_tests/database/product.dart';
+import 'package:uet_tests/database/models.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
 
-class ProductImages extends StatefulWidget {
-  const ProductImages({
+class TestImages extends StatefulWidget {
+  const TestImages({
     Key? key,
-    required this.product,
+    required this.test,
   }) : super(key: key);
 
-  final Product product;
+  final Test test;
 
   @override
-  _ProductImagesState createState() => _ProductImagesState();
+  _TestImagesState createState() => _TestImagesState();
 }
 
-class _ProductImagesState extends State<ProductImages> {
+class _TestImagesState extends State<TestImages> {
   int selectedImage = 0;
   @override
   Widget build(BuildContext context) {
@@ -27,24 +30,33 @@ class _ProductImagesState extends State<ProductImages> {
           child: AspectRatio(
             aspectRatio: 1,
             child: Hero(
-              tag: widget.product.id.toString(),
-              child: Image.asset(widget.product.images[selectedImage]),
+              tag: widget.test.testID.toString(),
+              child: Image.memory(
+                (base64Decode(
+                  widget.test.Image,
+                )),
+              ),
             ),
           ),
         ),
         // SizedBox(height: getProportionateScreenWidth(20)),
+
+        /**
+        
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ...List.generate(widget.product.images.length,
-                (index) => buildSmallProductPreview(index)),
+            ...List.generate(widget.test.images.length,
+                (index) => buildSmallTestPreview(index)),
           ],
-        )
+        ),
+
+       */
       ],
     );
   }
 
-  GestureDetector buildSmallProductPreview(int index) {
+  GestureDetector buildSmallTestPreview(int index) {
     return GestureDetector(
       onTap: () {
         setState(() {
@@ -63,7 +75,7 @@ class _ProductImagesState extends State<ProductImages> {
           border: Border.all(
               color: kPrimaryColor.withOpacity(selectedImage == index ? 1 : 0)),
         ),
-        child: Image.asset(widget.product.images[index]),
+        //    child: Image.asset(widget.test.images[index]),
       ),
     );
   }

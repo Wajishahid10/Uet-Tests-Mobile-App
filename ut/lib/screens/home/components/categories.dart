@@ -1,61 +1,80 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:uet_tests/database/apis.dart';
+import 'package:uet_tests/database/models.dart';
 import 'package:uet_tests/screens/department_gallery/department_gallery.dart';
 import 'package:uet_tests/screens/gallery/gallery_screen.dart';
 
 import '../../../size_config.dart';
 import 'section_title.dart';
 
-class Categories extends StatelessWidget {
-  const Categories({
-    Key? key,
-  }) : super(key: key);
+class Categories extends StatefulWidget {
+  @override
+  _CategoriesState createState() => _CategoriesState();
+}
+
+class _CategoriesState extends State<Categories> {
+  late Future<List<Department>> homeDepartments = homeScreeDepartements();
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Padding(
-          padding:
-              EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
-          child: SectionTitle(
-            title: "Categories",
-            press: () {
-              Navigator.pushReplacementNamed(
-                  context, DepartmentGalleryScreen.routeName);
-            },
-          ),
-        ),
-        SizedBox(height: getProportionateScreenWidth(20)),
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
+    return FutureBuilder(
+      future: homeDepartments,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done &&
+            snapshot.hasData) {
+          List<Department> homeDepartmentsData =
+              snapshot.data as List<Department>;
+
+          return Column(
             children: [
-              CategoryCard(
-                image: "assets/cc1.jpg",
-                category: "Chemical",
-                numOfTests: 18,
-                press: () {
-                  Navigator.pushReplacementNamed(
-                      context, GalleryScreen.routeName);
-                },
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: getProportionateScreenWidth(20)),
+                child: SectionTitle(
+                  title: "Categories",
+                  press: () {
+                    Navigator.pushReplacementNamed(
+                        context, DepartmentGalleryScreen.routeName);
+                  },
+                ),
               ),
-              CategoryCard(
-                image: "assets/ee2.jpg",
-                category: "Electrical",
-                numOfTests: 24,
-                press: () {
-                  Navigator.pushReplacementNamed(
-                      context, GalleryScreen.routeName);
-                },
+              SizedBox(height: getProportionateScreenWidth(20)),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    ...List.generate(
+                      homeDepartmentsData.length,
+                      (index) {
+                        return Row(
+                          children: [
+                            CategoryCard(
+                              department: homeDepartmentsData[index],
+                              press: () {
+                                Navigator.pushReplacementNamed(
+                                    context, GalleryScreen.routeName);
+                              },
+                            ),
+                            SizedBox(width: getProportionateScreenWidth(20)),
+                          ],
+                        );
+                      },
+                    ),
+                  ],
+                ),
               ),
-              SizedBox(width: getProportionateScreenWidth(20)),
+              Divider(
+                color: Colors.transparent,
+              ),
             ],
-          ),
-        ),
-        Divider(
-          color: Colors.transparent,
-        ),
-      ],
+          );
+        }
+        return Center(
+          child: CircularProgressIndicator(),
+        );
+      },
     );
   }
 }
@@ -63,14 +82,11 @@ class Categories extends StatelessWidget {
 class CategoryCard extends StatelessWidget {
   const CategoryCard({
     Key? key,
-    required this.category,
-    required this.image,
-    required this.numOfTests,
+    required this.department,
     required this.press,
   }) : super(key: key);
 
-  final String category, image;
-  final int numOfTests;
+  final Department department;
   final GestureTapCallback press;
 
   @override
@@ -86,8 +102,10 @@ class CategoryCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
             child: Stack(
               children: [
-                Image.asset(
-                  image,
+                Image.memory(
+                  (base64Decode(
+                    department.Display_Picture,
+                  )),
                   fit: BoxFit.cover,
                   width: getProportionateScreenWidth(242),
                 ),
@@ -108,29 +126,32 @@ class CategoryCard extends StatelessWidget {
                     horizontal: getProportionateScreenWidth(15.0),
                     vertical: getProportionateScreenHeight(12),
                   ),
-                  child: Text.rich(
-                    TextSpan(
-                      style: TextStyle(color: Colors.white),
-                      children: [
-                        TextSpan(
-                          text: "$category\n",
-                          style: TextStyle(
-                            fontSize: getProportionateScreenWidth(18),
-                            fontWeight: FontWeight.bold,
-                            shadows: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.5),
-                                spreadRadius: 5,
-                                blurRadius: 7,
-                                offset:
-                                    Offset(0, 3), // changes position of shadow
-                              ),
-                            ],
-                          ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "${department.departmentName}\n",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: getProportionateScreenWidth(18),
+                          fontWeight: FontWeight.bold,
+                          shadows: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.5),
+                              spreadRadius: 5,
+                              blurRadius: 7,
+                              offset:
+                                  Offset(0, 3), // changes position of shadow
+                            ),
+                          ],
                         ),
-                        TextSpan(text: "$numOfTests Tests")
-                      ],
-                    ),
+                      ),
+                      Text(
+                        "Contact us: ${department.Contact_Number_toDisplay}",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ],
                   ),
                 ),
               ],

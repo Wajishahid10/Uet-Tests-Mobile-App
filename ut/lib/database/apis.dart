@@ -40,7 +40,7 @@ Future<http.Response> post(String query, Map data) async {
 }
 
 Future<http.Response> get(String query) async {
-  http.Response response = await http.post(
+  http.Response response = await http.get(
     Uri.parse(query),
     headers: {"Content-Type": "application/json"},
   );
@@ -244,4 +244,35 @@ void completeSignup(Map data, BuildContext context) async {
     print("Already Present");
   }
   */
+}
+
+Future<List<Department>> homeScreeDepartements() async {
+  String query = baseAPI + 'home/departments';
+
+  http.Response responseRecieved = await get(query);
+
+  List<Department> departments_List =
+      parseDepartmentsData(responseRecieved.body);
+
+  return departments_List;
+}
+
+Future<List<Test>> homePopularTests() async {
+  String query = baseAPI + 'home/popularTests';
+
+  http.Response responseRecieved = await get(query);
+
+  List<Test> tests_List = parseTestsData(responseRecieved.body);
+
+  return tests_List;
+}
+
+Future<List<Test>> homePreviousTests(int id) async {
+  String query = baseAPI + 'home/departments/$id';
+
+  http.Response responseRecieved = await get(query);
+
+  List<Test> tests_List = parseTestsData(responseRecieved.body);
+
+  return tests_List;
 }

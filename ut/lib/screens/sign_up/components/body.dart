@@ -47,7 +47,10 @@ class Body extends StatelessWidget {
                   'By Continuing your Confirm that you Agree \nwith our Term and Condition',
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.caption,
-                )
+                ),
+                SizedBox(
+                  height: getProportionateScreenHeight(18),
+                ),
               ],
             ),
           ),

@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:uet_tests/database/Product.dart';
+import 'package:uet_tests/database/product.dart';
+import 'package:uet_tests/database/models.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
 
-class ProductDescription extends StatefulWidget {
-  const ProductDescription({
+class TestDescription extends StatefulWidget {
+  const TestDescription({
     Key? key,
-    required this.product,
+    required this.test,
   }) : super(key: key);
 
-  final Product product;
+  final Test test;
 
   @override
-  _ProductDescriptionState createState() => _ProductDescriptionState();
+  _TestDescriptionState createState() => _TestDescriptionState();
 }
 
-class _ProductDescriptionState extends State<ProductDescription> {
+class _TestDescriptionState extends State<TestDescription> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -27,7 +28,7 @@ class _ProductDescriptionState extends State<ProductDescription> {
           padding:
               EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
           child: Text(
-            widget.product.title,
+            widget.test.testName,
             style: Theme.of(context).textTheme.headline6,
           ),
         ),
@@ -37,7 +38,7 @@ class _ProductDescriptionState extends State<ProductDescription> {
             right: getProportionateScreenWidth(64),
           ),
           child: buildText(
-            widget.product.description,
+            widget.test.Description,
           ),
         ),
         Padding(

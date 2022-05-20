@@ -75,7 +75,7 @@ class ResultCard extends StatelessWidget {
                 ],
               ),
               SizedBox(height: 5),
-              Text('Expected Delivery: ' + '\${test.Estimates_Testing_Time}'),
+              Text('Expected Delivery: ' + '${test.Estimates_Testing_Time}'),
             ],
           ),
         ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:uet_tests/database/models.dart';
 
 import '../../database/Product.dart';
 import 'components/body.dart';
@@ -9,8 +10,8 @@ class DetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ProductDetailsArguments agrs =
-        ModalRoute.of(context)!.settings.arguments as ProductDetailsArguments;
+    final TestDetailsArguments agrs =
+        ModalRoute.of(context)!.settings.arguments as TestDetailsArguments;
     return Scaffold(
       appBar: AppBar(),
       /**
@@ -19,13 +20,13 @@ class DetailsScreen extends StatelessWidget {
         child: CustomAppBar(),
       ),
        */
-      body: Body(product: agrs.product),
+      body: Body(test: agrs.test),
     );
   }
 }
 
-class ProductDetailsArguments {
-  final Product product;
+class TestDetailsArguments {
+  final Test test;
 
-  ProductDetailsArguments({required this.product});
+  TestDetailsArguments({required this.test});
 }

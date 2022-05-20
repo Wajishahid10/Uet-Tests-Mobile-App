@@ -154,19 +154,19 @@ List<Admin> parseAdminsData(String responseBody) {
 }
 
 class Department {
-  int departmentID;
+  int Department_ID;
   String departmentName;
   String Display_Picture;
-  int AdminID;
+  int Admin_ID;
   String Contact_Number_toDisplay;
   String Email_Address;
   String DepartmentCreated;
 
   Department({
-    required this.departmentID,
+    required this.Department_ID,
     required this.departmentName,
     required this.Display_Picture,
-    required this.AdminID,
+    required this.Admin_ID,
     required this.Contact_Number_toDisplay,
     required this.Email_Address,
     required this.DepartmentCreated,
@@ -174,10 +174,10 @@ class Department {
 
   factory Department.fromJson(Map<String, dynamic> json) {
     return Department(
-      departmentID: json["departmentID"],
-      departmentName: json["departmentName"],
+      Department_ID: json["Department_ID"],
+      departmentName: json["Name"],
       Display_Picture: json["Display_Picture"],
-      AdminID: json["AdminID"],
+      Admin_ID: json["Admin_ID"],
       Contact_Number_toDisplay: json["Contact_Number_toDisplay"],
       Email_Address: json["Email_Address"],
       DepartmentCreated: json["DepartmentCreated"],
@@ -186,10 +186,11 @@ class Department {
 
   Map<String, dynamic> toMap() {
     return {
-      'departmentID': departmentID,
-      'departmentName': departmentName,
+      'Department_ID': Department_ID,
+      'Name': departmentName,
       'Display_Picture': Display_Picture,
-      'Role': AdminID,
+      'Admin_ID': Admin_ID,
+      'Role': Admin_ID,
       'Contact_Number_toDisplay': Contact_Number_toDisplay,
       'Email_Address': Email_Address,
       'DepartmentCreated': DepartmentCreated,
@@ -236,9 +237,9 @@ class Test {
 
   factory Test.fromJson(Map<String, dynamic> json) {
     return Test(
-      testID: json["testID"],
-      testName: json["testName"],
-      departmentID: json["departmentID"],
+      testID: json["Test_ID"],
+      testName: json["Name"],
+      departmentID: json["Department_ID"],
       Description: json["Description"],
       Estimates_Testing_Time: json["Estimates_Testing_Time"],
       Test_Sample_Attributes: json["Test_Sample_Attributes"],
@@ -251,9 +252,9 @@ class Test {
 
   Map<String, dynamic> toMap() {
     return {
-      'testID': testID,
-      'testName': testName,
-      'departmentID': departmentID,
+      'Test_ID': testID,
+      'Name': testName,
+      'Department_ID': departmentID,
       'Description': Description,
       'Estimates_Testing_Time': Estimates_Testing_Time,
       'Test_Sample_Attributes': Test_Sample_Attributes,
@@ -263,6 +264,11 @@ class Test {
       'TestCreated': TestCreated,
     };
   }
+}
+
+List<Test> parseTestsData(String responseBody) {
+  final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
+  return parsed.map<Test>((json) => Test.fromJson(json)).toList();
 }
 
 class Order {
@@ -309,6 +315,11 @@ class Order {
   }
 }
 
+List<Order> parseOrdersData(String responseBody) {
+  final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
+  return parsed.map<Order>((json) => Order.fromJson(json)).toList();
+}
+
 class Result {
   int Result_ID;
   int Order_ID;
@@ -343,4 +354,9 @@ class Result {
       'Details': Details,
     };
   }
+}
+
+List<Result> parseResultsData(String responseBody) {
+  final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
+  return parsed.map<Result>((json) => Result.fromJson(json)).toList();
 }

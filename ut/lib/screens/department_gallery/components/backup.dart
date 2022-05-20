@@ -21,18 +21,18 @@ Future<List<Department>> loadDepartment() async {
 
   final List<Department> demoDepartment = [
     Department(
-        departmentID: 1,
+        Department_ID: 1,
         departmentName: 'Chemical',
         Display_Picture: convertedImage1,
-        AdminID: 1,
+        Admin_ID: 1,
         Contact_Number_toDisplay: '0312-34567890',
         Email_Address: 'Email_Address',
         DepartmentCreated: '02.2.2012'),
     Department(
-        departmentID: 2,
+        Department_ID: 2,
         departmentName: 'Electrical Department',
         Display_Picture: convertedImage2,
-        AdminID: 1,
+        Admin_ID: 1,
         Contact_Number_toDisplay: '0312-34567890',
         Email_Address: 'Email_Address',
         DepartmentCreated: '02.2.2012'),

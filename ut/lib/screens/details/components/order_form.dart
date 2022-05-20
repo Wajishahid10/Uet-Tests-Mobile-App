@@ -15,7 +15,7 @@ import '../../../constants.dart';
 import '../../../size_config.dart';
 
 class OrderForm extends StatefulWidget {
-  final Product test;
+  final Test test;
 
   const OrderForm({Key? key, required this.test}) : super(key: key);
   @override
@@ -81,9 +81,9 @@ class _OrderFormState extends State<OrderForm> {
     );
   }
 
-  Widget buildAttributesFormField(Product test) {
-    //int nOfAttribute=test.Test_Sample_Attributes!.length;
-    int nOfAttribute = 3;
+  Widget buildAttributesFormField(Test test) {
+    int nOfAttribute = test.Test_Sample_Attributes.length;
+    // int nOfAttribute = 3;
     return nOfAttribute == 0
         ? const Text('No Need Attributes Needed')
         : ListView.builder(
@@ -113,7 +113,8 @@ class _OrderFormState extends State<OrderForm> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.all(2),
-                          child: Text('Attribute Number '),
+                          child: Text(
+                              '${test.Test_Sample_Attributes.keys.elementAt(nOfAttribute - index - 1)}'),
                         ),
                         TextFormField(
                           controller: attributesValueList[index],
