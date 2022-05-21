@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:uet_tests/components/gallery_test_card.dart';
+import 'package:uet_tests/components/shimmer.dart';
 import 'package:uet_tests/database/Product.dart';
 import 'package:uet_tests/database/models.dart';
 import 'package:uet_tests/screens/gallery/gallery_screen.dart';
@@ -18,7 +19,7 @@ class PreviousTests extends StatefulWidget {
 }
 
 Future<List<Test>> loadTest() async {
-  List<Test> demoTests;
+  List<Test> previousTests;
   ByteData image1 = await rootBundle.load('assets/images/sv1.jpg');
   String convertedImage1 = base64Encode(
       image1.buffer.asUint8List(image1.offsetInBytes, image1.lengthInBytes));
@@ -31,7 +32,7 @@ Future<List<Test>> loadTest() async {
   ByteData image4 = await rootBundle.load('assets/images/glap.png');
   String convertedImage4 = base64Encode(
       image4.buffer.asUint8List(image4.offsetInBytes, image4.lengthInBytes));
-  demoTests = [
+  previousTests = [
     Test(
       testID: 1,
       departmentID: 1,
@@ -101,43 +102,44 @@ Future<List<Test>> loadTest() async {
       },
     ),
   ];
-  return demoTests;
+  return previousTests;
 }
 
 class _PreviousTestsState extends State<PreviousTests> {
-  late Future<List<Test>> demoTests = loadTest();
+  late Future<List<Test>> previousTests = loadTest();
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Padding(
-          padding:
-              EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
-          child: SectionTitle(
-            title: "Previous Tests",
-            press: () {
-              Navigator.pushReplacementNamed(context, GalleryScreen.routeName);
-            },
-          ),
-        ),
-        SizedBox(
-          height: getProportionateScreenWidth(20),
-        ),
-        FutureBuilder(
-          future: demoTests,
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.done &&
-                snapshot.hasData) {
-              List<Test> demoTestsData = snapshot.data as List<Test>;
-              return SingleChildScrollView(
+    return FutureBuilder(
+      future: previousTests,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done &&
+            snapshot.hasData) {
+          List<Test> previousTestsData = snapshot.data as List<Test>;
+          return Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: getProportionateScreenWidth(20)),
+                child: SectionTitle(
+                  title: "Previous Tests",
+                  press: () {
+                    Navigator.pushReplacementNamed(
+                        context, GalleryScreen.routeName);
+                  },
+                ),
+              ),
+              SizedBox(
+                height: getProportionateScreenWidth(20),
+              ),
+              SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: [
                     ...List.generate(
                       demoProducts.length,
                       (index) {
-                        return GalleryTestCard(test: demoTestsData[index]);
+                        return GalleryTestCard(test: previousTestsData[index]);
                       },
                     ),
                     SizedBox(
@@ -145,14 +147,12 @@ class _PreviousTestsState extends State<PreviousTests> {
                     ),
                   ],
                 ),
-              );
-            }
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          },
-        ),
-      ],
+              ),
+            ],
+          );
+        }
+        return TestsRowShimmer();
+      },
     );
   }
 }

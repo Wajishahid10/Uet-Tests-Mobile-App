@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:uet_tests/components/shimmer.dart';
 import 'package:uet_tests/database/apis.dart';
 import 'package:uet_tests/database/models.dart';
 import 'package:uet_tests/screens/department_gallery/department_gallery.dart';
@@ -71,9 +72,7 @@ class _CategoriesState extends State<Categories> {
             ],
           );
         }
-        return Center(
-          child: CircularProgressIndicator(),
-        );
+        return CategoriesRowShimmer();
       },
     );
   }

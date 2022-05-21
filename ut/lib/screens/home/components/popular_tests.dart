@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:uet_tests/components/home_test_card.dart';
+import 'package:uet_tests/components/shimmer.dart';
 import 'package:uet_tests/database/Product.dart';
 import 'package:uet_tests/database/apis.dart';
 import 'package:uet_tests/database/models.dart';
@@ -49,9 +50,7 @@ class PopularTests extends StatelessWidget {
             ],
           );
         }
-        return Center(
-          child: CircularProgressIndicator(),
-        );
+        return TestsRowShimmer();
       },
     );
   }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:uet_tests/components/shimmer.dart';
 import 'package:uet_tests/constants.dart';
+import 'package:uet_tests/database/apis.dart';
 import 'package:uet_tests/screens/cart/cart_screen.dart';
 
 import 'package:uet_tests/screens/profile/profile_screen.dart';
@@ -15,17 +17,25 @@ class HomeHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding:
-          EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SearchField(),
-              /*
+    Future<Map<String, String>> suggestions = searchBarSuggesstions();
+    return FutureBuilder(
+      future: suggestions,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done &&
+            snapshot.hasData) {
+          Map<String, String> suggestionsData =
+              snapshot.data as Map<String, String>;
+          return Padding(
+            padding: EdgeInsets.symmetric(
+                horizontal: getProportionateScreenWidth(20)),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SearchField(),
+                    /*
               IconBtnWithCounter(
                 press: () => Navigator.pushNamed(context, CartScreen.routeName),
                 icon: Icon(
@@ -35,20 +45,24 @@ class HomeHeader extends StatelessWidget {
                 ),
               ),
               */
-              IconButton(
-                iconSize: getProportionateScreenWidth(32),
-                onPressed: () =>
-                    Navigator.pushNamed(context, ProfileScreen.routeName),
-                icon: Icon(
-                  Icons.person,
-                  color: kPrimaryColor.withOpacity(0.75),
-                  size: getProportionateScreenWidth(32),
+                    IconButton(
+                      iconSize: getProportionateScreenWidth(32),
+                      onPressed: () =>
+                          Navigator.pushNamed(context, ProfileScreen.routeName),
+                      icon: Icon(
+                        Icons.person,
+                        color: kPrimaryColor.withOpacity(0.75),
+                        size: getProportionateScreenWidth(32),
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-            ],
-          ),
-        ],
-      ),
+              ],
+            ),
+          );
+        }
+        return SearchBarRowShimmer();
+      },
     );
   }
 }

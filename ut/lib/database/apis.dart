@@ -246,6 +246,16 @@ void completeSignup(Map data, BuildContext context) async {
   */
 }
 
+Future<Map<String, String>> searchBarSuggesstions() async {
+  String query = baseAPI + 'home/searchBar';
+
+  http.Response responseRecieved = await get(query);
+
+  Map<String, String> suggestions = jsonDecode(responseRecieved.body);
+
+  return suggestions;
+}
+
 Future<List<Department>> homeScreeDepartements() async {
   String query = baseAPI + 'home/departments';
 
