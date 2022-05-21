@@ -17,14 +17,20 @@ class HomeHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Future<Map<String, String>> suggestions = searchBarSuggesstions();
+    Future<List<Object>> suggestions = searchBarSuggesstions();
     return FutureBuilder(
       future: suggestions,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done &&
             snapshot.hasData) {
-          Map<String, String> suggestionsData =
-              snapshot.data as Map<String, String>;
+          List<Object> fetchedDataData = snapshot.data as List<Object>;
+
+          Map<String, String> suggestionsMap =
+              fetchedDataData[0] as Map<String, String>;
+
+          List<String> list_of_testNames_searchbar =
+              fetchedDataData[1] as List<String>;
+
           return Padding(
             padding: EdgeInsets.symmetric(
                 horizontal: getProportionateScreenWidth(20)),
@@ -34,7 +40,10 @@ class HomeHeader extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    SearchField(),
+                    SearchField(
+                      suggestionsMap: suggestionsMap,
+                      list_of_testNames_searchbar: list_of_testNames_searchbar,
+                    ),
                     /*
               IconBtnWithCounter(
                 press: () => Navigator.pushNamed(context, CartScreen.routeName),

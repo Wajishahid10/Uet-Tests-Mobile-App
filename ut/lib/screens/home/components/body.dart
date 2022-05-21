@@ -17,7 +17,6 @@ class Body extends StatelessWidget {
           children: [
             SizedBox(height: getProportionateScreenHeight(20)),
             HomeHeader(),
-            SearchBarRowShimmer(),
             SizedBox(height: getProportionateScreenWidth(10)),
             PromotionBanner(),
             //  RowShimmer(),

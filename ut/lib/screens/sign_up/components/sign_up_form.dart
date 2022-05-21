@@ -160,6 +160,8 @@ class _SignUpFormState extends State<SignUpForm> {
                     "Account_Type": "1"
                   };
 
+                  // 1 = User, 2 = Department Admin, 3 = System Admin
+
                   Map completeMap = {
                     "userName": firstName,
                     "Company": companyName,

@@ -246,14 +246,31 @@ void completeSignup(Map data, BuildContext context) async {
   */
 }
 
-Future<Map<String, String>> searchBarSuggesstions() async {
+//  <List<Map<String, String>,String>>
+
+Future<List<Object>> searchBarSuggesstions() async {
   String query = baseAPI + 'home/searchBar';
 
   http.Response responseRecieved = await get(query);
 
-  Map<String, String> suggestions = jsonDecode(responseRecieved.body);
+  Map<String, String> suggestionsMap =
+      Map<String, String>.from(jsonDecode(responseRecieved.body));
 
-  return suggestions;
+  List<Object> result = [];
+
+  result.add(suggestionsMap);
+
+  List<String> list_of_testNames_searchbar = [];
+
+  suggestionsMap
+      .forEach((key, value) => list_of_testNames_searchbar.add(value));
+
+  result.add(list_of_testNames_searchbar);
+
+  print(suggestionsMap);
+  print(list_of_testNames_searchbar);
+
+  return result;
 }
 
 Future<List<Department>> homeScreeDepartements() async {
