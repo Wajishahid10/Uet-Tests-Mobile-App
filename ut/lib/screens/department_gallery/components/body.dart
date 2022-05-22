@@ -4,8 +4,10 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:uet_tests/constants.dart';
+import 'package:uet_tests/database/apis.dart';
 import 'package:uet_tests/database/models.dart';
 import 'package:uet_tests/screens/department_gallery/components/gallery_categories.dart';
+import 'package:uet_tests/screens/gallery/gallery_screen.dart';
 import 'package:uet_tests/screens/home/components/home_header.dart';
 import 'package:uet_tests/size_config.dart';
 
@@ -63,7 +65,7 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-  late Future<List<Department>> demoDepartments = loadDepartment();
+  late Future<List<Department>> fetchDepartments = fetchDepartements();
 
   @override
   Widget build(BuildContext context) {
@@ -73,11 +75,11 @@ class _BodyState extends State<Body> {
   */
 
     return FutureBuilder(
-        future: demoDepartments,
+        future: fetchDepartments,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done &&
               snapshot.hasData) {
-            List<Department> demoDepartmentsData =
+            List<Department> fetchDepartmentsData =
                 snapshot.data as List<Department>;
             return SafeArea(
               child: SingleChildScrollView(
@@ -98,8 +100,16 @@ class _BodyState extends State<Body> {
                         ),
                         itemCount: demoProducts.length,
                         itemBuilder: (BuildContext ctx, index) {
-                          return GalleryCategories(
-                              department: demoDepartmentsData[index]);
+                          return CategoryGalleryCard(
+                            department: fetchDepartmentsData[index],
+                            press: () {
+                              Navigator.pushReplacementNamed(
+                                  context, GalleryScreen.routeName,
+                                  arguments: TestFetchArguments(
+                                      DepartmentID: fetchDepartmentsData[index]
+                                          .Department_ID));
+                            },
+                          );
                         },
                       ),
                     ),

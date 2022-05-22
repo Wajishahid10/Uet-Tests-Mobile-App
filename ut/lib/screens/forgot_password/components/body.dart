@@ -3,6 +3,7 @@ import 'package:uet_tests/components/custom_surfix_icon.dart';
 import 'package:uet_tests/components/default_button.dart';
 import 'package:uet_tests/components/form_error.dart';
 import 'package:uet_tests/components/no_account_text.dart';
+import 'package:uet_tests/main.dart';
 import 'package:uet_tests/size_config.dart';
 
 import '../../../constants.dart';
@@ -101,6 +102,8 @@ class _ForgotPassFormState extends State<ForgotPassForm> {
             text: "Continue",
             press: () {
               if (_formKey.currentState!.validate()) {
+                _formKey.currentState!.save();
+                auth.sendPasswordResetEmail(email: email!);
                 // Do what you want to do
               }
             },

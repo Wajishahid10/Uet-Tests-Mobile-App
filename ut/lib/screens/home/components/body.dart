@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:uet_tests/components/shimmer.dart';
+import 'package:uet_tests/main.dart';
 
 import '../../../size_config.dart';
 import 'categories.dart';
@@ -21,7 +22,9 @@ class Body extends StatelessWidget {
             PromotionBanner(),
             //  RowShimmer(),
             Categories(),
-            //    PreviousTests(),
+            sharedPreferences.containsKey('user_ID')
+                ? PreviousTests()
+                : SizedBox.shrink(),
             SizedBox(height: getProportionateScreenWidth(30)),
             PopularTests(),
             SizedBox(height: getProportionateScreenWidth(30)),

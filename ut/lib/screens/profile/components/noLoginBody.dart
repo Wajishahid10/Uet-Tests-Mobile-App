@@ -12,8 +12,8 @@ class noLoginBody extends StatelessWidget {
       padding: EdgeInsets.symmetric(vertical: 20),
       child: Column(
         children: [
-          ProfilePic(),
-          SizedBox(height: 20),
+          //  ProfilePic(),
+          SizedBox(height: 70),
           NoProfileMenu(
             text: "Login/SignIn",
             icon: Icons.login,

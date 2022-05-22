@@ -3,23 +3,28 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:uet_tests/screens/gallery/components/gallery_test_card.dart';
-import 'package:uet_tests/components/shimmer.dart';
+import 'package:uet_tests/components/default_button.dart';
+import 'package:uet_tests/constants.dart';
 import 'package:uet_tests/database/Product.dart';
 import 'package:uet_tests/database/models.dart';
-import 'package:uet_tests/screens/gallery/gallery_screen.dart';
+import 'package:uet_tests/size_config.dart';
 
-import '../../../size_config.dart';
-import 'section_title.dart';
+import 'package:expandable/expandable.dart';
 
-class PreviousTests extends StatefulWidget {
-  const PreviousTests({Key? key}) : super(key: key);
+import 'order_form.dart';
+import 'test_description.dart';
+import 'rounded_container.dart';
+import 'test_images.dart';
+
+class Body extends StatefulWidget {
+  final Test test;
+  const Body({Key? key, required this.test}) : super(key: key);
   @override
-  _PreviousTestsState createState() => _PreviousTestsState();
+  _BodyState createState() => _BodyState();
 }
 
 Future<List<Test>> loadTest() async {
-  List<Test> previousTests;
+  List<Test> demoTests;
   ByteData image1 = await rootBundle.load('assets/images/sv1.jpg');
   String convertedImage1 = base64Encode(
       image1.buffer.asUint8List(image1.offsetInBytes, image1.lengthInBytes));
@@ -32,7 +37,7 @@ Future<List<Test>> loadTest() async {
   ByteData image4 = await rootBundle.load('assets/images/glap.png');
   String convertedImage4 = base64Encode(
       image4.buffer.asUint8List(image4.offsetInBytes, image4.lengthInBytes));
-  previousTests = [
+  demoTests = [
     Test(
       testID: 1,
       departmentID: 1,
@@ -102,49 +107,55 @@ Future<List<Test>> loadTest() async {
       },
     ),
   ];
-  return previousTests;
+  return demoTests;
 }
 
-class _PreviousTestsState extends State<PreviousTests> {
-  late Future<List<Test>> previousTests = loadTest();
+class _BodyState extends State<Body> {
+  late Future<List<Test>> demoTests = loadTest();
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: previousTests,
+      future: demoTests,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done &&
             snapshot.hasData) {
-          List<Test> previousTestsData = snapshot.data as List<Test>;
-          return Column(
+          List<Test> demoTestsData = snapshot.data as List<Test>;
+          return ListView(
             children: [
-              Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: getProportionateScreenWidth(20)),
-                child: SectionTitle(
-                  title: "Previous Tests",
-                  press: () {
-                    Navigator.pushReplacementNamed(
-                        context, GalleryScreen.routeName,
-                        arguments: TestFetchArguments(DepartmentID: -2));
-                  },
-                ),
-              ),
-              SizedBox(
-                height: getProportionateScreenWidth(20),
-              ),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
+              TestImages(test: demoTestsData[0]),
+              RoundedContainer(
+                color: Colors.white,
+                child: Column(
                   children: [
-                    ...List.generate(
-                      demoProducts.length,
-                      (index) {
-                        return GalleryTestCard(test: previousTestsData[index]);
-                      },
+                    TestDescription(
+                      test: demoTestsData[0],
                     ),
-                    SizedBox(
-                      width: getProportionateScreenWidth(20),
+                    SizedBox(height: getProportionateScreenWidth(10)),
+                    ExpandableNotifier(
+                      // <-- Provides ExpandableController to its children
+                      child: Column(
+                        children: [
+                          Expandable(
+                            // <-- Driven by ExpandableController from ExpandableNotifier
+                            collapsed: ExpandableButton(
+                              // <-- Expands when tapped on the cover photo
+                              child: DefaultButton(
+                                text: "Book Test",
+                              ),
+                            ),
+                            expanded: Column(
+                              children: [
+                                OrderForm(
+                                  test: demoTestsData[0],
+
+                                  //   test: product,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
@@ -152,7 +163,9 @@ class _PreviousTestsState extends State<PreviousTests> {
             ],
           );
         }
-        return TestsRowShimmer();
+        return Center(
+          child: CircularProgressIndicator(),
+        );
       },
     );
   }

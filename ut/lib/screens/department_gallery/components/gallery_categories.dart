@@ -6,6 +6,7 @@ import 'package:uet_tests/database/models.dart';
 
 import '../../../size_config.dart';
 
+/**
 class GalleryCategories extends StatelessWidget {
   const GalleryCategories({
     Key? key,
@@ -22,6 +23,8 @@ class GalleryCategories extends StatelessWidget {
     );
   }
 }
+
+ */
 
 class CategoryGalleryCard extends StatelessWidget {
   const CategoryGalleryCard({

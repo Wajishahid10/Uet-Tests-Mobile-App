@@ -9,7 +9,8 @@ class GalleryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final ProductDetailsArguments agrs =ModalRoute.of(context)!.settings.arguments as ProductDetailsArguments;
+    final TestFetchArguments agrs =
+        ModalRoute.of(context)!.settings.arguments as TestFetchArguments;
 
     return Scaffold(
       /**
@@ -18,13 +19,15 @@ class GalleryScreen extends StatelessWidget {
         child: CustomAppBar(),
       ),
       */
-      body: Body(),
+      body: Body(
+        DepartmentID: agrs.DepartmentID,
+      ),
     );
   }
 }
 
-class ProductDetailsArguments {
-  final Product product;
+class TestFetchArguments {
+  final int DepartmentID;
 
-  ProductDetailsArguments({required this.product});
+  TestFetchArguments({required this.DepartmentID});
 }

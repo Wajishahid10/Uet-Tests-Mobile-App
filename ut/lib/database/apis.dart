@@ -102,6 +102,8 @@ Future<void> login(
 
     if (responseRecieved.body[3] == '1') {
       // Customer
+      await sharedPreferences.setInt(
+          "user_ID", json.decode(responseRecieved.body)["LoginID"]);
       Navigator.pushNamed(context, LoginSuccessScreen.routeName);
     }
   } on FirebaseAuthException catch (e) {
@@ -132,8 +134,9 @@ void signup(Map loginData, Map completeData, XFile? displayPicture,
       // Created
       print(responseRecieved.body);
       Map<String, dynamic> login_manager = json.decode(responseRecieved.body);
-      print(login_manager["LoginID"]);
-      completeData["UserID"] = login_manager["LoginID"];
+
+      int userID = login_manager["LoginID"];
+      completeData["UserID"] = userID;
 
       completeData["Display_Picture"] =
           base64Encode(await displayPicture!.readAsBytes());
@@ -141,6 +144,8 @@ void signup(Map loginData, Map completeData, XFile? displayPicture,
       completeSignup(completeData, context);
 
       print("New Account Created");
+
+      await sharedPreferences.setInt("user_ID", userID);
     } else if (responseRecieved.statusCode == 208) {
       // Already Present
 
@@ -273,8 +278,19 @@ Future<List<Object>> searchBarSuggesstions() async {
   return result;
 }
 
-Future<List<Department>> homeScreeDepartements() async {
+Future<List<Department>> homeScreenDepartements() async {
   String query = baseAPI + 'home/departments';
+
+  http.Response responseRecieved = await get(query);
+
+  List<Department> departments_List =
+      parseDepartmentsData(responseRecieved.body);
+
+  return departments_List;
+}
+
+Future<List<Department>> fetchDepartements() async {
+  String query = baseAPI + 'department';
 
   http.Response responseRecieved = await get(query);
 
@@ -294,12 +310,52 @@ Future<List<Test>> homePopularTests() async {
   return tests_List;
 }
 
-Future<List<Test>> homePreviousTests(int id) async {
-  String query = baseAPI + 'home/departments/$id';
+Future<List<Test>> popularTests() async {
+  String query = baseAPI + 'popularTests';
 
   http.Response responseRecieved = await get(query);
 
   List<Test> tests_List = parseTestsData(responseRecieved.body);
 
   return tests_List;
+}
+
+Future<List<Test>> homePreviousTests(int id) async {
+  String query = baseAPI + 'home/previousTests/$id';
+
+  http.Response responseRecieved = await get(query);
+
+  List<Test> tests_List = parseTestsData(responseRecieved.body);
+
+  return tests_List;
+}
+
+Future<List<Test>> previousTests(int id) async {
+  String query = baseAPI + 'previousTests/$id';
+
+  http.Response responseRecieved = await get(query);
+
+  List<Test> tests_List = parseTestsData(responseRecieved.body);
+
+  return tests_List;
+}
+
+Future<List<Test>> specificDepartment_Tests(int id) async {
+  String query = baseAPI + 'specificDepartmentTests/$id';
+
+  http.Response responseRecieved = await get(query);
+
+  List<Test> tests_List = parseTestsData(responseRecieved.body);
+
+  return tests_List;
+}
+
+Future<List<Order>> orderTest(Map<String, dynamic> dataMap) async {
+  String query = baseAPI + 'order';
+
+  http.Response responseRecieved = await post(query, dataMap);
+
+  List<Order> orders_List = parseOrdersData(responseRecieved.body);
+
+  return orders_List;
 }

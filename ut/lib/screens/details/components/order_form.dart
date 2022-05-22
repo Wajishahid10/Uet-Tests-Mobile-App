@@ -7,6 +7,7 @@ import 'package:uet_tests/components/form_error.dart';
 import 'package:uet_tests/database/Product.dart';
 import 'package:uet_tests/database/apis.dart';
 import 'package:uet_tests/database/models.dart';
+import 'package:uet_tests/main.dart';
 import 'package:uet_tests/screens/details/components/rounded_container.dart';
 import 'package:uet_tests/screens/login_success/login_success_screen.dart';
 import 'package:uet_tests/components/form_error.dart';
@@ -68,7 +69,34 @@ class _OrderFormState extends State<OrderForm> {
                     child: DefaultButton(
                       text: "Order Test",
                       press: () {
-                        if (_formKey.currentState!.validate()) {}
+                        if (_formKey.currentState!.validate()) {
+                          _formKey.currentState!.save();
+
+                          Map<String, String> attributes_Details = {};
+                          List<String> attributesNames = [];
+
+                          widget.test.Test_Sample_Attributes.forEach(
+                              (key, value) => {attributesNames.add(key)});
+
+                          for (int i = 0; i < attributesValueList.length; i++) {
+                            attributes_Details[attributesNames[i]] =
+                                attributesValueList[i].text;
+                          }
+
+                          print(attributes_Details);
+
+                          Map<String, dynamic> orderMap = {
+                            //                "User_ID": sharedPreferences.getInt('user_ID'),
+                            "User_ID": 1,
+                            "Test_ID": widget.test.testID,
+                            "Test_Sample_Attributes": attributes_Details,
+                            "OrderCompletionTime":
+                                widget.test.Estimates_Testing_Time,
+                            "Status": 'Pending',
+                            "Total_Bill": widget.test.Price,
+                          };
+                          orderTest(orderMap);
+                        }
                       },
                     ),
                   ),

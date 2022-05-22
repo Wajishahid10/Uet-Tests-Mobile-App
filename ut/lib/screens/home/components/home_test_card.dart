@@ -5,13 +5,13 @@ import 'package:uet_tests/database/Product.dart';
 import 'package:uet_tests/database/models.dart';
 import 'package:uet_tests/screens/details/details_screen.dart';
 
-import '../constants.dart';
-import '../size_config.dart';
+import '../../../constants.dart';
+import '../../../size_config.dart';
 
-class GalleryTestCard extends StatelessWidget {
-  const GalleryTestCard({
+class HomeTestCard extends StatelessWidget {
+  const HomeTestCard({
     Key? key,
-    this.width = 150,
+    this.width = 140,
     this.aspectRetio = 1.02,
     required this.test,
   }) : super(key: key);
@@ -34,29 +34,27 @@ class GalleryTestCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Expanded(
-                child: AspectRatio(
-                  aspectRatio: 1.25,
-                  child: Container(
-                    padding: EdgeInsets.all(getProportionateScreenWidth(20)),
-                    decoration: BoxDecoration(
-                      color: kSecondaryColor.withOpacity(0.12),
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    child: Hero(
-                      tag: test.testID.toString(),
-                      child: Image.memory(
-                        (base64Decode(
-                          test.Image,
-                        )),
-                      ),
+              AspectRatio(
+                aspectRatio: aspectRetio,
+                child: Container(
+                  padding: EdgeInsets.all(getProportionateScreenWidth(20)),
+                  decoration: BoxDecoration(
+                    color: kSecondaryColor.withOpacity(0.12),
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  child: Hero(
+                    tag: test.testID.toString(),
+                    child: Image.memory(
+                      (base64Decode(
+                        test.Image,
+                      )),
                     ),
                   ),
                 ),
               ),
               const SizedBox(height: 10),
               Text(
-                test.testName,
+                test.testID.toString(),
                 style: TextStyle(color: Colors.black),
                 maxLines: 2,
               ),

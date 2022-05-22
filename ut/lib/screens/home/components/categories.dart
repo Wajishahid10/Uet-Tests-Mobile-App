@@ -16,7 +16,7 @@ class Categories extends StatefulWidget {
 }
 
 class _CategoriesState extends State<Categories> {
-  late Future<List<Department>> homeDepartments = homeScreeDepartements();
+  late Future<List<Department>> homeDepartments = homeScreenDepartements();
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +34,7 @@ class _CategoriesState extends State<Categories> {
                 padding: EdgeInsets.symmetric(
                     horizontal: getProportionateScreenWidth(20)),
                 child: SectionTitle(
-                  title: "Categories",
+                  title: "Departments",
                   press: () {
                     Navigator.pushReplacementNamed(
                         context, DepartmentGalleryScreen.routeName);
@@ -55,7 +55,10 @@ class _CategoriesState extends State<Categories> {
                               department: homeDepartmentsData[index],
                               press: () {
                                 Navigator.pushReplacementNamed(
-                                    context, GalleryScreen.routeName);
+                                    context, GalleryScreen.routeName,
+                                    arguments: TestFetchArguments(
+                                        DepartmentID: homeDepartmentsData[index]
+                                            .Department_ID));
                               },
                             ),
                             SizedBox(width: getProportionateScreenWidth(20)),

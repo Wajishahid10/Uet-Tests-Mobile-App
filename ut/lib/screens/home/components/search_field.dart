@@ -33,8 +33,6 @@ class SearchField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(suggestionsMap);
-    print(list_of_testNames_searchbar);
     return Container(
       width: SizeConfig.screenWidth * 0.72,
       decoration: BoxDecoration(
@@ -42,7 +40,7 @@ class SearchField extends StatelessWidget {
         borderRadius: BorderRadius.circular(15),
       ),
       child: Autocomplete<String>(
-        optionsBuilder: (TextEditingValue value) {
+        optionsBuilder: (value) {
           return list_of_testNames_searchbar
               .where((String test) =>
                   test.toLowerCase().startsWith(value.text.toLowerCase()))
@@ -73,8 +71,8 @@ class SearchField extends StatelessWidget {
             alignment: Alignment.topLeft,
             child: Material(
               child: Container(
-                //     width: SizeConfig.screenWidth,
-                height: SizeConfig.screenWidth * 0.38,
+                width: SizeConfig.screenWidth * 0.72,
+                height: SizeConfig.screenWidth * 0.42,
                 color: kPrimaryColor.withOpacity(0.22),
                 //        color: kSecondaryColor.withOpacity(0.70),
                 child: ListView.builder(

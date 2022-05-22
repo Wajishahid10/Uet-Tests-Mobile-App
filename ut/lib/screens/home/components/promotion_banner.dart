@@ -56,7 +56,7 @@ class PromotionBanner extends StatelessWidget {
                 TextSpan(
                   text: "Digitalizing Testing",
                   style: TextStyle(
-                    fontSize: getProportionateScreenWidth(24),
+                    fontSize: getProportionateScreenWidth(20),
                     fontWeight: FontWeight.bold,
                   ),
                 ),

@@ -4,15 +4,18 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:uet_tests/constants.dart';
+import 'package:uet_tests/database/apis.dart';
 import 'package:uet_tests/database/models.dart';
 import 'package:uet_tests/screens/home/components/home_header.dart';
 import 'package:uet_tests/size_config.dart';
 
-import 'package:uet_tests/components/gallery_test_card.dart';
+import 'package:uet_tests/screens/gallery/components/gallery_test_card.dart';
 import 'package:uet_tests/database/Product.dart';
 
+import '../../../main.dart';
+
 Future<List<Test>> loadTest() async {
-  List<Test> demoTests;
+  List<Test> fetechedTests;
   ByteData image1 = await rootBundle.load('assets/images/sv1.jpg');
   String convertedImage1 = base64Encode(
       image1.buffer.asUint8List(image1.offsetInBytes, image1.lengthInBytes));
@@ -25,7 +28,7 @@ Future<List<Test>> loadTest() async {
   ByteData image4 = await rootBundle.load('assets/images/glap.png');
   String convertedImage4 = base64Encode(
       image4.buffer.asUint8List(image4.offsetInBytes, image4.lengthInBytes));
-  demoTests = [
+  fetechedTests = [
     Test(
       testID: 1,
       departmentID: 1,
@@ -95,51 +98,72 @@ Future<List<Test>> loadTest() async {
       },
     ),
   ];
-  return demoTests;
+  return fetechedTests;
+}
+
+Future<List<Test>> fetchTests(int DepartmentID) async {
+  if (DepartmentID == -1) {
+    return popularTests();
+  }
+  if (DepartmentID == -2) {
+    return previousTests(await sharedPreferences.getInt("user_ID")!);
+  } else {
+    return specificDepartment_Tests(DepartmentID);
+  }
 }
 
 class Body extends StatelessWidget {
-  late Future<List<Test>> demoTests = loadTest();
+  final int DepartmentID;
+  const Body({Key? key, required this.DepartmentID}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    Future<List<Test>> fetechedTests = fetchTests(DepartmentID);
     /*
     final List<Map> myProducts = List.generate(
         100000, (index) => {"id": index, "name": "Product $index"}).toList();
   */
 
     return FutureBuilder(
-      future: demoTests,
+      future: fetechedTests,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done &&
             snapshot.hasData) {
-          List<Test> demoTestsData = snapshot.data as List<Test>;
-          return SafeArea(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  SizedBox(height: getProportionateScreenHeight(20)),
-                  HomeHeader(),
-                  SizedBox(height: getProportionateScreenHeight(20)),
-                  SafeArea(
-                    child: GridView.builder(
-                      scrollDirection: Axis.vertical,
-                      shrinkWrap: true,
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        childAspectRatio: 1,
-                        crossAxisSpacing: 5,
-                        mainAxisSpacing: 20,
+          List<Test> fetechedTestsData = snapshot.data as List<Test>;
+
+          if (fetechedTestsData.length == 0) {
+            return Center(
+              child: Text('No Test Found in This Department'),
+            );
+          } else {
+            return SafeArea(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    SizedBox(height: getProportionateScreenHeight(20)),
+                    HomeHeader(),
+                    SizedBox(height: getProportionateScreenHeight(20)),
+                    SafeArea(
+                      child: GridView.builder(
+                        scrollDirection: Axis.vertical,
+                        shrinkWrap: true,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          childAspectRatio: 1,
+                          crossAxisSpacing: 5,
+                          mainAxisSpacing: 20,
+                        ),
+                        itemCount: fetechedTestsData.length,
+                        itemBuilder: (BuildContext ctx, index) {
+                          return GalleryTestCard(
+                              test: fetechedTestsData[index]);
+                        },
                       ),
-                      itemCount: demoTestsData.length,
-                      itemBuilder: (BuildContext ctx, index) {
-                        return GalleryTestCard(test: demoTestsData[index]);
-                      },
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          );
+            );
+          }
         }
         return Center(
           child: CircularProgressIndicator(),

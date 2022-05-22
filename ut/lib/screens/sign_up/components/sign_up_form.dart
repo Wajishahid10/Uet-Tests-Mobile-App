@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:uet_tests/components/custom_surfix_icon.dart';
@@ -83,58 +85,7 @@ class _SignUpFormState extends State<SignUpForm> {
           SizedBox(
             height: getProportionateScreenHeight(30),
           ),
-          PopupMenuButton(
-            child: Container(
-              decoration: BoxDecoration(
-                color: Color(0xFFF5F6F9),
-              ),
-              child: Center(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Profile Picture',
-                      style: TextStyle(fontSize: 22, fontFamily: 'bold'),
-                    ),
-                    Icon(Icons.camera_alt),
-                  ],
-                ),
-              ),
-            ),
-            elevation: 20,
-            itemBuilder: (context) => [
-              PopupMenuItem(
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.camera,
-                    ),
-                    Text("Camera"),
-                  ],
-                ),
-                value: 1,
-                onTap: () async {
-                  displayPicture =
-                      await _picker.pickImage(source: ImageSource.camera);
-                },
-              ),
-              PopupMenuItem(
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.photo_album,
-                    ),
-                    Text("Gallery"),
-                  ],
-                ),
-                value: 2,
-                onTap: () async {
-                  displayPicture =
-                      await _picker.pickImage(source: ImageSource.gallery);
-                },
-              ),
-            ],
-          ),
+          buildProfilePic(),
           FormError(errors: errors),
           SizedBox(
             height: getProportionateScreenHeight(40),
@@ -189,6 +140,133 @@ class _SignUpFormState extends State<SignUpForm> {
         ],
       ),
     );
+  }
+
+  Widget buildProfilePic() {
+    final ImagePicker _picker = ImagePicker();
+    return SizedBox(
+      height: 115,
+      width: 115,
+      child: Stack(
+        fit: StackFit.expand,
+        clipBehavior: Clip.none,
+        children: [
+          CircleAvatar(
+            backgroundImage: displayPicture != null
+                ? FileImage(File(displayPicture!.path))
+                : AssetImage("assets/images/Profile Image.png")
+                    as ImageProvider,
+          ),
+          Positioned(
+            right: -16,
+            bottom: 0,
+            child: SizedBox(
+              height: 46,
+              width: 46,
+              child: PopupMenuButton(
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Color(0xFFF5F6F9),
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(Icons.camera_alt),
+                ),
+                elevation: 20,
+                itemBuilder: (context) => [
+                  PopupMenuItem(
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.camera,
+                        ),
+                        Text("Camera"),
+                      ],
+                    ),
+                    value: 1,
+                    onTap: () async {
+                      displayPicture = await _picker.pickImage(
+                          source: ImageSource.camera, imageQuality: 40);
+                      setState(() {});
+                    },
+                  ),
+                  PopupMenuItem(
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.photo_album,
+                        ),
+                        Text("Gallery"),
+                      ],
+                    ),
+                    value: 2,
+                    onTap: () async {
+                      displayPicture =
+                          await _picker.pickImage(source: ImageSource.gallery);
+                      setState(() {});
+                    },
+                  ),
+                ],
+              ),
+            ),
+          )
+        ],
+      ),
+    );
+
+    /**
+          PopupMenuButton(
+            child: Container(
+              decoration: BoxDecoration(
+                color: Color(0xFFF5F6F9),
+              ),
+              child: Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Profile Picture',
+                      style: TextStyle(fontSize: 22, fontFamily: 'bold'),
+                    ),
+                    Icon(Icons.camera_alt),
+                  ],
+                ),
+              ),
+            ),
+            elevation: 20,
+            itemBuilder: (context) => [
+              PopupMenuItem(
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.camera,
+                    ),
+                    Text("Camera"),
+                  ],
+                ),
+                value: 1,
+                onTap: () async {
+                  displayPicture =
+                      await _picker.pickImage(source: ImageSource.camera);
+                },
+              ),
+              PopupMenuItem(
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.photo_album,
+                    ),
+                    Text("Gallery"),
+                  ],
+                ),
+                value: 2,
+                onTap: () async {
+                  displayPicture =
+                      await _picker.pickImage(source: ImageSource.gallery);
+                },
+              ),
+            ],
+          ),
+           */
   }
 
   TextFormField buildConfirmPassFormField() {

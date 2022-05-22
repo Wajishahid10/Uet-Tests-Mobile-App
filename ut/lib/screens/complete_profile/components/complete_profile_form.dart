@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -8,6 +9,7 @@ import 'package:uet_tests/components/form_error.dart';
 import 'package:uet_tests/database/apis.dart';
 import 'package:uet_tests/screens/login_success/login_success_screen.dart';
 import 'package:uet_tests/main.dart';
+import 'package:uet_tests/screens/profile/components/profile_pic.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
@@ -68,48 +70,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
           SizedBox(
             height: getProportionateScreenHeight(30),
           ),
-          PopupMenuButton(
-            child: Container(
-              decoration: BoxDecoration(
-                color: Color(0xFFF5F6F9),
-                shape: BoxShape.circle,
-              ),
-              child: Icon(Icons.camera_alt),
-            ),
-            elevation: 20,
-            itemBuilder: (context) => [
-              PopupMenuItem(
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.camera,
-                    ),
-                    Text("Camera"),
-                  ],
-                ),
-                value: 1,
-                onTap: () async {
-                  displayPicture =
-                      await _picker.pickImage(source: ImageSource.camera);
-                },
-              ),
-              PopupMenuItem(
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.photo_album,
-                    ),
-                    Text("Gallery"),
-                  ],
-                ),
-                value: 2,
-                onTap: () async {
-                  displayPicture =
-                      await _picker.pickImage(source: ImageSource.gallery);
-                },
-              ),
-            ],
-          ),
+          ProfilePic(),
           FormError(errors: errors),
           SizedBox(
             height: getProportionateScreenHeight(40),
@@ -235,6 +196,78 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
         suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/User.svg"),
+      ),
+    );
+  }
+
+  Widget buildProfilePic() {
+    final ImagePicker _picker = ImagePicker();
+    return SizedBox(
+      height: 115,
+      width: 115,
+      child: Stack(
+        fit: StackFit.expand,
+        clipBehavior: Clip.none,
+        children: [
+          CircleAvatar(
+            backgroundImage: displayPicture != null
+                ? FileImage(File(displayPicture!.path))
+                : AssetImage("assets/images/Profile Image.png")
+                    as ImageProvider,
+          ),
+          Positioned(
+            right: -16,
+            bottom: 0,
+            child: SizedBox(
+              height: 46,
+              width: 46,
+              child: PopupMenuButton(
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Color(0xFFF5F6F9),
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(Icons.camera_alt),
+                ),
+                elevation: 20,
+                itemBuilder: (context) => [
+                  PopupMenuItem(
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.camera,
+                        ),
+                        Text("Camera"),
+                      ],
+                    ),
+                    value: 1,
+                    onTap: () async {
+                      displayPicture = await _picker.pickImage(
+                          source: ImageSource.camera, imageQuality: 40);
+                      setState(() {});
+                    },
+                  ),
+                  PopupMenuItem(
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.photo_album,
+                        ),
+                        Text("Gallery"),
+                      ],
+                    ),
+                    value: 2,
+                    onTap: () async {
+                      displayPicture =
+                          await _picker.pickImage(source: ImageSource.gallery);
+                      setState(() {});
+                    },
+                  ),
+                ],
+              ),
+            ),
+          )
+        ],
       ),
     );
   }

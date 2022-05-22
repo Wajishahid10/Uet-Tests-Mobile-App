@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:uet_tests/components/home_test_card.dart';
+import 'package:uet_tests/screens/home/components/home_test_card.dart';
 import 'package:uet_tests/components/shimmer.dart';
 import 'package:uet_tests/database/Product.dart';
 import 'package:uet_tests/database/apis.dart';
@@ -26,13 +26,17 @@ class PopularTests extends StatelessWidget {
                 padding: EdgeInsets.symmetric(
                     horizontal: getProportionateScreenWidth(20)),
                 child: SectionTitle(
-                    title: "Popular Tests",
-                    press: () {
-                      Navigator.pushReplacementNamed(
-                          context, GalleryScreen.routeName);
-                    }),
+                  title: "Popular Tests",
+                  press: () {
+                    Navigator.pushReplacementNamed(
+                        context, GalleryScreen.routeName,
+                        arguments: TestFetchArguments(DepartmentID: -1));
+                  },
+                ),
               ),
-              SizedBox(height: getProportionateScreenWidth(20)),
+              SizedBox(
+                height: getProportionateScreenWidth(20),
+              ),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(

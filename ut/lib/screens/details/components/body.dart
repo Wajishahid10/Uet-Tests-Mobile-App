@@ -7,6 +7,10 @@ import 'package:uet_tests/components/default_button.dart';
 import 'package:uet_tests/constants.dart';
 import 'package:uet_tests/database/Product.dart';
 import 'package:uet_tests/database/models.dart';
+import 'package:uet_tests/main.dart';
+import 'package:uet_tests/screens/profile/components/profile_menu.dart';
+import 'package:uet_tests/screens/sign_in/sign_in_screen.dart';
+import 'package:uet_tests/screens/sign_up/sign_up_screen.dart';
 import 'package:uet_tests/size_config.dart';
 
 import 'package:expandable/expandable.dart';
@@ -16,13 +20,101 @@ import 'test_description.dart';
 import 'rounded_container.dart';
 import 'test_images.dart';
 
+class Body extends StatelessWidget {
+  final Test test;
+  Body({Key? key, required this.test}) : super(key: key);
+//  late Future<List<Test>> demoTests = loadTest();
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      children: [
+        TestImages(test: test),
+        RoundedContainer(
+          color: Colors.white,
+          child: Column(
+            children: [
+              TestDescription(
+                test: test,
+              ),
+              SizedBox(height: getProportionateScreenWidth(10)),
+              ExpandableNotifier(
+                // <-- Provides ExpandableController to its children
+                child: Column(
+                  children: [
+                    Expandable(
+                      // <-- Driven by ExpandableController from ExpandableNotifier
+                      collapsed: ExpandableButton(
+                        // <-- Expands when tapped on the cover photo
+                        child: DefaultButton(
+                          text: "Book Test",
+                        ),
+                      ),
+                      expanded: Column(
+                        children: [
+                          OrderForm(
+                            test: test,
+
+                            //   test: product,
+                          ),
+                        ],
+                      ),
+                      /**
+                      expanded: sharedPreferences.containsKey('user_ID')
+                          ? Column(
+                              children: [
+                                OrderForm(
+                                  test: test,
+
+                                  //   test: product,
+                                ),
+                              ],
+                            )
+                          : Center(
+                              child: Column(
+                                children: [
+                                  Text(
+                                      'You have to LogIn first to Book a Test.'),
+                                  NoProfileMenu(
+                                    text: "Login/SignIn",
+                                    icon: Icons.login,
+                                    press: () {
+                                      Navigator.pushReplacementNamed(
+                                          context, SignInScreen.routeName);
+                                    },
+                                  ),
+                                  NoProfileMenu(
+                                    text: "Create Account",
+                                    icon: Icons.manage_accounts,
+                                    press: () {
+                                      Navigator.pushReplacementNamed(
+                                          context, SignUpScreen.routeName);
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ),
+                             */
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+
+/**
 class Body extends StatefulWidget {
   final Test test;
   const Body({Key? key, required this.test}) : super(key: key);
   @override
   _BodyState createState() => _BodyState();
 }
-
 Future<List<Test>> loadTest() async {
   List<Test> demoTests;
   ByteData image1 = await rootBundle.load('assets/images/sv1.jpg');
@@ -109,64 +201,5 @@ Future<List<Test>> loadTest() async {
   ];
   return demoTests;
 }
+*/
 
-class _BodyState extends State<Body> {
-  late Future<List<Test>> demoTests = loadTest();
-
-  @override
-  Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: demoTests,
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.done &&
-            snapshot.hasData) {
-          List<Test> demoTestsData = snapshot.data as List<Test>;
-          return ListView(
-            children: [
-              TestImages(test: demoTestsData[0]),
-              RoundedContainer(
-                color: Colors.white,
-                child: Column(
-                  children: [
-                    TestDescription(
-                      test: demoTestsData[0],
-                    ),
-                    SizedBox(height: getProportionateScreenWidth(10)),
-                    ExpandableNotifier(
-                      // <-- Provides ExpandableController to its children
-                      child: Column(
-                        children: [
-                          Expandable(
-                            // <-- Driven by ExpandableController from ExpandableNotifier
-                            collapsed: ExpandableButton(
-                              // <-- Expands when tapped on the cover photo
-                              child: DefaultButton(
-                                text: "Book Test",
-                              ),
-                            ),
-                            expanded: Column(
-                              children: [
-                                OrderForm(
-                                  test: demoTestsData[0],
-
-                                  //   test: product,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          );
-        }
-        return Center(
-          child: CircularProgressIndicator(),
-        );
-      },
-    );
-  }
-}
