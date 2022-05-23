@@ -106,7 +106,7 @@ Future<List<Test>> fetchTests(int DepartmentID) async {
     return popularTests();
   }
   if (DepartmentID == -2) {
-    return previousTests(await sharedPreferences.getInt("user_ID")!);
+    return previousTests();
   } else {
     return specificDepartment_Tests(DepartmentID);
   }

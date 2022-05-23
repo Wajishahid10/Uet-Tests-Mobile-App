@@ -8,6 +8,7 @@ import 'package:uet_tests/screens/forgot_password/forgot_password_screen.dart';
 import 'package:uet_tests/screens/home/home_screen.dart';
 import 'package:uet_tests/screens/login_success/login_success_screen.dart';
 import 'package:uet_tests/screens/emailVerification/emailVerification_screen.dart';
+import 'package:uet_tests/screens/profile/components/profileDetails.dart';
 import 'package:uet_tests/screens/profile/profile_screen.dart';
 import 'package:uet_tests/screens/results/results.dart';
 import 'package:uet_tests/screens/sign_in/sign_in_screen.dart';
@@ -32,4 +33,5 @@ final Map<String, WidgetBuilder> routes = {
   ResultsScreen.routeName: (context) => ResultsScreen(),
   CartScreen.routeName: (context) => CartScreen(),
   ProfileScreen.routeName: (context) => ProfileScreen(),
+  ProfileDetailsBody.routeName: (context) => ProfileDetailsBody(),
 };

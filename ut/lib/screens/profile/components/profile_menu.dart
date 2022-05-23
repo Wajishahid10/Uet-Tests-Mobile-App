@@ -95,3 +95,41 @@ class NoProfileMenu extends StatelessWidget {
     );
   }
 }
+
+class ProfileDetailsTile extends StatelessWidget {
+  const ProfileDetailsTile({
+    Key? key,
+    required this.value,
+    required this.title,
+  }) : super(key: key);
+
+  final String title;
+  final String value;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      child: Card(
+        color: Color(0xFFF5F6F9),
+        shadowColor: kPrimaryColor,
+        elevation: 20,
+        clipBehavior: Clip.hardEdge,
+        child: Column(
+          children: [
+            Text(
+              title,
+              style: TextStyle(fontSize: 20),
+            ),
+            Divider(),
+            SizedBox(width: 12),
+            Text(
+              value,
+              style: TextStyle(fontSize: 18, color: kPrimaryColor),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

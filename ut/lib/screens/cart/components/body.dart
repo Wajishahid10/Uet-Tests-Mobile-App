@@ -4,7 +4,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:uet_tests/database/Cart.dart';
+import 'package:uet_tests/database/apis.dart';
 import 'package:uet_tests/database/models.dart';
 
 import '../../../size_config.dart';
@@ -103,29 +103,30 @@ Future<List<Test>> loadTest() async {
 }
 
 class _BodyState extends State<Body> {
-  late Future<List<Test>> demoTests = loadTest();
-
+  late Future<List<List<Object>>> fetchedOrders = ordersofUser();
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: demoTests,
+      future: fetchedOrders,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done &&
             snapshot.hasData) {
-          List<Test> demoTestsData = snapshot.data as List<Test>;
+          List<List<Object>> fetchedTestsData =
+              snapshot.data as List<List<Object>>;
+
           return Padding(
             padding: EdgeInsets.symmetric(
                 horizontal: getProportionateScreenWidth(20)),
             child: ListView.builder(
-              itemCount: demoCarts.length,
+              itemCount: fetchedTestsData.length,
               itemBuilder: (context, index) => Padding(
                 padding: EdgeInsets.symmetric(vertical: 10),
                 child: Dismissible(
-                  key: Key(demoTestsData[index].testID.toString()),
+                  key: Key(index.toString()),
                   direction: DismissDirection.endToStart,
                   onDismissed: (direction) {
                     setState(() {
-                      demoCarts.removeAt(index);
+                      fetchedTestsData.removeAt(index);
                     });
                   },
                   background: Container(
@@ -145,7 +146,7 @@ class _BodyState extends State<Body> {
                       ],
                     ),
                   ),
-                  child: OrderCard(order: demoTestsData[index]),
+                  child: OrderCard(totalorder: fetchedTestsData[index]),
                 ),
               ),
             ),

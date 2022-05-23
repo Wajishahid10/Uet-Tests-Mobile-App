@@ -11,12 +11,13 @@ class ProfileScreen extends StatelessWidget {
   static String routeName = "/profile";
   @override
   Widget build(BuildContext context) {
-    User? user = auth.currentUser;
     return Scaffold(
       appBar: AppBar(
-        title: Text("Profile"),
+        title: Text("Profile Menu"),
       ),
-      body: user == null ? noLoginBody() : LoggedInBody(),
+      body: sharedPreferences.getInt("user_ID") == null
+          ? noLoginBody()
+          : LoggedInBody(),
     );
   }
 }

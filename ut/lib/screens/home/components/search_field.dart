@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:uet_tests/database/apis.dart';
+import 'package:uet_tests/database/models.dart';
+import 'package:uet_tests/screens/details/details_screen.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
@@ -103,11 +106,15 @@ class SearchField extends StatelessWidget {
             ),
           );
         },
-        onSelected: (value) {
+        onSelected: (value) async {
           String Test_ID = suggestionsMap.keys
               .firstWhere((element) => suggestionsMap[element] == value);
-
-          String selectedTest = value;
+          Test test = await getTest(int.parse(Test_ID));
+          Navigator.pushNamed(
+            context,
+            DetailsScreen.routeName,
+            arguments: TestDetailsArguments(test: test),
+          );
           /**
           setState(
             () {

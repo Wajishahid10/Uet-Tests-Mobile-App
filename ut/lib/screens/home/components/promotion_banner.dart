@@ -13,9 +13,9 @@ class PromotionBanner extends StatelessWidget {
     return Container(
       // height: 90,
       width: double.infinity,
-      margin: EdgeInsets.all(getProportionateScreenWidth(20)),
+      margin: EdgeInsets.all(getProportionateScreenWidth(10)),
       padding: EdgeInsets.symmetric(
-        horizontal: getProportionateScreenWidth(20),
+        horizontal: getProportionateScreenWidth(10),
         vertical: getProportionateScreenWidth(15),
       ),
       decoration: BoxDecoration(
@@ -61,6 +61,14 @@ class PromotionBanner extends StatelessWidget {
                   ),
                 ),
               ],
+            ),
+          ),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(13),
+            child: Image.asset(
+              'assets/uet_logo.png',
+              height: getProportionateScreenWidth(75),
+              width: getProportionateScreenWidth(75),
             ),
           ),
         ],

@@ -11,6 +11,7 @@ import 'package:uet_tests/main.dart';
 import 'package:uet_tests/screens/profile/components/profile_menu.dart';
 import 'package:uet_tests/screens/sign_in/sign_in_screen.dart';
 import 'package:uet_tests/screens/sign_up/sign_up_screen.dart';
+import 'package:uet_tests/screens/emailVerification/emailVerification_screen.dart';
 import 'package:uet_tests/size_config.dart';
 
 import 'package:expandable/expandable.dart';
@@ -50,6 +51,7 @@ class Body extends StatelessWidget {
                           text: "Book Test",
                         ),
                       ),
+                      /**
                       expanded: Column(
                         children: [
                           OrderForm(
@@ -59,18 +61,9 @@ class Body extends StatelessWidget {
                           ),
                         ],
                       ),
-                      /**
-                      expanded: sharedPreferences.containsKey('user_ID')
-                          ? Column(
-                              children: [
-                                OrderForm(
-                                  test: test,
-
-                                  //   test: product,
-                                ),
-                              ],
-                            )
-                          : Center(
+                      */
+                      expanded: !sharedPreferences.containsKey('user_ID')
+                          ? Center(
                               child: Column(
                                 children: [
                                   Text(
@@ -93,8 +86,25 @@ class Body extends StatelessWidget {
                                   ),
                                 ],
                               ),
-                            ),
-                             */
+                            )
+                          : auth.currentUser!.emailVerified
+                              ? Column(
+                                  children: [
+                                    OrderForm(
+                                      test: test,
+
+                                      //   test: product,
+                                    ),
+                                  ],
+                                )
+                              : DefaultButton(
+                                  text: 'Verify Your Email',
+                                  press: () {
+                                    auth.currentUser!.sendEmailVerification();
+                                    Navigator.pushReplacementNamed(context,
+                                        emailVerificationScreen.routeName);
+                                  },
+                                ),
                     ),
                   ],
                 ),

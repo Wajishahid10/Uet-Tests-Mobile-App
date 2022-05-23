@@ -64,7 +64,7 @@ List<Login_Manager> parseLoginManagerList(String responseBody) {
       .toList();
 }
 
-Future<http.Response> getLoginManagerfromUID() async {
+Future<Login_Manager> getLoginManagerfromUID() async {
   String uid = auth.currentUser!.uid;
   String query = baseAPI + 'getLoginManagerFromUID/$uid/';
 
@@ -72,10 +72,10 @@ Future<http.Response> getLoginManagerfromUID() async {
 
   print(responseRecieved.body);
 
-  List<Login_Manager> login_manager =
-      parseLoginManagerList(responseRecieved.body);
-
-  return responseRecieved;
+  Login_Manager login_manager =
+      Login_Manager.fromJson(jsonDecode(responseRecieved.body));
+  print(login_manager.toMap());
+  return login_manager;
 }
 
 void signupwithGoogle(Map loginData, BuildContext context) async {
@@ -85,7 +85,12 @@ void signupwithGoogle(Map loginData, BuildContext context) async {
 
   print(responseRecieved);
 
-  Navigator.pushReplacementNamed(context, CompleteProfileScreen.routeName);
+  Map<String, dynamic> login_manager = json.decode(responseRecieved.body);
+
+  int userID = login_manager["LoginID"];
+
+  Navigator.pushReplacementNamed(context, CompleteProfileScreen.routeName,
+      arguments: UserIDforGoogleSignInArguments(UserID: userID));
 }
 
 Future<void> login(
@@ -141,7 +146,7 @@ void signup(Map loginData, Map completeData, XFile? displayPicture,
       completeData["Display_Picture"] =
           base64Encode(await displayPicture!.readAsBytes());
 
-      completeSignup(completeData, context);
+      completeSignup(completeData, context, true);
 
       print("New Account Created");
 
@@ -162,7 +167,8 @@ void signup(Map loginData, Map completeData, XFile? displayPicture,
   } catch (onError) {}
 }
 
-void completeSignup(Map data, BuildContext context) async {
+void completeSignup(
+    Map data, BuildContext context, bool requiredVerficarion) async {
   String query = baseAPI + 'user';
 
   print("Completing Sigup");
@@ -170,8 +176,11 @@ void completeSignup(Map data, BuildContext context) async {
   http.Response responseRecieved = await post(query, data);
 
   print(responseRecieved.body);
-
-  Navigator.pushReplacementNamed(context, emailVerificationScreen.routeName);
+  if (requiredVerficarion) {
+    Navigator.pushReplacementNamed(context, emailVerificationScreen.routeName);
+  } else {
+    Navigator.pushNamed(context, LoginSuccessScreen.routeName);
+  }
   /*
   Navigator.push(
       context,
@@ -272,10 +281,17 @@ Future<List<Object>> searchBarSuggesstions() async {
 
   result.add(list_of_testNames_searchbar);
 
-  print(suggestionsMap);
-  print(list_of_testNames_searchbar);
-
   return result;
+}
+
+Future<Users> getUser() async {
+  String query = baseAPI + 'userinfo/${sharedPreferences.getInt("user_ID")}';
+
+  http.Response responseRecieved = await get(query);
+
+  Users user = Users.fromJson(jsonDecode(responseRecieved.body));
+
+  return user;
 }
 
 Future<List<Department>> homeScreenDepartements() async {
@@ -300,6 +316,18 @@ Future<List<Department>> fetchDepartements() async {
   return departments_List;
 }
 
+Future<Test> getTest(int id) async {
+  String query = baseAPI + 'testinfo/$id';
+
+  http.Response responseRecieved = await get(query);
+
+  print(responseRecieved.body);
+
+  Test test = Test.fromJson(jsonDecode(responseRecieved.body));
+
+  return test;
+}
+
 Future<List<Test>> homePopularTests() async {
   String query = baseAPI + 'home/popularTests';
 
@@ -320,8 +348,9 @@ Future<List<Test>> popularTests() async {
   return tests_List;
 }
 
-Future<List<Test>> homePreviousTests(int id) async {
-  String query = baseAPI + 'home/previousTests/$id';
+Future<List<Test>> homePreviousTests() async {
+  String query =
+      baseAPI + 'home/previousTests/${sharedPreferences.getInt("user_ID")}';
 
   http.Response responseRecieved = await get(query);
 
@@ -330,8 +359,20 @@ Future<List<Test>> homePreviousTests(int id) async {
   return tests_List;
 }
 
-Future<List<Test>> previousTests(int id) async {
-  String query = baseAPI + 'previousTests/$id';
+Future<List<Test>> previousTests() async {
+  String query =
+      baseAPI + 'previousTests/${sharedPreferences.getInt("user_ID")}';
+
+  http.Response responseRecieved = await get(query);
+
+  List<Test> tests_List = parseTestsData(responseRecieved.body);
+
+  return tests_List;
+}
+
+Future<List<Test>> currentOrderTests() async {
+  String query =
+      baseAPI + 'curretnOrderOfUser/${sharedPreferences.getInt("user_ID")}';
 
   http.Response responseRecieved = await get(query);
 
@@ -358,4 +399,40 @@ Future<List<Order>> orderTest(Map<String, dynamic> dataMap) async {
   List<Order> orders_List = parseOrdersData(responseRecieved.body);
 
   return orders_List;
+}
+
+Future<List<List<Object>>> ordersofUser() async {
+  String query = baseAPI + 'orderOfUser/${sharedPreferences.getInt("user_ID")}';
+
+  http.Response responseRecieved = await get(query);
+
+  List<List<Object>> objectsList = [];
+
+  List<Order> orders_List = parseOrdersData(responseRecieved.body);
+
+  List<Test> testsList = await currentOrderTests();
+
+  for (int i = 0; i < testsList.length; i++) {
+    objectsList.add([orders_List[i], testsList[i]]);
+  }
+  return objectsList;
+}
+
+Future<List<List<Object>>> resultsofUser() async {
+  String query =
+      baseAPI + 'resultOfUser/${sharedPreferences.getInt("user_ID")}';
+
+  List<List<Object>> objectsList = [];
+
+  http.Response responseRecieved = await get(query);
+
+  List<Result> results_List = parseResultsData(responseRecieved.body);
+
+  List<Test> testsList = await previousTests();
+
+  for (int i = 0; i < testsList.length; i++) {
+    objectsList.add([results_List[i], testsList[i]]);
+  }
+
+  return objectsList;
 }

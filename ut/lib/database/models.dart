@@ -42,7 +42,7 @@ List<Login_Manager> parseLogin_ManagersData(String responseBody) {
       .toList();
 }
 
-class User {
+class Users {
   int UserID;
   String userName;
   String Display_Picture;
@@ -52,7 +52,7 @@ class User {
   String Email_Address;
   String AccountCreated;
 
-  User({
+  Users({
     required this.UserID,
     required this.userName,
     required this.Display_Picture,
@@ -63,8 +63,8 @@ class User {
     required this.AccountCreated,
   });
 
-  factory User.fromJson(Map<String, dynamic> json) {
-    return User(
+  factory Users.fromJson(Map<String, dynamic> json) {
+    return Users(
       UserID: json["UserID"],
       userName: json["userName"],
       Display_Picture: json["Display_Picture"],
@@ -91,13 +91,13 @@ class User {
 
   @override
   String toString() {
-    return 'User{userName: $userName Company: $Company}';
+    return 'Users{userName: $userName Company: $Company}';
   }
 }
 
-List<User> parseUsersData(String responseBody) {
+List<Users> parseUsersData(String responseBody) {
   final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
-  return parsed.map<User>((json) => User.fromJson(json)).toList();
+  return parsed.map<Users>((json) => Users.fromJson(json)).toList();
 }
 
 class Admin {
@@ -339,7 +339,7 @@ class Result {
     return Result(
       Order_ID: json["Order_ID"],
       Result_ID: json["Result_ID"],
-      ResultDescription: json["ResultDescription"],
+      ResultDescription: json["Result"],
       Image: json["Image"],
       Details: json["Details"],
     );
@@ -349,7 +349,7 @@ class Result {
     return {
       'Order_ID': Order_ID,
       'Result_ID': Result_ID,
-      'ResultDescription': ResultDescription,
+      'Result': ResultDescription,
       'Image': Image,
       'Details': Details,
     };

@@ -23,10 +23,6 @@ class CartScreen extends StatelessWidget {
             "Your Orders",
             style: TextStyle(color: Colors.black),
           ),
-          Text(
-            "${demoCarts.length} orders",
-            style: Theme.of(context).textTheme.caption,
-          ),
         ],
       ),
     );

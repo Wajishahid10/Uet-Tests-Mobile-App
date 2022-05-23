@@ -9,12 +9,13 @@ import 'package:uet_tests/components/form_error.dart';
 import 'package:uet_tests/database/apis.dart';
 import 'package:uet_tests/screens/login_success/login_success_screen.dart';
 import 'package:uet_tests/main.dart';
-import 'package:uet_tests/screens/profile/components/profile_pic.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
 
 class CompleteProfileForm extends StatefulWidget {
+  final int UserID;
+  const CompleteProfileForm({Key? key, required this.UserID}) : super(key: key);
   @override
   _CompleteProfileFormState createState() => _CompleteProfileFormState();
 }
@@ -45,16 +46,17 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
 
   @override
   Widget build(BuildContext context) {
-    final ImagePicker _picker = ImagePicker();
     return Form(
       key: _formKey,
       child: Column(
         children: [
           buildFirstNameFormField(),
+          /**
           SizedBox(
             height: getProportionateScreenHeight(30),
           ),
-          //  buildLastNameFormField(),
+            buildLastNameFormField(),
+             */
           SizedBox(
             height: getProportionateScreenHeight(30),
           ),
@@ -70,7 +72,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
           SizedBox(
             height: getProportionateScreenHeight(30),
           ),
-          ProfilePic(),
+          buildProfilePic(),
           FormError(errors: errors),
           SizedBox(
             height: getProportionateScreenHeight(40),
@@ -82,8 +84,10 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
                 addError(error: "Display Picture Not Found");
               }
               if (_formKey.currentState!.validate() && displayPicture != null) {
+                _formKey.currentState!.save();
+
                 Map completeMap = {
-                  "UserID": auth.currentUser!.uid,
+                  "UserID": widget.UserID,
                   "userName": firstName,
                   "Company": companyName,
                   "Contact_Number": phoneNumber,
@@ -92,9 +96,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
                   "Display_Picture":
                       base64Encode(await displayPicture!.readAsBytes())
                 };
-                completeSignup(completeMap, context);
-
-                Navigator.pushNamed(context, LoginSuccessScreen.routeName);
+                completeSignup(completeMap, context, false);
               }
             },
           ),
@@ -189,6 +191,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
         }
         return null;
       },
+      initialValue: firstName,
       decoration: InputDecoration(
         labelText: "First Name",
         hintText: "Enter your First name",

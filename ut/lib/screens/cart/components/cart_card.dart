@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:uet_tests/database/Cart.dart';
 import 'package:uet_tests/database/models.dart';
+import 'package:uet_tests/screens/details/components/test_description.dart';
+import 'package:uet_tests/screens/profile/components/profile_menu.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
@@ -10,13 +12,15 @@ import '../../../size_config.dart';
 class OrderCard extends StatelessWidget {
   const OrderCard({
     Key? key,
-    required this.order,
+    required this.totalorder,
   }) : super(key: key);
 
-  final Test order;
+  final List<Object> totalorder;
 
   @override
   Widget build(BuildContext context) {
+    Test test = totalorder[1] as Test;
+    Order order = totalorder[0] as Order;
     return Row(
       children: [
         SizedBox(
@@ -31,7 +35,7 @@ class OrderCard extends StatelessWidget {
               ),
               child: Image.memory(
                 (base64Decode(
-                  order.Image,
+                  test.Image,
                 )),
               ),
               //      child: Image.asset('assets/images/lpl1.jpg'),
@@ -51,7 +55,7 @@ class OrderCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                order.testName,
+                test.testName,
                 style: TextStyle(color: Colors.black, fontSize: 16),
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
@@ -61,19 +65,18 @@ class OrderCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "\$${order.Price}",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w600, color: kPrimaryColor),
+                    "Rs.${order.Total_Bill}",
+                    style: TextStyle(color: kPrimaryColor),
                   ),
                   Text(
-                    "Pending",
+                    order.Status,
                     style: TextStyle(
                         fontWeight: FontWeight.w600, color: kPrimaryLightColor),
                   ),
                 ],
               ),
               SizedBox(height: 5),
-              Text('Expected Delivery: ' + '${order.Estimates_Testing_Time}'),
+              Text('Expected Delivery: ' + '${test.Estimates_Testing_Time}'),
             ],
           ),
         ),

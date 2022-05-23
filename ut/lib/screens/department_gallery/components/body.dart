@@ -75,52 +75,53 @@ class _BodyState extends State<Body> {
   */
 
     return FutureBuilder(
-        future: fetchDepartments,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done &&
-              snapshot.hasData) {
-            List<Department> fetchDepartmentsData =
-                snapshot.data as List<Department>;
-            return SafeArea(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    SizedBox(height: getProportionateScreenHeight(20)),
-                    HomeHeader(),
-                    SizedBox(height: getProportionateScreenHeight(20)),
-                    SafeArea(
-                      child: GridView.builder(
-                        scrollDirection: Axis.vertical,
-                        shrinkWrap: true,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          childAspectRatio: 1,
-                          crossAxisSpacing: 0,
-                          mainAxisSpacing: 0,
-                        ),
-                        itemCount: demoProducts.length,
-                        itemBuilder: (BuildContext ctx, index) {
-                          return CategoryGalleryCard(
-                            department: fetchDepartmentsData[index],
-                            press: () {
-                              Navigator.pushReplacementNamed(
-                                  context, GalleryScreen.routeName,
-                                  arguments: TestFetchArguments(
-                                      DepartmentID: fetchDepartmentsData[index]
-                                          .Department_ID));
-                            },
-                          );
-                        },
+      future: fetchDepartments,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done &&
+            snapshot.hasData) {
+          List<Department> fetchDepartmentsData =
+              snapshot.data as List<Department>;
+          return SafeArea(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  SizedBox(height: getProportionateScreenHeight(20)),
+                  HomeHeader(),
+                  SizedBox(height: getProportionateScreenHeight(20)),
+                  SafeArea(
+                    child: GridView.builder(
+                      scrollDirection: Axis.vertical,
+                      shrinkWrap: true,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        childAspectRatio: 1,
+                        crossAxisSpacing: 0,
+                        mainAxisSpacing: 0,
                       ),
+                      itemCount: demoProducts.length,
+                      itemBuilder: (BuildContext ctx, index) {
+                        return CategoryGalleryCard(
+                          department: fetchDepartmentsData[index],
+                          press: () {
+                            Navigator.pushReplacementNamed(
+                                context, GalleryScreen.routeName,
+                                arguments: TestFetchArguments(
+                                    DepartmentID: fetchDepartmentsData[index]
+                                        .Department_ID));
+                          },
+                        );
+                      },
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            );
-          }
-          return Center(
-            child: CircularProgressIndicator(),
+            ),
           );
-        });
+        }
+        return Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+    );
   }
 }

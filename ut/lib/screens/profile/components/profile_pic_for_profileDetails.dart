@@ -1,32 +1,17 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
+import 'dart:io';
+
+import 'package:image_picker/image_picker.dart';
 
 class ProfilePic extends StatelessWidget {
   const ProfilePic({
     Key? key,
-    required this.image,
   }) : super(key: key);
-  final String image;
+
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 115,
-      width: 115,
-      child: CircleAvatar(
-        backgroundImage: MemoryImage(
-          (base64Decode(
-            image,
-          )),
-        ),
-      ),
-    );
-  }
-}
-
-/**
- 
-  Widget buildProfilePic() {
     final ImagePicker _picker = ImagePicker();
     return SizedBox(
       height: 115,
@@ -65,7 +50,7 @@ class ProfilePic extends StatelessWidget {
                     ),
                     value: 1,
                     onTap: () async {
-                      image =
+                      XFile? image =
                           await _picker.pickImage(source: ImageSource.camera);
                     },
                   ),
@@ -80,7 +65,7 @@ class ProfilePic extends StatelessWidget {
                     ),
                     value: 2,
                     onTap: () async {
-                      image =
+                      XFile? image =
                           await _picker.pickImage(source: ImageSource.gallery);
                     },
                   ),
@@ -92,4 +77,4 @@ class ProfilePic extends StatelessWidget {
       ),
     );
   }
- */
+}

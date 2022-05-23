@@ -22,10 +22,6 @@ class ResultsScreen extends StatelessWidget {
             "Your Results",
             style: TextStyle(color: Colors.black),
           ),
-          Text(
-            "${demoCarts.length} results",
-            style: Theme.of(context).textTheme.caption,
-          ),
         ],
       ),
     );

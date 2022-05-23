@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:uet_tests/database/Cart.dart';
+import 'package:uet_tests/database/apis.dart';
 import 'package:uet_tests/database/models.dart';
 
 import '../../../size_config.dart';
@@ -155,31 +156,31 @@ Future<List<List<Object>>> loadResults() async {
 }
 
 class _BodyState extends State<Body> {
-  late Future<List<List<Object>>> demoResults = loadResults();
+  late Future<List<List<Object>>> fetchedResults = resultsofUser();
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: demoResults,
+      future: fetchedResults,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done &&
             snapshot.hasData) {
           print(snapshot.data);
-          List<List<Object>> demoTestsData =
+          List<List<Object>> fetchedTestsData =
               snapshot.data as List<List<Object>>;
           return Padding(
             padding: EdgeInsets.symmetric(
                 horizontal: getProportionateScreenWidth(20)),
             child: ListView.builder(
-              itemCount: demoCarts.length,
+              itemCount: fetchedTestsData.length,
               itemBuilder: (context, index) => Padding(
                 padding: EdgeInsets.symmetric(vertical: 10),
                 child: Dismissible(
-                  key: Key(demoCarts[index].product.id.toString()),
-                  direction: DismissDirection.endToStart,
+                  key: Key(index.toString()),
+                  //        direction: DismissDirection.endToStart,
                   onDismissed: (direction) {
                     setState(() {
-                      demoCarts.removeAt(index);
+                      fetchedTestsData.removeAt(index);
                     });
                   },
                   background: Container(
@@ -199,7 +200,7 @@ class _BodyState extends State<Body> {
                       ],
                     ),
                   ),
-                  child: ResultCard(totalResult: demoTestsData[index]),
+                  child: ResultCard(totalResult: fetchedTestsData[index]),
                 ),
               ),
             ),

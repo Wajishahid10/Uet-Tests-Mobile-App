@@ -39,19 +39,21 @@ class CheckoutCard extends StatelessWidget {
           children: [
             SizedBox(height: getProportionateScreenHeight(20)),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                /**
                 Text.rich(
                   TextSpan(
                     text: "Total:\n",
                     children: [
                       TextSpan(
-                        text: "\$337.15",
+                        text: "Rs. 337.15",
                         style: TextStyle(fontSize: 16, color: Colors.black),
                       ),
                     ],
                   ),
                 ),
+                 */
                 SizedBox(
                   width: getProportionateScreenWidth(190),
                   child: DefaultButton(

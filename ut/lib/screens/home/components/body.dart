@@ -23,7 +23,12 @@ class Body extends StatelessWidget {
             //  RowShimmer(),
             Categories(),
             sharedPreferences.containsKey('user_ID')
-                ? PreviousTests()
+                ? Column(
+                    children: [
+                      SizedBox(height: getProportionateScreenWidth(30)),
+                      PreviousTests(),
+                    ],
+                  )
                 : SizedBox.shrink(),
             SizedBox(height: getProportionateScreenWidth(30)),
             PopularTests(),
