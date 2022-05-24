@@ -153,6 +153,57 @@ List<Admin> parseAdminsData(String responseBody) {
   return parsed.map<Admin>((json) => Admin.fromJson(json)).toList();
 }
 
+class completeOrder {
+  int CompletedOrder_ID;
+  int Test_ID;
+  int User_ID;
+  Map<String, dynamic> Test_Sample_Attributes;
+  String Status;
+  String OrderCompletionTime;
+  int Total_Bill;
+
+  completeOrder({
+    required this.CompletedOrder_ID,
+    required this.Test_ID,
+    required this.User_ID,
+    required this.OrderCompletionTime,
+    required this.Status,
+    required this.Test_Sample_Attributes,
+    required this.Total_Bill,
+  });
+
+  factory completeOrder.fromJson(Map<String, dynamic> json) {
+    return completeOrder(
+      CompletedOrder_ID: json["CompletedOrder_ID"],
+      Test_ID: json["Test_ID"],
+      User_ID: json["User_ID"],
+      OrderCompletionTime: json["OrderCompletionTime"],
+      Status: json["Status"],
+      Test_Sample_Attributes: json["Test_Sample_Attributes"],
+      Total_Bill: json["Total_Bill"],
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'CompletedOrder_ID': CompletedOrder_ID,
+      'Test_ID': Test_ID,
+      'User_ID': User_ID,
+      'OrderCompletionTime': OrderCompletionTime,
+      'Test_Sample_Attributes': Test_Sample_Attributes,
+      'Status': Status,
+      'Total_Bill': Total_Bill,
+    };
+  }
+}
+
+List<completeOrder> parsecompleteOrdersData(String responseBody) {
+  final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
+  return parsed
+      .map<completeOrder>((json) => completeOrder.fromJson(json))
+      .toList();
+}
+
 class Department {
   int Department_ID;
   String departmentName;

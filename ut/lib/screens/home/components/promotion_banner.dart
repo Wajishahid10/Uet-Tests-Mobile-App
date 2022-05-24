@@ -50,13 +50,13 @@ class PromotionBanner extends StatelessWidget {
                 TextSpan(
                   text: "Manage All Tests Online\n",
                   style: TextStyle(
-                    fontSize: getProportionateScreenWidth(15),
+                    fontSize: getProportionateScreenWidth(13),
                   ),
                 ),
                 TextSpan(
                   text: "Digitalizing Testing",
                   style: TextStyle(
-                    fontSize: getProportionateScreenWidth(20),
+                    fontSize: getProportionateScreenWidth(17),
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -67,8 +67,8 @@ class PromotionBanner extends StatelessWidget {
             borderRadius: BorderRadius.circular(13),
             child: Image.asset(
               'assets/uet_logo.png',
-              height: getProportionateScreenWidth(75),
-              width: getProportionateScreenWidth(75),
+              height: getProportionateScreenWidth(65),
+              width: getProportionateScreenWidth(65),
             ),
           ),
         ],

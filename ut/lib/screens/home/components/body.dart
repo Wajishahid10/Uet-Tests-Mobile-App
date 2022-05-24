@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:uet_tests/components/shimmer.dart';
 import 'package:uet_tests/main.dart';
+import 'package:uet_tests/screens/department_admin/admin_dasboard.dart';
+import 'package:uet_tests/screens/profile/components/profile_menu.dart';
 
 import '../../../size_config.dart';
 import 'categories.dart';

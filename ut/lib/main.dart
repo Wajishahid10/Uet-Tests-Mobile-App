@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:uet_tests/components/google_SignIn.dart';
 import 'package:uet_tests/screens/gallery/gallery_screen.dart';
 import 'package:uet_tests/screens/home/home_screen.dart';
@@ -56,13 +57,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'UET Tests',
       theme: theme(),
       initialRoute: _isFirstTime
           //    ? SplashScreen.routeName
-          ? HomeScreen.routeName
+          ? SplashScreen.routeName
           : _isUserCustomer
               ? HomeScreen.routeName
               : HomeScreen.routeName,

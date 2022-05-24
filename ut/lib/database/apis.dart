@@ -1,11 +1,14 @@
 import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'dart:convert';
 import 'package:uet_tests/main.dart';
 import 'package:uet_tests/database/models.dart';
+import 'package:uet_tests/screens/department_admin/admin_dasboard.dart';
 import 'package:uet_tests/screens/emailVerification/emailVerification_screen.dart';
 import 'package:uet_tests/screens/complete_profile/complete_profile_screen.dart';
 import 'package:uet_tests/screens/login_success/login_success_screen.dart';
@@ -74,7 +77,6 @@ Future<Login_Manager> getLoginManagerfromUID() async {
 
   Login_Manager login_manager =
       Login_Manager.fromJson(jsonDecode(responseRecieved.body));
-  print(login_manager.toMap());
   return login_manager;
 }
 
@@ -97,19 +99,25 @@ Future<void> login(
     String? email, String? password, BuildContext context) async {
   try {
     await auth.signInWithEmailAndPassword(email: email!, password: password!);
-    String query = baseAPI + 'getLoginManagerFromUID/$auth.currentUser!.uid';
+    String query = baseAPI + 'getLoginManagerFromUID/${auth.currentUser!.uid}';
 
     http.Response responseRecieved = await get(query);
 
+    Map<String, dynamic> login_manager = json.decode(responseRecieved.body);
+
+    int userID = login_manager["LoginID"];
+    String accountType = login_manager["Account_Type"];
     print(responseRecieved.body);
 
-    Navigator.pushNamed(context, LoginSuccessScreen.routeName);
-
-    if (responseRecieved.body[3] == '1') {
+    if (accountType == '1') {
       // Customer
-      await sharedPreferences.setInt(
-          "user_ID", json.decode(responseRecieved.body)["LoginID"]);
+      await sharedPreferences.setInt("user_ID", userID);
       Navigator.pushNamed(context, LoginSuccessScreen.routeName);
+    } else if (accountType == '2') {
+      // Customer
+      await sharedPreferences.setInt("admin_ID", userID);
+
+      Get.toNamed(dashboard.routeName);
     }
   } on FirebaseAuthException catch (e) {
     if (e.hashCode == "user-not-found") {
@@ -127,6 +135,53 @@ Future<void> login(
       ),
     );
   }
+}
+
+void signupAdmin(Map loginData, Map completeData, XFile? displayPicture,
+    BuildContext context) async {
+  String query = baseAPI + 'signup';
+  try {
+    http.Response responseRecieved = await post(query, loginData);
+
+    if (responseRecieved.statusCode == 201) {
+      // Created
+      print(responseRecieved.body);
+      Map<String, dynamic> login_manager = json.decode(responseRecieved.body);
+      print(login_manager["LoginID"]);
+      completeData["AdminID"] = login_manager["LoginID"];
+
+      completeData["Display_Picture"] =
+          base64Encode(await displayPicture!.readAsBytes());
+
+      completeSignupAdmin(completeData, context);
+
+      print("New Account Created");
+    } else if (responseRecieved.statusCode == 208) {
+      // Already Present
+
+      // Yeahi Uper wala Code agr User Add nhi hua, Wrna Home Screen
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('You Already have an Account. Signin Instead.'),
+        ),
+      );
+
+      print("Account Already Present");
+    }
+  } catch (onError) {}
+}
+
+void completeSignupAdmin(Map data, BuildContext context) async {
+  String query = baseAPI + 'admin';
+
+  print("Completing Sigup");
+
+  http.Response responseRecieved = await post(query, data);
+
+  print(responseRecieved.body);
+
+  Navigator.pushReplacementNamed(context, emailVerificationScreen.routeName);
 }
 
 void signup(Map loginData, Map completeData, XFile? displayPicture,

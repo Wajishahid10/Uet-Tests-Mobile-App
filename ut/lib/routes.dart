@@ -1,5 +1,12 @@
 import 'package:flutter/widgets.dart';
 import 'package:uet_tests/screens/cart/cart_screen.dart';
+import 'package:uet_tests/screens/department_admin/add_department.dart';
+import 'package:uet_tests/screens/department_admin/add_department_admin.dart';
+import 'package:uet_tests/screens/department_admin/add_test.dart';
+import 'package:uet_tests/screens/department_admin/admin_dasboard.dart';
+import 'package:uet_tests/screens/department_admin/complete_order.dart';
+import 'package:uet_tests/screens/department_admin/new_order.dart';
+import 'package:uet_tests/screens/department_admin/show_dept_admin.dart';
 import 'package:uet_tests/screens/department_gallery/department_gallery.dart';
 import 'package:uet_tests/screens/gallery/gallery_screen.dart';
 import 'package:uet_tests/screens/complete_profile/complete_profile_screen.dart';
@@ -34,4 +41,11 @@ final Map<String, WidgetBuilder> routes = {
   CartScreen.routeName: (context) => CartScreen(),
   ProfileScreen.routeName: (context) => ProfileScreen(),
   ProfileDetailsBody.routeName: (context) => ProfileDetailsBody(),
+  dashboard.routeName: (context) => dashboard(),
+  add_department.routeName: (context) => add_department(),
+  add_test.routeName: (context) => add_test(),
+  new_order.routeName: (context) => new_order(),
+  complete_order.routeName: (context) => complete_order(),
+  add_dept_admin.routeName: (context) => add_dept_admin(),
+  show_dept_admin.routeName: (context) => show_dept_admin(),
 };
